@@ -1,0 +1,202 @@
+/* --- Variables importadas del header.css --- */
+:root {
+    --primary-color: #F96548;
+    --card-bg-color: #FFFFFF;
+    --container-radius: 24px;
+}
+
+/* Contenedor principal del formulario */
+.main-container {
+    background-color: var(--card-bg-color); /* Fondo blanco de la tarjeta */
+    border-radius: var(--container-radius); /* Mismos bordes redondeados */
+    padding: 30px 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    width: 100%; /* Ocupa todo el espacio que le da .content */
+    /* Ya no necesita margin: 0 auto ni max-width */
+}
+
+.main-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* El resto de los estilos del formulario permanecen igual */
+.upload-section {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.upload-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-wrapper:nth-child(1) { flex: 1; }
+.upload-wrapper:nth-child(2) { flex: 2; }
+
+.upload-box {
+    border: 2px dashed #D9D9D9;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FAFAFA;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 150px;
+}
+
+.upload-box:hover {
+    background-color: #f0f0f0;
+}
+
+.upload-box .placeholder-icon {
+    font-size: 2.5rem;
+    color: #EA4C4C;
+}
+
+.upload-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.upload-caption .upload-icon {
+    font-size: 1rem;
+    color: #888;
+}
+
+.separator {
+    border: none;
+    border-top: 2px dotted #E0E0E0;
+    margin: 30px 0;
+}
+
+.info-form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px;
+    margin-bottom: 30px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    background-color: #FAFAFA;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input::placeholder {
+    color: #AAA;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #EA4C4C;
+    box-shadow: 0 0 0 3px rgba(234, 76, 76, 0.2);
+}
+
+.time-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.time-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-picker label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.time-display {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.ampm-toggle {
+    display: flex;
+}
+
+.ampm-toggle button {
+    border: 1px solid #D9D9D9;
+    background-color: #fff;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.ampm-toggle button:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.ampm-toggle button:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-left: none;
+}
+
+.ampm-toggle button.active {
+    background-color: #EA4C4C;
+    color: #fff;
+    border-color: #EA4C4C;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+.save-button {
+    background-color: #EA4C4C;
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.save-button:hover {
+    opacity: 0.9;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta</title>
+    
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/modificar-cuenta.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <a href="../pages/index.html" class="encabezado-logo">
+            <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
+        </a>
+        <nav class="encabezado-navegacion">
+            <ul class="encabezado-lista">
+                <li class="encabezado-item"><a href="#" class="encabezado-enlace">Home</a></li>
+                <li class="encabezado-item"><a href="#" class="encabezado-enlace">Menu</a></li>
+                <li class="encabezado-item"><a href="#" id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
+            </ul>
+        </nav>
+        <div class="encabezado-iconos">
+            <a href="" id="abrir-modal-repartidor" class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+            <a href="" class="encabezado-icono"><img src="../../Assets/carrito.png" alt="Icono carrito"></a>
+            <a href="" id="abrir-modal-login" class="encabezado-icono"><img src="../../Assets/iconUsuario .png" alt="Icono usuario"> Iniciar Sesión</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="seccion-cuenta">
+            <h1 class="seccion-cuenta-titulo">
+             <img src="../../Assets/iconCuenta.png" alt="Icono de Cuenta"> CUENTA
+            </h1>
+
+            <div class="formulario-perfil-contenedor">
+                <form class="formulario-perfil">
+                    <div class="formulario-perfil-grupo">
+                        <label for="nombre" class="formulario-perfil-etiqueta">Nombre(s)</label>
+                        <input type="text" id="nombre" class="formulario-perfil-entrada" value="Emilia">
+                    </div>
+
+                    <div class="formulario-perfil-grupo">
+                        <label for="apellido" class="formulario-perfil-etiqueta">Apellido(s)</label>
+                        <input type="text" id="apellido" class="formulario-perfil-entrada" value="Gomez Utrilla">
+                    </div>
+
+                    <div class="formulario-perfil-grupo">
+                        <label for="telefono" class="formulario-perfil-etiqueta">Número Telefónico</label>
+                        <input type="tel" id="telefono" class="formulario-perfil-entrada" value="961 364 5469">
+                    </div>
+
+                    <div class="formulario-perfil-grupo">
+                        <label for="email" class="formulario-perfil-etiqueta">Correo electrónico</label>
+                        <input type="email" id="email" class="formulario-perfil-entrada" value="emigomu@gmail.com">
+                    </div>
+
+                    <div class="formulario-perfil-grupo">
+                        <label for="contrasena" class="formulario-perfil-etiqueta">Contraseña</label>
+                        <input type="password" id="contrasena" class="formulario-perfil-entrada" value="************">
+                    </div>
+
+                    <button type="submit" class="formulario-perfil-boton">
+                        ☆ Guardar cambios
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <script src="script-cuenta.js"></script>
+</body>
+</html>

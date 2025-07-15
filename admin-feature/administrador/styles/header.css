@@ -1,0 +1,147 @@
+/* --- Configuración General --- */
+:root {
+    --primary-color: #F96548;
+    --background-color: #FFFFFF;
+    --text-color: #4A4A4A;
+    --text-light-color: #FFFFFF;
+    --body-bg-color: #F8F9FA;
+    --border-radius: 12px;
+    --curve-size: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ESTA ES LA PARTE CLAVE PARA EL LAYOUT */
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex; /* Pone los elementos uno al lado del otro */
+    background-color: var(--body-bg-color);
+    color: var(--text-color);
+}
+
+.content {
+    flex-grow: 1; /* Hace que el contenido ocupe el resto del espacio */
+    padding: 30px;
+    height: 100vh;
+    overflow-y: auto; /* Permite scroll si el contenido es largo */
+}
+
+/* --- ESTILOS DEL SIDEBAR --- */
+.sidebar {
+    width: 260px;
+    flex-shrink: 0; /* Evita que el sidebar se encoja */
+    height: 100vh;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    padding: 25px 0;
+    border-right: 2px solid #ededed;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.sidebar-header img {
+    width: 160px;
+    height: auto;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.nav-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    padding: 15px 25px;
+    margin: 0 20px;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-item a i {
+    font-size: 1.2rem;
+    width: 30px;
+    margin-right: 15px;
+}
+
+.nav-item:not(.active) a:hover {
+    background-color: #f1f1f1;
+}
+
+.nav-item.active a {
+    background-color: var(--primary-color);
+    color: var(--text-light-color);
+    position: relative;
+}
+
+.nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: -var(--curve-size);
+    right: 0;
+    width: var(--curve-size);
+    height: var(--curve-size);
+    background: radial-gradient(circle at 0% 0%, transparent var(--curve-size), var(--background-color) calc(var(--curve-size) + 1px));
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -var(--curve-size);
+    right: 0;
+    width: var(--curve-size);
+    height: var(--curve-size);
+    background: radial-gradient(circle at 0% 100%, transparent var(--curve-size), var(--background-color) calc(var(--curve-size) + 1px));
+}
+
+.sidebar-footer {
+    padding: 0 25px;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: var(--text-light-color);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    opacity: 0.9;
+}
+
+.logout-button i {
+    margin-right: 10px;
+}

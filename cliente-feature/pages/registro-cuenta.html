@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea tu cuenta</title>
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap">
+    <link rel="stylesheet" href="../styles/registro-cuenta.css">
+</head>
+<body>
+
+    <div class="pagina-registro">
+        <heade class="header">
+            <a href="index.html">
+                <img src="../../Assets/logoRojo.png" alt="Logo de Come Rapidito" class="logo-header">
+            </a>
+            
+        </header>
+
+        <main class="principal">
+            <section class="info-principal">
+                <h1 class="texto-principal">
+                    MEJORA TU VIDA Y TU PALADAR CON<span class="texto-destacado">COME RAPIDITO</span>
+                </h1>
+            </section>
+
+            <section class="contenedor-formulario">
+                <form class="formulario">
+                    <h2 class="titulo-formulario">CREA UNA CUENTA</h2>
+
+                    <div class="titulo-input">
+                        <label for="nombre" class="etiqueta-formulario">Nombre (s)</label>
+                        <input type="text" id="nombre" name="nombre" class="input-formulario" placeholder="Value" required>
+                    </div>
+
+                    <div class="titulo-input">
+                        <label for="apellido" class="etiqueta-formulario">Apellido (s)</label>
+                        <input type="text" id="apellido" name="apellido" class="input-formulario" placeholder="Value"required>
+                    </div>
+
+                    <div class="titulo-input">
+                        <label for="telefono" class="etiqueta-formulario">Número telefónico</label>
+                        <input type="number" id="telefono" name="telefono" class="input-formulario" placeholder="Value"required>
+                    </div>
+
+                    <div class="titulo-input">
+                        <label for="email" class="etiqueta-formulario">Email @</label>
+                        <input type="email" id="email" name="email" class="input-formulario" placeholder="Value" required>
+                    </div>
+
+                    <div class="titulo-input">
+                        <label for="contrasena" class="etiqueta-formulario">Contraseña</label>
+                        <input type="password" id="contrasena" name="contrasena" class="input-formulario" placeholder="Value" required>
+                    </div>
+
+                    <div class="titulo-input">
+                        <label for="confirmar-contrasena" class="etiqueta-formulario">Confirmar Contraseña</label>
+                        <input type="password" id="confirmar-contrasena" name="confirmar-contrasena" class="input-formulario" placeholder="Value" required>
+                    </div>
+
+                    <button type="submit" class="boton-registrar">
+                        <span class="boton-registrar-icono">☆</span>
+                        Registrarse
+                    </button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
