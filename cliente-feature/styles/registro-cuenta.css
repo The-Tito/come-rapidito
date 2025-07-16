@@ -1,0 +1,137 @@
+:root {
+    --color-principal: #FF502D; 
+    --color-boton-rojo: #FC0203;
+    --color-boton-rojo-hover: #D60000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 64%; 
+}
+
+
+body {
+    line-height: 1.5;
+    background-image:url('../../Assets/fondoRegistroCliente.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    overflow: hidden;
+    min-height: 100vh; /* el vh se refiere a lo visual, es para q oucpe todo */
+    display: flex;
+}
+
+.pagina-registro {
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 1rem;
+}
+
+
+.logo-header{
+    height: 60px;
+    width: auto;
+}
+
+.principal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-principal{
+    flex: 1;
+}
+
+.contenedor-formulario{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.texto-principal{
+    font-size: 54px;
+    font-weight: 800;
+    color: white;
+}
+
+.texto-destacado {
+    display: block;
+    color: var(--color-principal);
+    font-size: 54px;
+}
+
+.formulario {
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    max-height: 600px;
+}
+
+.titulo-formulario{
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--color-principal);
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.titulo-input {
+    margin-bottom: 8px;
+}
+
+.etiqueta-formulario{
+    display: block;
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 0.8rem;
+}
+
+.input-formulario{
+    width: 100%;
+    padding:10px ;
+    font-size: 10px;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+    margin-bottom: 4px;
+}
+
+
+.boton-registrar{
+    width: 100%;
+    padding: 8px;
+    background-color: var(--color-boton-rojo);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 40px;
+}
+
+
+.boton-registrar:hover {
+    background-color: var(--color-boton-rojo-hover);
+    transform: translateY(-2px);
+}
+
+.boton-registrar-icono{
+    font-size: 14px;
+}
+
+

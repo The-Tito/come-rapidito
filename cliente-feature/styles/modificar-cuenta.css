@@ -1,0 +1,160 @@
+:root {
+    --color-primario: #FF502D;
+    --color-rojo-boton: #FC0203;
+    --color-texto: #333;
+    --color-borde: #ddd;
+    --fuente-principal: 'Montserrat', sans-serif;
+    --fuente-titulo: 'Mouse Memoirs';
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    background-color: white;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+}
+
+.encabezado-logo img {
+    height: 38px; 
+}
+
+.encabezado-lista {
+    list-style: none;
+    display: flex;
+    gap: 120px;
+}
+
+.encabezado-enlace {
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+.encabezado-iconos {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.encabezado-icono {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+a.encabezado-icono{
+    gap: 4px;
+}
+.encabezado-icono img {
+    height: 24px;
+}
+.encabezado-icono-carrito{
+    height: 30px;
+}
+
+.titulo-seccion{
+    align-items: left;
+}
+.seccion-cuenta {
+    padding: 4rem 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.seccion-cuenta-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: 3.5rem;
+    font-weight: normal;
+    color: var(--color-primario);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 20px;
+    align-self: flex-start;
+}
+
+.seccion-cuenta-titulo img {
+    height: 40px;
+}
+
+.formulario-perfil-contenedor {
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.formulario-perfil-grupo {
+    margin-bottom: 16px;
+}
+
+.formulario-perfil-etiqueta {
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.formulario-perfil-entrada {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 12px;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+.formulario-perfil-entrada:focus {
+    outline: none;
+    border-color: var(--color-primario);
+}
+
+.formulario-perfil-boton {
+    width: 100%;
+    background-color: var(--color-rojo-boton);
+    color: white;
+    border: none;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: var(--fuente-principal);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.formulario-perfil-boton:hover {
+    background-color: #d11f23; 
+}
