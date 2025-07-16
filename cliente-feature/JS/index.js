@@ -59,6 +59,7 @@ function cargarCarruseles() {
     .then(res => res.json())
     .then(data => {
       sessionStorage.setItem('restaurantes', JSON.stringify(data))
+      console.log(JSON.stringify(data))
       // Corregido: usar la clase correcta del HTML
       const contenedor = document.querySelector(".carruseles");
       
