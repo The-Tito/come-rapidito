@@ -11,17 +11,17 @@ function cargarDatosRestaurante(restauranteId) {
     }
 
     const restaurante = restaurantes.find(r => r.id_restaurante === restauranteId);
-    
+
     if (!restaurante) {
         console.error('Restaurante no encontrado');
         return;
     }
 
-    
     actualizarInformacionRestaurante(restaurante);
-    cargarMenuRestaurante(restauranteId); // si deseas cargar el menú automáticamente
-    
+    actualizarModalRestaurante(restaurante); // Nueva función para actualizar el modal
+    cargarProductosRestaurante(restauranteId)
 }
+
 function actualizarInformacionRestaurante(restaurante) {
     // Actualizar banner
     const banner = document.querySelector('.seccion-hero-restaurante-banner');
@@ -34,15 +34,14 @@ function actualizarInformacionRestaurante(restaurante) {
     const logo = document.querySelector('.informacion-logo');
     if (logo && restaurante.logo_url) {
         logo.src = restaurante.logo_url;
-        logo.alt = `Logo de ${restaurante.nombre_restaurante}`;
+        logo.alt = `Logo de ${restaurante.nombre}`;
     }
     
     // Actualizar nombre del restaurante
     const nombreElement = document.querySelector('.informacion-nombre');
-    if (nombreElement && restaurante.nombre_restaurante) {
-        nombreElement.textContent = restaurante.nombre_restaurante;
+    if (nombreElement && restaurante.nombre) {
+        nombreElement.textContent = restaurante.nombre;
     }
-    
     // Actualizar teléfono
     const telefonoElement = document.querySelector('.informacion-detalle span b');
     if (telefonoElement && restaurante.telefono) {
@@ -57,7 +56,43 @@ function actualizarInformacionRestaurante(restaurante) {
     }
     
     // Actualizar título de la página
-    document.title = `${restaurante.nombre} - Menú`;
+    document.title = `${restaurante.nombre_restaurante} - Menú`;
+}
+
+// Nueva función para actualizar el modal del restaurante
+function actualizarModalRestaurante(restaurante) {
+    // Actualizar logo del modal
+    const logoModal = document.querySelector('.modal-logo-restaurante');
+    if (logoModal && restaurante.logo_url) {
+        logoModal.src = restaurante.logo_url;
+        logoModal.alt = `Logo de ${restaurante.nombre_restaurante}`;
+    }
+    
+    // Actualizar nombre del restaurante en el modal
+    const nombreModal = document.querySelector('.modal-titulo');
+    if (nombreModal && restaurante.nombre) {
+        nombreModal.textContent = restaurante.nombre;
+    }
+    
+    // Actualizar teléfono en el modal
+    const telefonoModal = document.querySelector('.modal-info-detalle span');
+    if (telefonoModal && restaurante.telefono) {
+        telefonoModal.textContent = restaurante.telefono;
+    }
+    
+    // Actualizar dirección en el modal
+    const direccionModal = document.querySelectorAll('.modal-info-detalle span')[1];
+    if (direccionModal && restaurante.direccion) {
+        direccionModal.textContent = restaurante.direccion;
+    }
+    
+    // Si también quieres mostrar el horario en el modal, puedes agregarlo
+    // Primero necesitarías agregar un elemento en el HTML del modal para el horario
+    const horarioModal = document.querySelector('.modal-horario'); // Elemento que deberías agregar al HTML
+    if (horarioModal && restaurante.horario_apertura && restaurante.horario_cierre) {
+        const horarioTexto = formatearHorario(restaurante.horario_apertura, restaurante.horario_cierre);
+        horarioModal.textContent = horarioTexto;
+    }
 }
 
 function formatearHorario(apertura, cierre) {
@@ -85,43 +120,86 @@ function obtenerRestauranteIdDesdeURL() {
     return parseInt(urlParams.get('id')) || null;
 }
 
-// Función para cargar el menú específico del restaurante (opcional)
-function cargarMenuRestaurante(restauranteId) {
-    // Aquí puedes hacer una llamada AJAX para obtener el menú específico
-    // o filtrar productos desde un array global
-    
-    fetch(`/api/menu/${restauranteId}`)
-        .then(response => response.json())
-        .then(productos => {
-            actualizarMenuHTML(productos);
-        })
-        .catch(error => {
-            console.error('Error al cargar el menú:', error);
+
+
+async function cargarProductosRestaurante(restauranteid) {
+    try {
+        
+        
+        const response = await fetch(`http://localhost:7000/products/${restauranteid}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // Agregar headers de autenticación si es necesario
+                // 'Authorization': 'Bearer ' + token
+            }
         });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const productos = await response.json();
+        
+        // Verificar si hay productos
+        if (productos && productos.length > 0) {
+            actualizarMenuHTML(productos);
+            console.log(`Se cargaron ${productos.length} productos del restaurante`);
+        } else {
+            mostrarMensajeVacio();
+        }
+        
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+    }
+}
+
+
+
+
+// Función para mostrar mensaje cuando no hay productos
+function mostrarMensajeVacio() {
+    const contenedorProductos = document.querySelector('.seccion-menu-productos');
+    contenedorProductos.innerHTML = `
+        <div class="mensaje-vacio" style="text-align: center; padding: 40px;">
+            <h3>No hay productos disponibles</h3>
+            <p>Este restaurante aún no tiene productos en su menú.</p>
+        </div>
+    `;
 }
 
 function actualizarMenuHTML(productos) {
     const contenedorProductos = document.querySelector('.seccion-menu-productos');
     contenedorProductos.innerHTML = ''; // Limpiar productos existentes
-    
+
     productos.forEach(producto => {
-        const productoHTML = crearProductoHTML(producto);
-        contenedorProductos.appendChild(productoHTML);
+        // Verificar que el producto esté activo (id_status = 1, asumiendo que 1 es activo)
+            const productoHTML = crearProductoHTML(producto);
+            contenedorProductos.appendChild(productoHTML);
     });
+    
+    // Reagregar los event listeners para los botones de agregar después de recrear el HTML
+    reagregarEventListenersProductos();
 }
 
 function crearProductoHTML(producto) {
     const article = document.createElement('article');
     article.className = 'producto-contenedor';
     
+    // Usar valores por defecto en caso de que algunos datos no estén disponibles
+    const nombre = producto.nombre || 'Producto sin nombre';
+    const descripcion = producto.descripcion || 'Sin descripción';
+    const precio = producto.precio || 0;
+    const imagen = producto.url_imagen || '../../Assets/pizzaPepperoni.png';
+    
     article.innerHTML = `
-        <img src="${producto.imagen_url}" alt="${producto.nombre}" class="producto-contenedor-imagen">
+        <img src="${imagen}" alt="${nombre}" class="producto-contenedor-imagen" onerror="this.src='../../Assets/pizzaPepperoni.png'">
         <div class="producto-contenedor-detalles">
-            <h4 class="detalles-nombre">${producto.nombre}</h4>
-            <p class="detalles-descripcion">${producto.descripcion}</p>
-            <p class="detalles-precio">$${producto.precio}</p>
+            <h4 class="detalles-nombre">${nombre}</h4>
+            <p class="detalles-descripcion">${descripcion}</p>
+            <p class="detalles-precio">$${precio.toFixed(2)}</p>
         </div>
-        <button class="producto-contenedor-agregar" onclick="agregarAlCarrito(${producto.id})">
+        <button class="producto-contenedor-agregar" data-producto-id="${producto.id_producto}" data-producto-nombre="${nombre}" data-producto-precio="${precio}">
             <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
         </button>
     `;
@@ -129,10 +207,78 @@ function crearProductoHTML(producto) {
     return article;
 }
 
-// Función para agregar productos al carrito
-function agregarAlCarrito(productoId) {
-    // Implementar lógica del carrito aquí
-    console.log(`Producto ${productoId} agregado al carrito`);
+function reagregarEventListenersProductos() {
+    const botonesAgregar = document.querySelectorAll('.producto-contenedor-agregar');
+    const modalAgregado = document.getElementById('modal-agregado');
+    
+    botonesAgregar.forEach(boton => {
+        boton.addEventListener('click', (e) => {
+            const productoId = e.currentTarget.dataset.productoId;
+            const productoNombre = e.currentTarget.dataset.productoNombre;
+            const productoPrecio = parseFloat(e.currentTarget.dataset.productoPrecio);
+            
+            agregarAlCarrito({
+                id: productoId,
+                nombre: productoNombre,
+                precio: productoPrecio
+            });
+            
+            // Muestra la notificación
+            modalAgregado.classList.remove('oculto');
+            
+            // Oculta la notificación después de 2.5 segundos
+            setTimeout(() => {
+                modalAgregado.classList.add('oculto');
+            }, 2500);
+        });
+    });
+}
+
+
+function agregarAlCarrito(producto) {
+    try {
+        // Obtener carrito existente o crear uno nuevo
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        
+        // Verificar si el producto ya existe en el carrito
+        const productoExistente = carrito.find(item => item.id === producto.id);
+        
+        if (productoExistente) {
+            // Si existe, incrementar la cantidad
+            productoExistente.cantidad += 1;
+        } else {
+            // Si no existe, agregarlo con cantidad 1
+            carrito.push({
+                id: producto.id,
+                nombre: producto.nombre,
+                precio: producto.precio,
+                cantidad: 1
+            });
+        }
+        
+        // Guardar el carrito actualizado
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        
+        // Actualizar contador del carrito si existe
+        actualizarContadorCarrito();
+        
+        console.log(`Producto "${producto.nombre}" agregado al carrito`);
+        
+    } catch (error) {
+        console.error('Error al agregar producto al carrito:', error);
+    }
+}
+
+// Función para actualizar el contador del carrito
+function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+    
+    // Buscar elemento del contador del carrito y actualizarlo
+    const contadorCarrito = document.querySelector('.contador-carrito');
+    if (contadorCarrito) {
+        contadorCarrito.textContent = totalItems;
+    }
 }
 
 // Inicializar cuando se carga la página
@@ -147,12 +293,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Redirigir a la página principal o mostrar error
         window.location.href = '/index.html';
     }
-
+    
+    // Inicializar la lógica de modales
+    inicializarModales();
 });
 
-
-document.addEventListener('DOMContentLoaded', () => {
-     const mainContainer = document.getElementById('main-container');
+// Función separada para inicializar todos los modales
+function inicializarModales() {
+    const mainContainer = document.getElementById('main-container');
 
     // Modal 1: Info Restaurante
     const bannerRestaurante = document.getElementById('banner-restaurante');
@@ -204,11 +352,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     // ===== LÓGICA PARA MODAL 2: NOTIFICACIÓN PRODUCTO AGREGADO =====
     
     botonesAgregar.forEach(boton => {
-        boton.addEventListener('click', () => {
+        boton.addEventListener('click', (e) => {
+            const productoId = e.currentTarget.dataset.productoId || 'default';
+            agregarAlCarrito(productoId);
+            
             // Muestra la notificación
             modalAgregado.classList.remove('oculto');
             
@@ -219,7 +369,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    
     // ===== LÓGICA PARA MODAL 3: CONFIRMACIÓN DE SALIDA =====
 
     // Abrir modal de confirmación al hacer clic en un enlace de navegación
@@ -249,7 +398,4 @@ document.addEventListener('DOMContentLoaded', () => {
             ocultarModal(modalConfirmar);
         }
     });
-
-})
-
-
+}
