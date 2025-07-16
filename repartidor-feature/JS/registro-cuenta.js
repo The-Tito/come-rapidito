@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault(); // Previene el envío real del formulario
         
         // Aquí iría tu lógica de validación y envío de datos
-        alert('Formulario listo para ser enviado. ¡Implementa aquí tu lógica de validación y envío!');
+        alert('Listo para enviar.');
         
         // Ejemplo de cómo obtener los datos:
         const datosFormulario = new FormData(formulario);
