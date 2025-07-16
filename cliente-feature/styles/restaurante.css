@@ -184,7 +184,7 @@ a.encabezado-icono{
 .seccion-menu-productos {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 50px;
+    gap: 40px 90px;
 }
 
 .producto-contenedor {
@@ -277,7 +277,8 @@ a.encabezado-icono{
     text-align: center;
     position: relative;
     max-width: 600px;
-    height: 300px;
+    width: 450px;
+    height: auto;
 }
 
 .modal-cerrar-btn {
@@ -401,15 +402,17 @@ a.encabezado-icono{
 }
 .btn-salir {
     background-color: white;
-    border: 1px solid var(--color-rojo);
+    border: 1px solid var(--color-primario);
     border-radius: 20px;
     
     color: var(--color-rojo);
     font-family: var(--fuente-principal);
+    width: 12rem;
 }
 .btn-continuar {
-    background-color: var(--color-rojo);
+    background-color: var(--color-primario);
     border-radius: 20px;
+    width: 12rem;
     color: white;
     font-family: var(--fuente-principal);
 }
