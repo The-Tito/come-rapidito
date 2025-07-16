@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </button>
                 </div>
                 <button class="boton-eliminar" data-product-id="producto-${contadorProductos}">
-                    <img src="../../Assets/eliminarProducto.png" alt="icono-eliminar">
+                    <img src="../../Assets/eliminar.png" alt="icono-eliminar">
                 </button>
             </div>
         `;
