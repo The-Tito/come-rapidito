@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conviértete en Socio Repartidor - Come Rapidito</title>
+    
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/registro-cuenta.css">
+</head>
+<body>
+
+    <img src="../../Assets/fondoRepartidor.png" alt="Fondo de pizzas" class="imagen-fondo">
+    
+    <header class="encabezado">
+        <a href="/" class="logo">
+            <img src="../../Assets/Logo.png" alt="Logo de Come Rapidito">
+        </a>
+    </header>
+
+    <main class="contenedor-principal">
+        <section class="seccion-hero">
+            <h1 class="titulo-hero">
+                CONVIÉRTETE EN SOCIO REPARTIDOR<br>
+                <span class="destacado">COME RAPIDITO</span>
+            </h1>
+        </section>
+
+        <section class="seccion-formulario">
+            <div class="contenedor-formulario">
+                <h2 class="titulo-formulario">CREA UNA CUENTA</h2>
+                <div class="pasos-formulario">
+                    <span class="indicador-paso activo" id="boton-paso-1">1</span>
+                    <div class="linea-paso"></div>
+                    <span class="indicador-paso" id="boton-paso-2">2</span>
+                </div>
+
+                <form id="formulario-registro">
+                    <!-- PASO 1: INFORMACIÓN PERSONAL -->
+                    <div class="paso-formulario activo" id="paso-formulario-1">
+                        <div class="grupo-entrada">
+                            <label for="nombre">Nombre(s)</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Value">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="apellido">Apellido(s)</label>
+                            <input type="text" id="apellido" name="apellido" placeholder="Value">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="telefono">Número teléfonico</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="Value">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="email">Email @</label>
+                            <input type="email" id="email" name="email" placeholder="Value">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="password">Contraseña</label>
+                            <input type="password" id="password" name="password" placeholder="Value">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="confirm-password">Confirmar Contraseña</label>
+                            <input type="password" id="confirm-password" name="confirm-password" placeholder="Value">
+                        </div>
+                    </div>
+
+                    <div class="paso-formulario" id="paso-formulario-2">
+                        <div class="grupo-entrada">
+                            <label>Tipo de vehículo:</label>
+                            <div class="opciones-vehiculo">
+                                <button type="button" class="boton-vehiculo activo">Moto</button>
+                                <button type="button" class="boton-vehiculo">Auto</button>
+                                <button type="button" class="boton-vehiculo">Bicicleta</button>
+                            </div>
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="placas">Número de placas</label>
+                            <input type="text" id="placas" name="placas" placeholder="Value">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label>Foto del vehículo</label>
+                            <label for="foto-vehiculo" class="area-subir-archivo">
+                                <img src="../../Assets/agregarImagen.png" alt="Icono de subir archivo">
+                                <span id="mostrar-nombre-archivo">Foto del vehículo</span>
+                                <input type="file" id="foto-vehiculo" name="foto-vehiculo" class="entrada-archivo" accept="image/*">
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="boton-enviar">
+                        ★ Registrarse
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/registro-cuenta.js"></script>
+</body>
+</html>
