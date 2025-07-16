@@ -248,3 +248,168 @@ a.encabezado-icono{
 .producto-contenedor-agregar img {
     height: 20px;
 }
+
+/* modales */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-overlay.oculto {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    position: relative;
+    max-width: 600px;
+    height: 300px;
+}
+
+.modal-cerrar-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #eee;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-cerrar-btn img {
+    width: 12px; 
+}
+
+.modal-logo-restaurante {
+    width: 120px;
+    height: 120px;
+    border-radius: 15px;
+    background-color: black;
+    margin: -20px auto 20px;
+    display: block;
+    border: 4px solid white;
+}
+
+.modal-titulo {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.modal-info-detalle {
+    margin-bottom: 15px;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+}
+.modal-info-detalle strong {
+    font-weight: bold;
+}
+
+/* producto agregado */
+.modal-notificacion {
+    position: fixed;
+    top: 80px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.modal-notificacion.oculto {
+    top: -100px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.notificacion-contenido {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #4CAF50; 
+    font-weight: 500;
+    font-weight: bold;
+}
+
+.notificacion-contenido img {
+    height: 34px; 
+    border-radius: 50%;
+    padding: 4px;
+}
+
+/* confirmar salida */
+.modal-confirmacion {
+    padding: 30px;
+    width: 700px;
+    background-color: white;
+}
+.modal-icono-carrito {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.modal-texto-confirmacion {
+    font-size: 1.5rem;
+    color: var(--color-rojo);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.modal-confirmacion p {
+    margin-bottom: 25px;
+    color: #000000;
+}
+.modal-botones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.btn-modal {
+    padding: 12px 30px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.btn-salir {
+    background-color: white;
+    border: 1px solid var(--color-rojo);
+    border-radius: 20px;
+    
+    color: var(--color-rojo);
+    font-family: var(--fuente-principal);
+}
+.btn-continuar {
+    background-color: var(--color-rojo);
+    border-radius: 20px;
+    color: white;
+    font-family: var(--fuente-principal);
+}
