@@ -1,9 +1,13 @@
-document.querySelector('.formulario-inicio-sesion').addEventListener('submit', async function(event) {
+document.querySelector('.formulario').addEventListener('submit', async function(event) {
   event.preventDefault();
 
   // Obtener valores y limpiar espacios
-  const telefono = document.getElementById('email').value.trim();
-  const contrasena = document.getElementById('password').value;
+  const nombre = document.getElementById('nombre').value.trim();
+  const apellido = document.getElementById('apellido').value.trim();
+  const telefono = document.getElementById('telefono').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const contrasena = document.getElementById('contrasena').value;
+  const confirmar = document.getElementById('confirmar-contrasena').value;
 
   // Validaciones mejoradas
   if (!nombre || !apellido || !telefono || !email || !contrasena) {
@@ -11,13 +15,22 @@ document.querySelector('.formulario-inicio-sesion').addEventListener('submit', a
     return;
   }
 
-
+  if (contrasena !== confirmar) {
+    alert('Las contraseñas no coinciden');
+    return;
+  }
 
   if (contrasena.length < 6) {
     alert('La contraseña debe tener al menos 6 caracteres');
     return;
   }
 
+  // Validar formato de email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert('Por favor, ingresa un email válido');
+    return;
+  }
 
   // Validar teléfono (solo números, mínimo 10 dígitos)
   if (telefono.length < 10 || !/^\d+$/.test(telefono)) {
@@ -27,18 +40,22 @@ document.querySelector('.formulario-inicio-sesion').addEventListener('submit', a
 
   // Datos que enviaremos al backend
   const datos = {
+    nombre: nombre,
+    apellido: apellido,
     numero_telefono: telefono,
-    contrasena: contrasena, // Cliente por defecto
+    correo_electronico: email,
+    contrasena: contrasena,
+    idRol: 1 // Cliente por defecto
   };
 
   // Deshabilitar el botón para evitar envíos múltiples
-  const boton = document.querySelector('.boton-modal boton-continuar');
+  const boton = document.querySelector('.boton-registrar');
   const textoOriginal = boton.innerHTML;
   boton.disabled = true;
   boton.innerHTML = '<span class="boton-registrar-icono">⏳</span> Registrando...';
 
   try {
-    const respuesta = await fetch('http://localhost:7000/login', {
+    const respuesta = await fetch('http://localhost:7000/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -77,13 +94,7 @@ document.querySelector('.formulario-inicio-sesion').addEventListener('submit', a
 
     switch (datos.idRol) {
       case 1: // Cliente
-        window.location.href = "../pages/sesion-iniciada.html";
-        break;
-      case 2:
-        window.location.href = "../../admin-feature/administrador/pages/editInfo.html"
-        break;
-      case 3:
-        window.location.href = "../../repartidor-feature/pages/pedidos-activos.html"
+        window.location.href = "../pages/index.html";
         break;
       default:
         alert("Rol no reconocido");

@@ -92,9 +92,12 @@
     <div class="modal-content">
       <span class="close" id="cerrarModal">&times;</span>
       <h2>Agregar producto</h2>
-      <form id="formAgregarProducto">
+      <form id="formAgregarProducto" class="formAgregarProducto">
         <label>Nombre del producto:</label>
         <input type="text" name="nombre" required>
+
+        <label>Precio:</label>
+        <input type="number" name="precio" required>
 
         <label>Descripción:</label>
         <textarea name="descripcion" required></textarea>
@@ -104,6 +107,15 @@
           <option value="">Selecciona una opción</option>
           <option value="Bebida">Bebida</option>
           <option value="Alimento">Alimento</option>
+        </select>
+
+        <label>Categoria:</label>
+        <select name="id_categoria" required>
+          <option value="">Selecciona una opción</option>
+          <option value="1">Alitas</option>
+          <option value="2">Boneless</option>
+          <option value="3">Makis</option>
+          <option value="5">Tacos</option>
         </select>
 
         <label>Disponibilidad:</label>
