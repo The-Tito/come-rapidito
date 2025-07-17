@@ -8,8 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/pedidos-activos.css">
+    <script src="../JS/pedidos-activos.js" defer></script>
+    <link rel="icon" href="../../Assets/iconLogo.png">
     <title>Pedidos Activos</title>
 </head>
+
 <body>
 
     <nav class="nav">
@@ -20,7 +23,7 @@
         </div>
 
         <div class="links">
-            <a href="../repartidor/recibirPedidos.html" class="nav_link">
+            <a href="../pages/index.html" class="nav_link">
                 Home
             </a>
 
@@ -65,151 +68,64 @@
                 </div>
             </div>
 
-            <!-- Pedido 2 -->
-            <div class="card-pedido">
-                <div class="fila-info">
-                    <strong>ID:</strong>
-                    <span>15</span>
+    <div id="modal-pedido" class="modal oculto">
+        <div class="modal_contenido">
+            <h2 class="modal_titulo">Información del pedido</h2>
+    
+                <div class="modal_seccion">
+                <div class="titulo">
+                    <img src="../../Assets/LogoRestaurante.png" alt="" class="logo_restaurante">
+                    <strong class="restaurante-nombre">La casa de las pizzas</strong>
                 </div>
-                <div class="fila-info">
-                    <strong>Restaurante:</strong>
-                    <span>Punto Cero</span>
+                <p class="restaurante-direccion">29150, San Jacinto, 29150 Suchiapa</p>
+                <p class="restaurante-tiempo">El pedido estará listo en 15-20 minutos</p>
                 </div>
-                <div class="fila-info">
-                    <strong>Status:</strong>
-                    <span>Completado</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Fecha:</strong>
-                    <span>18/06/25</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Total:</strong>
-                    <span>$355.00</span>
-                </div>
+
+            <div class="modal_seccion">
+            <p class="cliente-nombre">Emilia Gómez Utrilla</p>
+            <p class="cliente-direccion">Av. Segunda Sur Ote. s/n, San Jacinto</p>
+            <p class="cliente-subtotal">Subtotal: $348.00</p>
             </div>
 
-            <!-- Pedido 3 -->
-            <div class="card-pedido">
-                <div class="fila-info">
-                    <strong>ID:</strong>
-                    <span>16</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Restaurante:</strong>
-                    <span>Citty Coffee</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Status:</strong>
-                    <span>Completado</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Fecha:</strong>
-                    <span>16/06/25</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Total:</strong>
-                    <span>$256.00</span>
-                </div>
-            </div>
-
-            <!-- Pedido 1 -->
-            <div class="card-pedido">
-                <div class="fila-info">
-                    <strong>ID:</strong>
-                    <span>1</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Restaurante:</strong>
-                    <span>La casa de las pizzas</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Status:</strong>
-                    <span>Completado</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Fecha:</strong>
-                    <span>18/06/25</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Total:</strong>
-                    <span>$350.00</span>
-                </div>
-            </div>
-
-            <!-- Pedido 2 -->
-            <div class="card-pedido">
-                <div class="fila-info">
-                    <strong>ID:</strong>
-                    <span>15</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Restaurante:</strong>
-                    <span>Punto Cero</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Status:</strong>
-                    <span>Completado</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Fecha:</strong>
-                    <span>18/06/25</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Total:</strong>
-                    <span>$355.00</span>
-                </div>
-            </div>
-
-            <!-- Pedido 3 -->
-            <div class="card-pedido">
-                <div class="fila-info">
-                    <strong>ID:</strong>
-                    <span>16</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Restaurante:</strong>
-                    <span>Citty Coffee</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Status:</strong>
-                    <span>Completado</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Fecha:</strong>
-                    <span>16/06/25</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Total:</strong>
-                    <span>$256.00</span>
-                </div>
+            <div class="modal_botones">
+            <button class="btn-regresar">Regresar</button>
+            <button class="btn-aceptar">Aceptar</button>
             </div>
         </div>
-    </section>
-
-<div id="modal-pedido" class="modal oculto">
-  <div class="modal_contenido">
-    <h2 class="modal_titulo">Información del pedido</h2>
-    
-    <div class="modal_seccion">
-      <strong class="restaurante-nombre">La casa de las pizzas</strong>
-      <p class="restaurante-direccion">29150, San Jacinto, 29150 Suchiapa</p>
-      <p class="restaurante-tiempo">El pedido estará listo en 15-20 minutos</p>
     </div>
 
-    <div class="modal_seccion">
-      <p class="cliente-nombre">Emilia Gómez Utrilla</p>
-      <p class="cliente-direccion">Av. Segunda Sur Ote. s/n, San Jacinto</p>
-      <p class="cliente-subtotal">Subtotal: $348.00</p>
+    <div id="modal_tarifa" class="modal oculto">
+        <div class="modal-contenido-tarifa">
+            <h2 class="tarifa_titulo">Establecer tarifa</h2>
+
+            <div class="tarifa_dropdown">
+    <label for="tarifa">Tarifa</label>
+    <select name="tarifa" id="tarifa" required>
+
+        <option value="" disabled selected hidden>Tarifa</option>
+        
+        <option value="25">$ 25</option>
+        <option value="35">$ 35</option>
+        <option value="45">$ 45</option>
+    </select>
     </div>
 
-    <div class="modal_botones">
-      <button class="btn-regresar">Regresar</button>
-      <button class="btn-aceptar">Aceptar</button>
+    <p id="tarifa-error" class="error-mensaje oculto">Por favor ingresa una tarifa</p>
+    <div class="tarifa_botones">
+        <button class="btn-regresar-tarifa">Regresar</button>
+            <button class="btn-aceptar-tarifa">Aceptar</button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<script src="../JS/pedidos-activos.js"></script>
+
+    <div id="modal-confirmacion" class="modal oculto">
+        <div class="modal_contenido">
+            <h2 class="modal_titulo">Tarifa Confirmada</h2>
+            <p id="mensaje-confirmacion">Has establecido una tarifa de <strong id="tarifa-confirmada"></strong></p>
+            <button class="btn-continuar">Continuar</button>
+        </div>
+    </div>
+
 </body>
 </html>
