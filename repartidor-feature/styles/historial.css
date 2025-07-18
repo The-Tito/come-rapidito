@@ -1,0 +1,114 @@
+:root {
+    --fontfamily: "Montserrat", sans-serif;
+    --navcolores: #FF502D;
+    --modal-red: #FC0203; 
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+    font-family: var(--fontfamily);
+}
+
+.nav{
+    background-color: white;
+    border-bottom: 3px solid #EAEAEA;
+    font-family: var(--fontfamily);
+    font-weight: bolder;
+}
+
+.nav_container{
+    width: 90%;
+    margin: 0 auto;
+    height: 80px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo{
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+}
+
+.logo_text {
+    order: 2; 
+    color: var(--navcolores);
+    font-weight: bold;
+}
+
+.logo_img {
+    order: 1; 
+    height: 38px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 178px; 
+}
+
+.nav_link {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    color: var(--navcolores);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav_img {
+    width: 24px;
+}
+
+.pedidos-section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+    font-family: var(--fontfamily);
+    color: #000000;
+}
+
+.titulo-seccion {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.contenedor-pedidos {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.card-pedido {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e9ecef;
+}
+
+.fila-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.fila-info strong {
+    font-weight: 600;
+    color: #495057;
+}
+
+.fila-info span {
+    font-weight: 500;
+    color: #212529;
+}
