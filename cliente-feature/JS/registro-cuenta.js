@@ -94,6 +94,7 @@ document.querySelector('.formulario').addEventListener('submit', async function(
 
     switch (datos.idRol) {
       case 1: // Cliente
+        localStorage.setItem("abrirLogin", "true");
         window.location.href = "../pages/index.html";
         break;
       default:
