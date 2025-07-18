@@ -120,7 +120,7 @@
     padding: 24px;
     box-shadow: var(--card-shadow);
     margin-bottom: 24px;
-    border: 1px solid #F5F5F5;
+    border: px solid #F5F5F5;
     font-family: var(--fontfamily);
 }
 
@@ -196,10 +196,6 @@
 .btn-seguimiento {
     background-color: var(--secondarycolor);
     color: var(--white);
-}
-
-.btn-cancelar:hover, .btn-seguimiento:hover {
-    transform: translateY(-2px);
 }
 
 a{

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/pedidos-en-curso.css">
+    <link rel="stylesheet" href="../styles/seguimiento.css">
     <link rel="icon" href="../../Assets/iconLogo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="icon" href="../../Assets/iconLogo.png">
@@ -12,7 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mouse+Memoirs&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
-    <title>Pedidos Activos</title>                              
+
+    <title>Seguimiento Pedido</title>                              
 </head>
 <body>
 
@@ -47,38 +48,43 @@
     </div>
 </nav>
 
-
 <div class="h1_titulo">
-            <h1 class="seccion_titulo">Pedido en Curso</h1>
+        <h1 class="seccion_titulo">Seguimiento</h1>
 </div>
 
 <main class="seccion">
 
-    <div class="pedido_container">
- 
-        <div class="info-restaurante">
-            <img src="../../Assets/LogoRestaurante.png" alt="Logo de La casa de las pizzas" class="logo_restaurante">
-            <div class="info-restaurante_texto">
-                <strong class="restaurante-nombre">La casa de las pizzas</strong>
-                <p class="restaurante-direccion">29150, San Jacinto, 29150 Suchiapa</p>
-            </div>
-        </div>
-
-        <div class="card-pedido">
-            <p class="cliente-nombre">Emilia Gómez Utrilla</p>
-            <p class="cliente-direccion">Av. Segunda Sur Ote. s/n, San Jacinto</p>
-            <p class="cliente-subtotal">Subotal: $348.00</p>
-        </div>
-
-        <div class="botones">
-            <a href="../pages/pedidos-activos.html" class="btn-cancelar">Cancelar</a>
-            <a href="../pages/seguimiento.html" class="btn-seguimiento">Seguimiento</a>
-        </div>
+<div class="seguimiento_container">
+   
+    <div class="checkbox-item">
+        <label for="En preparación">En preparación</label>
+        <input type="checkbox" id="En preparación" name="En preparación">
     </div>
 
-    <figure class="seccion_img">
-        <img src="../../Assets/Wavy Buddies Address.png" alt="Ilustración de una persona esperando su pedido" class="img_banner">
-    </figure>
+    <div class="checkbox-item">
+        <label for="En camino">En camino</label>
+        <input type="checkbox" id="En camino" name="En camino">
+    </div>
+
+    <div class="checkbox-item">
+        <label for="Entregado">Entregado</label>
+        <input type="checkbox" id="Entregado" name="Entregado">
+    </div>
+      
+        <div class="boton">
+            <a href="../pages/pedido-en-curso.html" class="btn-seguimiento">
+
+            <img src="../../Assets/flecha-delgada-izquierda.png" alt="" class="flecha">
+            Información Pedido
+
+            </a>
+        </div>
+    </div>
+        
+        <figure class="seccion_img">
+            <img src="../../Assets/Wavy Buddies Address.png" alt="Ilustración de una persona esperando su pedido" class="img_banner">
+        </figure>
+
 </main>
 
 </body>
