@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       alert("Restaurante registrado exitosamente✅");
       localStorage.setItem("abrirLogin", "true");
-      window.location.href = "../../../cliente-feature/pages/index.html";
+      window.location.href = "../../cliente-feature/pages/index.html";
   } catch (error) {
       console.error(error);
       alert("Error al registrar restaurante");

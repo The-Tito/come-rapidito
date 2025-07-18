@@ -125,6 +125,7 @@ body, html {
     margin-bottom: 16px;
 }
 .campo-formulario label {
+    
     display: block;
     font-weight: 700;
     margin-bottom: 8px;
@@ -152,6 +153,7 @@ body, html {
     width: 50%;
 }
 .campo-horario label {
+    
      display: block;
     font-weight: 700;
     margin-bottom: 8px;
@@ -248,4 +250,58 @@ body, html {
 .boton-principal img {
     width: 16px; 
     height: 16px;
+}
+
+.horas {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.horas .campo {
+  flex: 1;
+  text-align: center;
+}
+
+.horas .campo label {
+  display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.selector-hora {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.selector-hora input[type="number"] {
+  width: 70px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+  border: 1px solid #ccc;
+  outline: none;
+  color: #ff3c00;
+  padding: 8px 14px;
+}
+
+.selector-hora .separador {
+  font-size: 18px;
+  color: black;
+}
+
+.selector-hora select.ampm {
+  font-size: 16px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #ff3c00;
 }
