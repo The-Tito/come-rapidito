@@ -16,7 +16,7 @@
     <img src="../../Assets/fondoRepartidor.png" alt="Fondo de pizzas" class="imagen-fondo">
     
     <header class="encabezado">
-        <a href="/" class="logo">
+        <a href="../../cliente-feature/pages/index.html" class="logo">
             <img src="../../Assets/Logo.png" alt="Logo de Come Rapidito">
         </a>
     </header>
@@ -65,15 +65,20 @@
                             <label for="confirm-password">Confirmar Contraseña</label>
                             <input type="password" id="confirm-password" name="confirm-password" placeholder="Value">
                         </div>
+                        <button type="submit" class="boton-enviar" >
+                            ★ Registrarse
+                        </button>
                     </div>
-
+                    
+                </form>
+                <form id="form-vehiculo">
                     <div class="paso-formulario" id="paso-formulario-2">
                         <div class="grupo-entrada">
                             <label>Tipo de vehículo:</label>
                             <div class="opciones-vehiculo">
-                                <button type="button" class="boton-vehiculo activo">Moto</button>
-                                <button type="button" class="boton-vehiculo">Auto</button>
-                                <button type="button" class="boton-vehiculo">Bicicleta</button>
+                                <button type="button" class="boton-vehiculo activo" value="1">Moto</button>
+                                <button type="button" class="boton-vehiculo" value="2">Auto</button>
+                                <button type="button" class="boton-vehiculo" value="3">Bicicleta</button>
                             </div>
                         </div>
                         <div class="grupo-entrada">
@@ -88,14 +93,13 @@
                                 <input type="file" id="foto-vehiculo" name="foto-vehiculo" class="entrada-archivo" accept="image/*">
                             </label>
                         </div>
-                    </div>
-                    <a href="recibir-pedidos.html">
                         <button type="submit" class="boton-enviar" >
-                            <a href="../pages/index.html">★ Registrarse</a>
+                            ★ Registrarse
                         </button>
-                    </a>
-
-                </form>
+                    </div>
+                        
+                    </form>
+                
             </div>
         </section>
     </main>

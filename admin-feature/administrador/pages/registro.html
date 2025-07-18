@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registra tu Restaurante</title>
-    
+
     <link rel="icon" href="../../../Assets/iconLogo.png">
     <link rel="stylesheet" href="../styles/registro.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <main class="contenedor-principal">
         <section class="seccion-informativa">
             <div class="logo-superior">
-                <img src="../../../Assets/Logo.png" alt="Logo Come Rapidito">
+                <a href="../../../cliente-feature/pages/index.html">
+                    <img src="../../../Assets/Logo.png" alt="Logo Come Rapidito">
+                </a>
+                
 
             </div>
             <div class="texto-principal">
@@ -30,14 +35,14 @@
 
                 <div class="indicador-pasos">
                     <div id="indicador-1" class="paso activo">
-                        <span>1</span>
+                        <span class="indicador-paso activo" id="boton-paso-1">1</span>
                     </div>
                     <div class="linea-pasos"></div>
                     <div id="indicador-2" class="paso">
-                        <span>2</span>
+                        <span class="indicador-paso" id="boton-paso-2">2</span>
                     </div>
                 </div>
-                
+
                 <form id="paso-1" class="formulario-paso visible">
                     <div class="campo-formulario">
                         <label for="nombre-admin">Nombre del Administrador</label>
@@ -47,23 +52,26 @@
                         <label for="apellidos-admin">Apellidos</label>
                         <input type="text" id="apellido" name="apellidos_admin" placeholder="Value">
                     </div>
-                     <div class="campo-formulario">
+                    <div class="campo-formulario">
                         <label for="email-admin">Correo electrónico</label>
                         <input type="email" id="email" name="email_admin" placeholder="Value">
+                        <span id="emailFeedback" style="color: red;"></span>
                     </div>
-                     <div class="campo-formulario">
+                    <div class="campo-formulario">
                         <label for="telefono-admin">Teléfono</label>
                         <input type="tel" id="telefono" name="telefono_admin" placeholder="Value">
                     </div>
-                     <div class="campo-formulario">
+                    <div class="campo-formulario">
+                        <span id="contrasenaFeedback" style="color: red;"></span>
                         <label for="contrasena">Contraseña</label>
                         <input type="password" id="contrasena" name="contrasena" placeholder="Value">
                     </div>
-                     <div class="campo-formulario">
+                    <div class="campo-formulario">
                         <label for="confirmar-contrasena">Confirmar contraseña</label>
-                        <input type="password"id="confirmar-contrasena" name="confirmar_contrasena" placeholder="Value">
+                        <input type="password" id="confirmar-contrasena" name="confirmar_contrasena"
+                            placeholder="Value">
                     </div>
-                    
+
                     <button type="submit" id="boton-finalizar" class="boton-principal">
                         Continuar
                     </button>
@@ -75,29 +83,33 @@
                         <input type="text" id="nombre-negocio" name="nombre_negocio" placeholder="Value">
                     </div>
 
-                    <div class="horarios-contenedor">
-                        <div class="campo-horario">
+                    <div class="horas">
+                        <div class="campo">
                             <label>Horario de cierre</label>
-                            <div class="input-tiempo">
-                                <input type="number" class="input-hora" placeholder="7" min="1" max="12">
-                                <span>:</span>
-                                <input type="number" class="input-minuto" placeholder="00" min="0" max="59">
-                                <select class="input-periodo">
+                            <div class="selector-hora">
+                                <input type="number" min="1" max="12" value="7" class="hora-input" id="cierre_hora">
+                                <span class="separador">:</span>
+                                <input type="number" min="0" max="59" value="00" class="minuto-input"
+                                    id="cierre_minuto">
+                                <select class="ampm" id="cierre_ampm">
                                     <option>AM</option>
-                                    <option selected>PM</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="campo-horario">
-                            <label>Horario de Apertura</label>
-                            <div class="input-tiempo">
-                                <input type="number" class="input-hora" placeholder="7" min="1" max="12">
-                                <span>:</span>
-                                <input type="number" class="input-minuto" placeholder="00" min="0" max="59">
-                                <select class="input-periodo">
-                                    <option selected>AM</option>
                                     <option>PM</option>
                                 </select>
+                                <input type="hidden" name="horario_cierre" id="horario_cierre">
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <label>Horario de apertura</label>
+                            <div class="selector-hora">
+                                <input type="number" min="1" max="12" value="7" class="hora-input" id="apertura_hora">
+                                <span class="separador">:</span>
+                                <input type="number" min="0" max="59" value="00" class="minuto-input"
+                                    id="apertura_minuto">
+                                <select class="ampm" id="apertura_ampm">
+                                    <option>AM</option>
+                                    <option>PM</option>
+                                </select>
+                                <input type="hidden" name="horario_apertura" id="horario_apertura">
                             </div>
                         </div>
                     </div>
@@ -120,7 +132,7 @@
                             <input type="file" id="logo-restaurante" name="logo_restaurante" hidden>
                         </div>
                         <div class="caja-subida">
-                             <div class="icono-subida">
+                            <div class="icono-subida">
                                 <img src="../../../Assets/agregarImagen.png" alt="Icono de subida de imagen">
                             </div>
                             <label for="banner-restaurante">Subir Banner del Restaurante</label>
@@ -128,17 +140,18 @@
                         </div>
                     </div>
 
-                    <button type="button" id="boton-continuar-paso1" class="boton-principal">
+                    <button type="submit" id="boton-continuar-paso1" class="boton-principal">
                         Continuar
                     </button>
                 </form>
 
                 <!-- Paso 2 del Formulario -->
-                
+
             </div>
         </section>
     </main>
-    
+
     <script src="../js/registro.js"></script>
 </body>
+
 </html>
