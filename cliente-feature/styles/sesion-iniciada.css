@@ -1,0 +1,372 @@
+
+:root {
+    --color-primario: #FF502D;
+    --color-secundario: #FCBF30;
+    --color-texto: #333;
+    --color-borde: #ddd;
+    --fuente-principal: 'Montserrat', sans-serif;
+    --fuente-titulo: 'Mouse Memoirs', cursive;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    background-color: white;
+}
+
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    position: fixed;
+    width: 100%;
+    z-index: 1000; /*lo hace fije*/
+    background-color: white;
+   
+}
+
+.encabezado-logo img {
+    height: 38px; 
+}
+
+.encabezado-lista {
+    list-style: none;
+    display: flex;
+    gap: 120px;
+}
+
+.encabezado-enlace {
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+.encabezado-iconos {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.encabezado-icono {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+a.encabezado-icono{
+  gap: 4px;
+}
+.encabezado-icono img {
+    height: 24px;
+}
+.encabezado-icono-carrito{
+    height: 30px;
+}
+
+main{
+  padding-top: 80px;
+}
+
+.seccion-principal {
+    background-color: var(--color-primario);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-left: 5%;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+}
+
+.seccion-principal-contenido {
+    color: white;
+    padding-right: 2rem;
+}
+
+.seccion-principal-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: 140px;
+    line-height: 1;
+    margin-bottom: 1rem;
+    font-weight: normal;
+}
+
+.seccion-principal-descripcion {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 400px;
+}
+
+.seccion-principal-botones {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.boton {
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+.boton:hover {
+    transform: translateY(-3px);
+}
+
+.boton-primario {
+    background-color: var(--color-secundario);
+    color: white;
+}
+
+.boton-secundario {
+    color: white;
+}
+
+.seccion-principal-imagen-contenedor {
+    height: 450px; 
+    overflow: hidden;
+    border-radius: 20px;
+    padding-top: 40px;
+}
+
+.seccion-principal-imagen {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 20px;
+
+
+}
+
+.seccion-restaurantes {
+    padding: 3rem 5%;
+}
+.seccion-restaurantes-encabezado{
+  display: flex;
+  justify-content: space-between;
+}
+.seccion-restaurantes-titulo {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.seccion-restaurantes-filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+.filtro {
+    padding: 0.6rem 1.5rem;
+    border: 1px solid var(--color-borde);
+    background-color: white;
+    border-radius: 10px;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+}
+
+.filtro:hover {
+    border-color: var(--color-primario);
+    color: var(--color-primario);
+}
+
+.filtro-activo {
+    background-color: var(--color-primario);
+    color: white;
+    border-color: var(--color-primario);
+}
+
+.carruseles{
+  display: block;
+  gap: 20px;
+}
+.carrusel {
+    position: relative;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carrusel-contenedor {
+    overflow: hidden;
+    flex-grow: 1;
+    scroll-padding-right: 1.5rem;
+}
+
+.carrusel-pista {
+    display: flex;
+    justify-content: space-around;
+    gap: 1.5rem;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carrusel-item {
+    min-width: 294px; 
+    height: 230px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    margin-bottom: 50px;
+}
+
+.carrusel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carrusel-boton {
+    background-color: white;
+    border: 1px solid var(--color-borde);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--color-primario);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    z-index: 10;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.carrusel-boton:hover {
+    background-color: var(--color-primario);
+    color: white;
+    border-color: var(--color-primario);
+}
+
+.carrusel-boton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/*estilos para el modal de iniciar sesion*/
+.modal-superposicion {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(5px);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+}
+
+.modal-superposicion-visible {
+    display: flex;
+}
+.modal {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 520px; /* Ancho máximo del modal */
+    text-align: left;
+}
+
+.modal-titulo {
+    color: var(--color-primario);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.formulario-grupo {
+    margin-bottom: 1.5rem;
+}
+
+.formulario-etiqueta {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.formulario-entrada {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+}
+
+.modal-enlace-registro {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 0.9rem;
+}
+
+.modal-enlace-registro a {
+    color: var(--color-primario);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: space-between; /*para que ocupe todo, distribuido, como el i l i en figma*/
+    gap: 1rem;
+}
+
+.boton-modal {
+    flex-grow: 1;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid var(--color-primario);
+    transition: all 0.2s ease;
+}
+
+.boton-regresar {
+    background-color: var(--color-blanco);
+    color: var(--color-primario);
+}
+
+.boton-regresar:hover {
+    background-color: #f9f9f9;
+}
+
+.boton-continuar {
+    background-color: var(--color-primario);
+    color: white;
+}
+
+.boton-continuar:hover {
+    opacity: 0.9;
+}
