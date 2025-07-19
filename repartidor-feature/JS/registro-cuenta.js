@@ -18,15 +18,27 @@ document.addEventListener('DOMContentLoaded', () => {
             pasoFormulario1.classList.add('activo');
             botonPaso2.classList.remove('activo');
             pasoFormulario2.classList.remove('activo');
-        } 
+            // Mostrar el formulario del paso 1
+            formulario.classList.remove("oculto");
+            pasoFormulario2.classList.add("oculto");
+        } else if (numeroPaso === 2) {
+            // Ocultar el formulario del paso 1
+            formulario.classList.add("oculto");
+            pasoFormulario1.classList.remove("activo");
+            // Mostrar el paso 2
+            pasoFormulario2.classList.remove("oculto");
+            pasoFormulario2.classList.add("activo");
+            botonPaso1.classList.remove("activo");
+            botonPaso2.classList.add("activo");
+        }
     }
 
     function bloquearPaso1() {
         botonPaso1.disabled = true;
         botonPaso1.style.pointerEvents = "none";
-        botonPaso1.style.opacity = 0.5;
+        botonPaso1.style.opacity = "0.5";
+        botonPaso1.style.cursor = "not-allowed";
     }
-
 
     // Paso 1: Registrar usuario
     formulario.addEventListener('submit', async (event) => {
@@ -39,36 +51,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const contrasena = document.getElementById("password").value.trim();
         const confirmar = document.getElementById("confirm-password").value.trim();
 
-       
         // Validaciones mejoradas
-        if (!nombre || !apellido || !telefono || !email || !contrasena) {
-          alert('Por favor, completa todos los campos');
-          return;
+        if (!nombre || !apellido || !telefono || !correo || !contrasena) {
+            alert('Por favor, completa todos los campos');
+            return;
         }
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(correo)) {
+        alert('Por favor, ingresa un email válido');
+        return;
+        }
+
+
         if (contrasena !== confirmar) {
-          alert('Las contraseñas no coinciden');
-          return;
+            alert('Las contraseñas no coinciden');
+            return;
         }
 
         if (contrasena.length < 6) {
-          alert('La contraseña debe tener al menos 6 caracteres');
-          return;
-        }
-
-        // Validar formato de email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-          alert('Por favor, ingresa un email válido');
-          return;
+            alert('La contraseña debe tener al menos 6 caracteres');
+            return;
         }
 
         // Validar teléfono (solo números, mínimo 10 dígitos)
         if (telefono.length < 10 || !/^\d+$/.test(telefono)) {
-          alert('El número telefónico debe tener al menos 10 dígitos');
-          return;
+            alert('El número telefónico debe tener al menos 10 dígitos');
+            return;
         }
-
 
         try {
             const response = await fetch("http://localhost:7000/signup", {
@@ -87,14 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error("Error al registrar usuario");
             const data = await response.json();
 
+            // Marcar usuario como registrado y bloquear paso 1
             usuarioRegistrado = true;
             bloquearPaso1();
+            
+            // Cambiar al paso 2
             mostrarPaso(2);
 
             // Guardar el ID del usuario en localStorage para paso 2
             localStorage.setItem("id_usuario_repartidor", data.id_usuario);
-            localStorage.setItem("token", data.token); // token JWT u otro
-            localStorage.setItem("nombre_usuario", data.nombre); // o data.nombre_completo
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("nombre_usuario", data.nombre);
 
         } catch (error) {
             console.error(error);
@@ -102,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 🚘 Paso 2: selección de vehículo
+    // Paso 2: selección de vehículo
     botonesVehiculo.forEach(boton => {
         boton.addEventListener('click', () => {
             botonesVehiculo.forEach(btn => btn.classList.remove('activo'));
@@ -116,64 +129,88 @@ document.addEventListener('DOMContentLoaded', () => {
             : 'Foto del vehículo';
     });
 
-    // ⛔ Bloquear acceso manual al paso 1 si ya se registró
-    botonPaso1.addEventListener('click', () => {
-        if (!usuarioRegistrado) mostrarPaso(1);
+    // Bloquear acceso manual al paso 1 si ya se registró
+    botonPaso1.addEventListener('click', (e) => {
+        if (usuarioRegistrado) {
+            e.preventDefault();
+            return false;
+        }
+        mostrarPaso(1);
     });
 
     botonPaso2.addEventListener('click', () => {
-        mostrarPaso(2);
+        // Solo permitir ir al paso 2 si el usuario ya se registró
+        if (usuarioRegistrado) {
+            mostrarPaso(2);
+        }
     });
+
+    // Inicializar en el paso 1
+    mostrarPaso(1);
 });
 
 // Paso 2: Envío de datos del vehículo
-const formularioVehiculo = document.getElementById("form-vehiculo");
+document.addEventListener('DOMContentLoaded', () => {
+    const formularioVehiculo = document.getElementById("form-vehiculo");
 
-formularioVehiculo.addEventListener('submit', async (event) => {
-    event.preventDefault();
+    formularioVehiculo.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-    const id_usuario = localStorage.getItem("id_usuario_repartidor");
-    if (!id_usuario) {
-        alert("Error: No hay ID de usuario disponible.");
-        return;
-    }
+        const id_usuario = localStorage.getItem("id_usuario_repartidor");
+        if (!id_usuario) {
+            alert("Error: No hay ID de usuario disponible.");
+            return;
+        }
 
-    const tipoSeleccionado = document.querySelector(".boton-vehiculo.activo");
-    const tipoVehiculo = tipoSeleccionado ? tipoSeleccionado.value : null;
-    const placas = document.getElementById("placas").value;
-    const foto = document.getElementById("foto-vehiculo").files[0];
+        const tipoSeleccionado = document.querySelector(".boton-vehiculo.activo");
+        const tipoVehiculo = tipoSeleccionado ? tipoSeleccionado.value : null;
+        const placas = document.getElementById("placas").value;
+        const foto = document.getElementById("foto-vehiculo").files[0];
 
+        // Validaciones
+        if (!tipoVehiculo) {
+            alert("Por favor, selecciona un tipo de vehículo");
+            return;
+        }
 
-    const formData = new FormData();
-    formData.append("id_usuario", id_usuario);
-    formData.append("id_vehiculo", tipoVehiculo); // Enviará 1, 2 o 3
-    formData.append("placas", placas);
-    formData.append("imagen", foto);
+        if (!placas.trim()) {
+            alert("Por favor, ingresa el número de placas");
+            return;
+        }
 
-    const token = localStorage.getItem("token");
-    const nombreUsuario = localStorage.getItem("nombre_usuario");
+        if (!foto) {
+            alert("Por favor, selecciona una foto del vehículo");
+            return;
+        }
 
+        const formData = new FormData();
+        formData.append("id_usuario", id_usuario);
+        formData.append("id_vehiculo", tipoVehiculo);
+        formData.append("placas", placas);
+        formData.append("imagen", foto);
 
-    try {
-      const response = await fetch(`http://localhost:7000/api/transport`, {
-            method: 'POST',
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "X-User-NAME": nombreUsuario
-                // Agregar headers de autenticación si es necesario
-                // 'Authorization': 'Bearer ' + token
-            },
-            body: formData
-        });
+        const token = localStorage.getItem("token");
+        const nombreUsuario = localStorage.getItem("nombre_usuario");
 
-      if (!response.ok) throw new Error("Error al registrar vehículo");
+        try {
+            const response = await fetch(`http://localhost:7000/api/transport`, {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "X-User-NAME": nombreUsuario
+                },
+                body: formData
+            });
 
-      const data = await response.json();
-      alert("Vehículo registrado correctamente ✅");
-      localStorage.setItem("abrirLogin", "true");
-      window.location.href = "../../cliente-feature/pages/index.html";
-  } catch (error) {
-      console.error(error);
-      alert("Error al registrar vehículo");
-  }
+            if (!response.ok) throw new Error("Error al registrar vehículo");
+
+            const data = await response.json();
+            alert("Vehículo registrado correctamente ✅");
+            localStorage.setItem("abrirLogin", "true");
+            window.location.href = "../../cliente-feature/pages/index.html";
+        } catch (error) {
+            console.error(error);
+            alert("Error al registrar vehículo");
+        }
+    });
 });
