@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+  
 
   etapas.forEach((checkbox, index) => {
     checkbox.addEventListener("change", () => {
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(`estadoPedido_${pedidoId}`, checkbox.id);
         const id_status = statusMap[checkbox.id];
 
-        fetch(`https://tu-api.com/pedidos/${pedidoId}`, {
+        fetch(`http://localhost:7000/api/orders/restaurant/{id}/${pedidoId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
