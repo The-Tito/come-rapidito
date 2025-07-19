@@ -1,136 +1,143 @@
-<!-- Archivo: informacion.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información General - Panel de Administrador</title>
-    
-    <!-- Google Fonts: Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome (para los iconos) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- Enlaza AMBAS hojas de estilo -->
-    <link rel="stylesheet" href="../styles/header.css"> <!-- Ajusta la ruta si es necesario -->
-    <link rel="stylesheet" href="../styles/editInfo.css">   <!-- Ajusta la ruta si es necesario -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Información General - Panel de Administrador</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../styles/editInfo.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/encabezados.css">
 </head>
 <body>
+  <div id="header-placeholder"></div>
 
-    <!-- 1. Aquí se cargará el header reutilizable -->
-    <div id="header-placeholder"></div>
+  <div class="main-container">  
+    <h1>Información general</h1>
 
-    <!-- 2. Este es el contenido específico de ESTA página -->
-    <main class="content">
-        <div class="main-container">
-            <h1>Información general</h1>
+    <form class="info-form">
+      <div class="form-block">
 
-            <!-- Sección para subir imágenes -->
-            <div class="upload-section">
-                <div class="upload-wrapper">
-                    <label for="logo-upload" class="upload-box logo-box">
-                        <i class="fas fa-image placeholder-icon"></i>
-                    </label>
-                    <input type="file" id="logo-upload" hidden>
-                    <div class="upload-caption">
-                        <span>Subir Logo del Restaurante</span>
-                        <i class="fas fa-upload upload-icon"></i>
-                    </div>
-                </div>
-                <div class="upload-wrapper">
-                    <label for="banner-upload" class="upload-box banner-box">
-                        <i class="fas fa-image placeholder-icon"></i>
-                    </label>
-                    <input type="file" id="banner-upload" hidden>
-                    <div class="upload-caption">
-                        <span>Subir imagen del Banner</span>
-                        <i class="fas fa-upload upload-icon"></i>
-                    </div>
-                </div>
+        <!-- Div 1: Subir imágenes -->
+        <div class="form-section">
+          <div class="upload-section">
+            <div class="upload-wrapper">
+              <label for="logo-upload" class="upload-box">
+                <i class="fas fa-image placeholder-icon"></i>
+              </label>
+              <input type="file" id="logo-upload" hidden>
+              <div class="upload-caption">
+                <span>Subir Logo del Restaurante</span>
+                <i class="fas fa-upload upload-icon"></i>
+              </div>
             </div>
-
-            <hr class="separator">
-
-            <!-- Formulario de Información -->
-            <form class="info-form">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="admin-name">Nombre del administrador</label>
-                        <input type="text" id="admin-name" placeholder="Ingrese nombre del administrador">
-                    </div>
-                    <div class="form-group">
-                        <label for="admin-phone">Numero del administrador</label>
-                        <input type="text" id="admin-phone" placeholder="Ingrese el número telefónico del administrador">
-                    </div>
-                    <div class="form-group">
-                        <label for="restaurant-name">Nombre del restaurante</label>
-                        <input type="text" id="restaurant-name" placeholder="Ingrese el nombre del restaurante">
-                    </div>
-                    <div class="form-group">
-                        <label for="restaurant-phone">Numero del restaurante</label>
-                        <input type="text" id="restaurant-phone" placeholder="Ingrese el número telefónico del restaurante">
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="restaurant-address">Dirección de restaurante</label>
-                        <input type="text" id="restaurant-address" placeholder="Ingrese la dirección del restaurante">
-                    </div>
-                </div>
-
-                <!-- Sección de Horarios -->
-                <div class="time-section">
-                    <div class="time-picker">
-                        <label>Horario de Apertura</label>
-                        <div class="time-display">7 : 00</div>
-                        <div class="ampm-toggle">
-                            <button type="button" class="active">AM</button>
-                            <button type="button">PM</button>
-                        </div>
-                    </div>
-                    <div class="time-picker">
-                        <label>Horario de cierre</label>
-                        <div class="time-display">7 : 00</div>
-                        <div class="ampm-toggle">
-                            <button type="button">AM</button>
-                            <button type="button" class="active">PM</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Botón de Guardar -->
-                <div class="form-actions">
-                    <button type="submit" class="save-button">
-                        <i class="far fa-star"></i>
-                        <span>Guardar Informacion</span>
-                    </button>
-                </div>
-            </form>
+            <div class="upload-wrapper">
+              <label for="banner-upload" class="upload-box">
+                <i class="fas fa-image placeholder-icon"></i>
+              </label>
+              <input type="file" id="banner-upload" hidden>
+              <div class="upload-caption">
+                <span>Subir imagen del Banner</span>
+                <i class="fas fa-upload upload-icon"></i>
+              </div>
+            </div>
+          </div>
         </div>
-    </main>
+
+      <div class="form-row">
+  <!-- Div 2 - Izquierda -->
+  <div class="form-column">
+    <div class="form-group">
+      <label for="admin-name">Nombre del administrador</label>
+      <input type="text" id="admin-name" placeholder="Ingrese nombre del administrador">
+    </div>
+    <div class="form-group">
+      <label for="restaurant-name">Nombre del restaurante</label>
+      <input type="text" id="restaurant-name" placeholder="Ingrese el nombre del restaurante">
+    </div>
+    <div class="form-group">
+      <label for="restaurant-address">Dirección del restaurante</label>
+      <input type="text" id="restaurant-address" placeholder="Ingrese la dirección del restaurante">
+    </div>
+  </div>
+
+  <!-- Div 3 - Derecha -->
+  <div class="form-column">
+    <div class="form-group">
+      <label for="admin-phone">Número del administrador</label>
+      <input type="text" id="admin-phone" placeholder="Ingrese el número del administrador">
+    </div>
+    <div class="form-group">
+      <label for="restaurant-phone">Número del restaurante</label>
+      <input type="text" id="restaurant-phone" placeholder="Ingrese el número del restaurante">
+    </div>
+
+<div class="horarios-row">
+  <!-- Horario de Apertura -->
+  <div class="horario">
+    <label>Horario de Apertura</label>
+    <div class="horario-flex">
+      <div class="time-display">
+        <input type="number" min="1" max="12" value="7" class="hour-input">
+        <span class="colon">:</span>
+        <input type="number" min="0" max="59" value="00" class="minute-input">
+      </div>
+      <select class="ampm-select">
+        <option value="AM" selected>AM</option>
+        <option value="PM">PM</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Horario de Cierre -->
+  <div class="horario">
+    <label>Horario de Cierre</label>
+    <div class="horario-flex">
+      <div class="time-display">
+        <input type="number" min="1" max="12" value="7" class="hour-input">
+        <span class="colon">:</span>
+        <input type="number" min="0" max="59" value="00" class="minute-input">
+      </div>
+      <select class="ampm-select">
+        <option value="AM">AM</option>
+        <option value="PM" selected>PM</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
 
 
-    <!-- 3. Este script carga el header en el placeholder -->
-    <script>
-        // Carga el header. Asegúrate que la ruta a 'header.html' es correcta desde 'informacion.html'
-        fetch('header.html') 
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No se pudo cargar el header. Revisa la ruta del archivo.');
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error al cargar el header:', error);
-                document.getElementById('header-placeholder').innerHTML = '<p style="color:red; padding:20px;">Error al cargar el menú.</p>';
-            });
-        
-    </script>
-    <script src="../js/editInfo.js"></script>
+      </div>
 
+      <div class="form-actions">
+        <button type="submit" class="save-button">
+          <i class="far fa-star"></i>
+          <span>Guardar Información</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => document.getElementById('header-placeholder').innerHTML = data)
+      .catch(error => console.error('Error al cargar el header:', error));
+
+    fetch('encabezado.html')
+      .then(res => res.text())
+      .then(data => document.getElementById('encabezado-placeholder').innerHTML = data)
+      .catch(error => console.error('Error al cargar el encabezado:', error));
+  </script>
 </body>
 </html>
