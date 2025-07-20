@@ -8,9 +8,7 @@ let id_restaurante = localStorage.getItem("id_restaurante");
 
 // Datos de ejemplo y el JSON proporcionado
 
-const modalTarifa = document.getElementById("modal_tarifa");
-  const btnRegresarTarifa = document.querySelector(".btn-regresar-tarifa");
-  const btnAceptarTarifa = document.querySelector(".btn-aceptar-tarifa");
+
 // Mapeo de ID de status a texto
 const statusMap = {
     1: 'En proceso',
@@ -64,16 +62,11 @@ function addOrderRow(orderData) {
 
     const editButton = document.createElement('button');
     editButton.className = ('edit-btn');
-    editButton.innerHTML = ('<i class="fa-solid fa-pen"></i>');
+    editButton.innerHTML = ('Listo para entrega');
     statusContent.appendChild(statusSelect);
     statusContent.appendChild(editButton);
     statusCell.appendChild(statusContent)
 
-    editButton.addEventListener('click', () => {
-        modalTarifa.classList.remove('oculto'); // Mostrar modal
-    });
-
-    
     // Crear celdas de fecha y total
     const dateCell = document.createElement('td');
     dateCell.textContent = formatDate(orderData.fecha_pedido);
