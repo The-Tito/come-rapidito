@@ -3,7 +3,11 @@ let productos = [];
 let editando = false;
 let productoEditandoId = null;
 let imagenFile = null;
-
+let tokenstorage = localStorage.getItem("token")
+  let nombrestorage = localStorage.getItem("nombre")
+  let nombre = nombrestorage.replace(/"/g, '');
+  let token = tokenstorage.replace(/"/g, '');
+  let id_restaurante = localStorage.getItem("id_restaurante");
 // =================== MODAL ===================
 document.getElementById('btnAgregar').onclick = function () {
   document.getElementById('modalAgregarProducto').style.display = 'block';
@@ -48,34 +52,43 @@ document.getElementById('inputImagen').onchange = function (event) {
 // =================== SUBMIT FORM ===================
 document.getElementById('formAgregarProducto').onsubmit = async function (e) {
   e.preventDefault();
+
   const form = e.target;
-   let tokenstorage = localStorage.getItem("token")
-  let nombrestorage = localStorage.getItem("nombre")
-  let nombre = nombrestorage.replace(/"/g, '');
-  let token = tokenstorage.replace(/"/g, '');
-  let id_restaurante = localStorage.getItem("id_restaurante");
+
   const formData = new FormData();
   formData.append("nombre", form.nombre.value);
   formData.append("descripcion", form.descripcion.value);
   formData.append("precio", form.precio.value);
   formData.append("id_categoria", form.id_categoria.value);
+  formData.append("id_status", form.id_status.value);
   formData.append("id_restaurante", id_restaurante);
-  if (imagenFile) formData.append("imagen", imagenFile);
-  if (!imagenFile) {
-        alert("Selecciona una imagen antes de guardar.");
-        return;
-      }
+
+  // Solo adjunta imagen si se seleccionó
+  if (imagenFile) {
+    formData.append("imagen", imagenFile);
+  }
 
   try {
-    let response;
-    response = await fetch(`http://localhost:7000/api/products`,{
-      method: 'POST',
-              headers: {
-                "Authorization": `Bearer ${token}`,
-                "X-User-NAME": `${nombre}`
-              },
-              body: formData
+    let url = "http://localhost:7000/api/products";
+    let method = "POST";
+
+    if (editando && productoEditandoId) {
+      url += `/${productoEditandoId}`;
+      method = "PUT";
+    } else if (!imagenFile) {
+      alert("Selecciona una imagen antes de guardar.");
+      return;
+    }
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "X-User-NAME": `${nombre}`
+      },
+      body: formData
     });
+
     if (response.ok) {
       alert(editando ? "Producto actualizado correctamente." : "Producto agregado correctamente.");
       await getProductosDesdeAPI();
@@ -84,11 +97,11 @@ document.getElementById('formAgregarProducto').onsubmit = async function (e) {
       const errorText = await response.text();
       alert("Error al guardar: " + errorText);
     }
-  }catch (err) {
+  } catch (err) {
     console.error(err);
     alert("Error de conexión con la API.");
   }
-}
+};
 
 // =================== CARGAR DESDE API ===================
 async function getProductosDesdeAPI() {
@@ -136,7 +149,14 @@ function renderProductos() {
       const id = this.dataset.id;
       if (confirm("¿Estás seguro de eliminar este producto?")) {
         try {
-          const res = await fetch(`http://localhost:7000/api/products/${id}`, { method: "DELETE" });
+          const res = await fetch(`http://localhost:7000/api/products/${id}`, {
+             method: "DELETE",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                "X-User-NAME": `${nombre}`
+              }, 
+            
+            });
           if (res.ok) {
             alert("Producto eliminado.");
             await getProductosDesdeAPI();
@@ -154,11 +174,13 @@ function renderProductos() {
   document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.onclick = function () {
       const id = parseInt(this.dataset.id);
+    
       const prod = productos.find(p => p.id_producto === id);
       if (!prod) return;
-
+      console.log(prod)
       editando = true;
       productoEditandoId = id;
+
       document.getElementById('modalAgregarProducto').style.display = 'block';
       document.getElementById('modalTitulo').innerText = "Editar producto";
 
@@ -167,13 +189,64 @@ function renderProductos() {
       form.descripcion.value = prod.descripcion;
       form.precio.value = prod.precio;
       form.id_categoria.value = prod.id_categoria;
-      form.id_restaurante.value = prod.id_restaurante;
-      document.getElementById('previewImagen').innerHTML =
-        prod.url_imagen
-          ? `<img src="http://localhost:7000/uploads/${prod.url_imagen}" style="max-width:100%; max-height:170px; border-radius:8px;"/>`
-          : '';
+      form.id_status.value = prod.id_status;
+      document.getElementById('previewImagen').innerHTML = '<img src="' + prod.url_imagen + '" style="max-width:100%; max-height:170px; border-radius:8px;"/>';
 
       imagenFile = null;
+      
+document.getElementById('formAgregarProducto').onsubmit = async function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+
+  const formData = new FormData();
+  formData.append("nombre", form.nombre.value);
+  formData.append("descripcion", form.descripcion.value);
+  formData.append("precio", form.precio.value);
+  formData.append("id_categoria", form.id_categoria.value);
+  formData.append("id_status", form.id_status.value);
+  formData.append("id_restaurante", id_restaurante);
+
+  // Solo adjunta imagen si se seleccionó
+  if (imagenFile) {
+    formData.append("imagen", imagenFile);
+  }
+
+  try {
+    let url = "http://localhost:7000/api/products";
+    let method = "POST";
+
+    if (editando && productoEditandoId) {
+      url += `/${productoEditandoId}`;
+      method = "PUT";
+    } else if (!imagenFile) {
+      alert("Selecciona una imagen antes de guardar.");
+      return;
+    }
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "X-User-NAME": `${nombre}`
+      },
+      body: formData
+    });
+
+    if (response.ok) {
+      alert(editando ? "Producto actualizado correctamente." : "Producto agregado correctamente.");
+      await getProductosDesdeAPI();
+      cerrarModal();
+    } else {
+      const errorText = await response.text();
+      alert("Error al guardar: " + errorText);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error de conexión con la API.");
+  }
+};
+
     };
   });
 }
