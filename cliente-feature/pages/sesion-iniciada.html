@@ -33,12 +33,13 @@
 
             <div class="dropdown">
                 <a href="" id="abrir-modal-login" class="dropbtn">
-                    <img src="../../Assets/iconUsuario .png" alt="Icono usuario" class="dropbtn_img"> Nombre Usuario </a>
+                <img src="../../Assets/iconUsuario .png" alt="Icono usuario" class="dropbtn_img">
+                <span id="usuarioNombre">Invitado</span> </a>
                     
-                    <div class="dropdown-content">
-                         <a href="../pages/index.html">Cerrar Sesión</a>
-                         <a href="../pages/modificar-cuenta.html">Mi Cuenta</a>
-                         <a href="#">Pedidos</a>
+            <div class="dropdown-content">
+                 <a href="../pages/index.html">Cerrar Sesión</a>
+                    <a href="../pages/modificar-cuenta.html">Mi Cuenta</a>
+                     <a href="#">Pedidos</a>
                     </div>
             </div>
 
@@ -104,34 +105,9 @@
         </section>
     </main>
 
-    
-    <!-- Modal de iniciar sesion -->
-    <div class="modal-superposicion" id="modal-login">
-    <div class="modal">
-        <h2 class="modal-titulo">Iniciar sesión para continuar</h2>
-
-        <form class="formulario-inicio-sesion">
-            <div class="formulario-grupo">
-                <label for="email" class="formulario-etiqueta">Teléfono</label>
-                <input type="text" id="email" class="formulario-entrada" placeholder="ejemplo: josemarialopez@gmail.com" required>
-            </div>
-            <div class="formulario-grupo">
-                <label for="password" class="formulario-etiqueta">Contraseña</label>
-                <input type="password" id="password" class="formulario-entrada" placeholder="Value" required>
-            </div>
-        </form>
-
-        <p class="modal-enlace-registro">
-            ¿No tienes una cuenta? <a href="../pages/registro-cuenta.html">Regístrate aquí</a>
-        </p>
-
-        <div class="modal-botones">
-            <button class="boton-modal boton-regresar" id="cerrar-modal-login">Regresar</button>
-            <button class="boton-modal boton-continuar">Continuar</button>
-        </div>
-    </div>
-</div>
 </body>
-<script src="../js/index.js"></script>
-<script src="../JS/login.js"></script>
+<script src="../JS/index.js"></script>
+<script src="../JS/usuario.js" defer></script>
+<script src="../JS/registro-cuenta.js" defer></script>
+
 </html>

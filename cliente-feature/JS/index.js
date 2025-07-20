@@ -185,12 +185,15 @@ document.querySelector(".formulario-inicio-sesion").addEventListener("submit", a
     console.log(data)
 
     // Guardar en sessionStorage
-    sessionStorage.setItem("usuario", JSON.stringify(data));
+    localStorage.setItem("usuario", JSON.stringify(data));
+    localStorage.setItem("nombre", JSON.stringify(data.nombre));
+    localStorage.setItem("token", JSON.stringify(data.token));
+    localStorage.setItem("id_usuario", JSON.stringify(data.id_usuario))
 
     // Redirigir según el rol
     switch (data.idRol) {
       case 1: // Cliente
-        window.location.href = "../pages/cliente.html";
+        window.location.href = "../pages/sesion-iniciada.html";
         break;
       case 2: // Admin Restaurante
         window.location.href = "../../admin-feature/administrador/pages/editInfo.html";

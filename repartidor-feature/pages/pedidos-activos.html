@@ -43,31 +43,28 @@
  <section class="pedidos-section">
         <h2 class="titulo-seccion">Pedidos activos</h2>
 
-        <div class="contenedor-pedidos">
-            <!-- Pedido 1 -->
+        <div class="contenedor-pedidos" id="detalle-pedido">
+            
             <div class="card-pedido">
                 <div class="fila-info">
-                    <strong>ID:</strong>
-                    <span>1</span>
+                    <strong >ID:</strong>
+                    <span id="id_pedido"></span>
                 </div>
                 <div class="fila-info">
                     <strong>Restaurante:</strong>
-                    <span>La casa de las pizzas</span>
-                </div>
-                <div class="fila-info">
-                    <strong>Status:</strong>
-                    <span>Completado</span>
+                    <span id="nombre_restaurante"></span>
                 </div>
                 <div class="fila-info">
                     <strong>Fecha:</strong>
-                    <span>18/06/25</span>
+                    <span id="fecha_pedido"></span>
                 </div>
                 <div class="fila-info">
                     <strong>Total:</strong>
-                    <span>$350.00</span>
+                    <span id="total"></span>
                 </div>
             </div>
         </div>
+
  </section>    
 
     <div id="modal-pedido" class="modal oculto">
@@ -75,17 +72,18 @@
             <h2 class="modal_titulo">Información del pedido</h2>
     
                 <div class="modal_seccion">
+
                 <div class="titulo">
-                    <img src="../../Assets/LogoRestaurante.png" alt="" class="logo_restaurante">
-                    <strong class="restaurante-nombre">La casa de las pizzas</strong>
+                    <img src="../../Assets/LogoRestaurante.png" alt="logo restaurante" class="logo_restaurante" id="logo_restaurante">
+                    <strong class="restaurante-nombre" id="nombre_restaurante"> nombre restaurante </strong>
                 </div>
-                <p class="restaurante-direccion">29150, San Jacinto, 29150 Suchiapa</p>
+                <p class="restaurante-direccion" id="direccion_restaurante"> direccion </p>
                 </div>
 
             <div class="modal_seccion">
-            <p class="cliente-telefono">961 364 5948</p>
-            <p class="cliente-direccion">Av. Segunda Sur Ote. s/n, San Jacinto</p>
-            <p class="cliente-subtotal">Subtotal: $348.00</p>
+            <p class="cliente-telefono" id="num_telefono">numero cliente</p>
+            <p class="cliente-direccion" id="id_direccion">direccion cliente</p>
+            <p class="cliente-subtotal" id="subtotal">Subtotal pedido</p>
             </div>
 
             <div class="modal_botones">
@@ -103,7 +101,7 @@
     <label for="tarifa">Tarifa</label>
     <select name="tarifa" id="tarifa" required>
 
-        <option value="" disabled selected hidden>Tarifa</option>
+        <option value=""disabled selected hidden>Tarifa</option>
         
         <option value="25">$ 25</option>
         <option value="35">$ 35</option>
