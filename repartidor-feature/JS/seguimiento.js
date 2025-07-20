@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const statusMap = {
     "En preparación": 1,
-    "En camino": 2,
-    "Entregado": 3
+    "En camino": 3,
+    "Entregado": 4
   };
 
-  const params = new URLSearchParams(window.location.search);
-  const pedidoId = params.get("id_pedido");
+  const pedidoId = localStorage.getItem("pedido_id_seguimiento"); // Obtener el id_pedido de localStorage
+
 
   if (!pedidoId) {
     console.warn("No se encontró el id_pedido en la URL.");
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(`estadoPedido_${pedidoId}`, checkbox.id);
         const id_status = statusMap[checkbox.id];
 
-        fetch(`http://localhost:7000/api/orders/restaurant/{id}/${pedidoId}`, {
+        fetch(`http://localhost:7000/api/orders/${pedidoId}/status`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return res.json();
         })
         .then(data => {
-          console.log("✅ Estado actualizado:", data);
+          console.log("Estado actualizado:", data);
 
           if (checkbox.id === "Entregado") {
             etapas.forEach(cb => cb.disabled = true);
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         })
         .catch(err => {
-          console.error("❌ Error al actualizar estado:", err);
+          console.error("Error al actualizar estado:", err);
           alert("Hubo un problema al actualizar el estado del pedido.");
         });
       } else {

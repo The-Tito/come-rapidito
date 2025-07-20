@@ -24,24 +24,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let pedidoSeleccionado = null;
 
-
-if (!token) {
+  if (!token) {
   console.error("No hay token en localStorage, perro.");
   return;
 }
 
   const order = {
-    id_status: 1
+    id_status: 8 //
   }
 
   fetch("http://localhost:7000/api/orders/delivery", {
-    method: "POST",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
       "X-User-NAME": `${nombre}`
-    },
-    body: JSON.stringify(order)
+    }
   })
     .then(res => {
       if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
@@ -56,18 +54,19 @@ if (!token) {
           <div class="fila-info"><strong>ID:</strong> <span>${pedido.id_pedido}</span></div>
           <div class="fila-info"><strong>Restaurante:</strong> <span>${pedido.restaurante.nombre_restaurante}</span></div>
           <div class="fila-info"><strong>Fecha:</strong> <span>${pedido.fecha_pedido}</span></div>
-          <div class="fila-info"><strong>Total:</strong> <span>$${pedido.totalF.toFixed(2)}</span></div>
+          <div class="fila-info"><strong>Total:</strong> <span>$${pedido.total.toFixed(2)}</span></div>
         `;
 
         card.addEventListener("click", () => {
           pedidoSeleccionado = pedido;
+            localStorage.setItem("pedido_id_seguimiento", pedido.id_pedido); // guardar el seguimiento del pedido y  llevarlo a la página de seguimiento.
           abrirModalPedido(pedido);
         });
 
         contenedorPedidos.appendChild(card);
       });
     })
-    .catch(err => console.error("💥 Error al cargar pedidos:", err));
+    .catch(err => console.error("Error al cargar pedidos:", err));
 
   // Mostrar modal con datos del pedido
   function abrirModalPedido(pedido) {
