@@ -190,7 +190,7 @@ document.querySelector(".formulario-inicio-sesion").addEventListener("submit", a
     // Redirigir según el rol
     switch (data.idRol) {
       case 1: // Cliente
-        window.location.href = "../pages/cliente.html";
+        window.location.href = "../pages/sesion-iniciada.html";
         break;
       case 2: // Admin Restaurante
         window.location.href = "../../admin-feature/administrador/pages/editInfo.html";

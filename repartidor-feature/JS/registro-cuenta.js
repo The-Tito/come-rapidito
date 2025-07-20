@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mostrarPaso(1);
 });
 
+
 // Paso 2: Envío de datos del vehículo
 document.addEventListener('DOMContentLoaded', () => {
     const formularioVehiculo = document.getElementById("form-vehiculo");
@@ -207,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             alert("Vehículo registrado correctamente ✅");
             localStorage.setItem("abrirLogin", "true");
-            window.location.href = "../../cliente-feature/pages/index.html";
+            window.location.href = "../../repartidor-feature/pages/index.html";
         } catch (error) {
             console.error(error);
             alert("Error al registrar vehículo");
