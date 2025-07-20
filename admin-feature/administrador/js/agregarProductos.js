@@ -49,33 +49,33 @@ document.getElementById('inputImagen').onchange = function (event) {
 document.getElementById('formAgregarProducto').onsubmit = async function (e) {
   e.preventDefault();
   const form = e.target;
-
+   let tokenstorage = localStorage.getItem("token")
+  let nombrestorage = localStorage.getItem("nombre")
+  let nombre = nombrestorage.replace(/"/g, '');
+  let token = tokenstorage.replace(/"/g, '');
+  let id_restaurante = localStorage.getItem("id_restaurante");
   const formData = new FormData();
   formData.append("nombre", form.nombre.value);
   formData.append("descripcion", form.descripcion.value);
   formData.append("precio", form.precio.value);
   formData.append("id_categoria", form.id_categoria.value);
-  formData.append("id_restaurante", form.id_restaurante.value);
+  formData.append("id_restaurante", id_restaurante);
   if (imagenFile) formData.append("imagen", imagenFile);
-
-  try {
-    let response;
-    if (editando && productoEditandoId !== null) {
-      response = await fetch(`http://localhost:7000/api/products/${productoEditandoId}`, {
-        method: "PUT",
-        body: formData
-      });
-    } else {
-      if (!imagenFile) {
+  if (!imagenFile) {
         alert("Selecciona una imagen antes de guardar.");
         return;
       }
-      response = await fetch("http://localhost:7000/api/products", {
-        method: "POST",
-        body: formData
-      });
-    }
 
+  try {
+    let response;
+    response = await fetch(`http://localhost:7000/api/products`,{
+      method: 'POST',
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                "X-User-NAME": `${nombre}`
+              },
+              body: formData
+    });
     if (response.ok) {
       alert(editando ? "Producto actualizado correctamente." : "Producto agregado correctamente.");
       await getProductosDesdeAPI();
@@ -84,16 +84,17 @@ document.getElementById('formAgregarProducto').onsubmit = async function (e) {
       const errorText = await response.text();
       alert("Error al guardar: " + errorText);
     }
-  } catch (err) {
+  }catch (err) {
     console.error(err);
     alert("Error de conexión con la API.");
   }
-};
+}
 
 // =================== CARGAR DESDE API ===================
 async function getProductosDesdeAPI() {
   try {
-    let response = await fetch("http://localhost:7000/products");
+      const id_restaurante = localStorage.getItem("id_restaurante");
+    let response = await fetch(`http://localhost:7000/products/${id_restaurante}`);
     if (!response.ok) throw new Error("Error al obtener productos desde la API");
 
     const data = await response.json();

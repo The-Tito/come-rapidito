@@ -5,15 +5,7 @@ body {
   display: flex;
 }
 
-.sidebar {
-  width: 230px;
-  min-width: 230px;
-  background: #fff;
-  border-right: 2px solid #ededed;
-  min-height: 100vh;
-  position: relative;
-  z-index: 2;
-}
+
 .main-wrapper {
   flex: 1;
   display: flex;
