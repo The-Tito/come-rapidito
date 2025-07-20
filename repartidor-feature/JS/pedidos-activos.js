@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
 
 if (!token) {
-  console.error("❌ No hay token en localStorage, perro.");
+  console.error("No hay token en localStorage, perro.");
   return;
 }
 
@@ -45,7 +45,7 @@ if (!token) {
           <div class="fila-info"><strong>ID:</strong> <span>${pedido.id_pedido}</span></div>
           <div class="fila-info"><strong>Restaurante:</strong> <span>${pedido.restaurante.nombre_restaurante}</span></div>
           <div class="fila-info"><strong>Fecha:</strong> <span>${pedido.fecha_pedido}</span></div>
-          <div class="fila-info"><strong>Total:</strong> <span>$${pedido.totalFinal.toFixed(2)}</span></div>
+          <div class="fila-info"><strong>Total:</strong> <span>$${pedido.totalF.toFixed(2)}</span></div>
         `;
 
         card.addEventListener("click", () => {
