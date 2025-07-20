@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Estado del pedido</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../../Assets/iconLogo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/pantalla-carga.css">
+</head>
+<body>
+
+  <header class="encabezado">
+    <a href="#" class="encabezado-logo">
+      <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
+    </a>
+
+    <nav class="encabezado-navegacion">
+      <ul class="encabezado-lista">
+        <li><a href="#" class="encabezado-enlace">Home</a></li>
+        <li><a href="#" class="encabezado-enlace">Menu</a></li>
+        <li><a href="#" class="encabezado-enlace">Mi negocio</a></li>
+      </ul>
+    </nav>
+
+    <div class="encabezado-iconos">
+      <a href="#" class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Delivery"></a>
+      <a href="#" class="encabezado-icono"><img src="../../Assets/carrito.png" alt="Carrito"></a>
+      <div class="dropdown">
+        <a href="#" class="dropbtn">
+          <img src="../../Assets/iconUsuario .png" class="dropbtn_img" alt="Usuario">
+          Nombre Usuario
+        </a>
+        <div class="dropdown-content">
+          <a href="#">Cerrar Sesión</a>
+          <a href="#">Mi Cuenta</a>
+          <a href="#">Pedidos</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="loader-main">
+    <div class="loader"></div>
+    <p id="estado-pedido" class="loader-text"></p>
+  </main>
+
+  <script src="../JS/pantalla-carga.js"></script>
+
+</body>
+</html>

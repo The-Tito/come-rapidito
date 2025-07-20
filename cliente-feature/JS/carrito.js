@@ -1,183 +1,231 @@
-document.addEventListener('DOMContentLoaded', () => {
+const API_BASE = "http://localhost:7000";
+let restauranteIdActual = null;
 
-    // --- ELEMENTOS DEL DOM ---
-    const tituloCarritoLink = document.querySelector('.titulo-carrito');
-    const carritoVacioDiv = document.getElementById('carrito-vacio');
-    const carritoLlenoDiv = document.getElementById('carrito-lleno');
-    const listaProductosDiv = document.getElementById('lista-productos');
-    
-    const botonEncontrarProductos = document.getElementById('boton-encontrar-productos');
-    
-    // Resumen de pedido
-    const subtotalValorSpan = document.getElementById('subtotal-valor');
-    const totalValorSpan = document.getElementById('total-valor');
-    const cuotaServicio = 8;
-    let contadorProductos = 0;
+document.addEventListener("DOMContentLoaded", async () => {
+    restauranteIdActual = obtenerRestauranteIdDesdeURL();
+    if (!restauranteIdActual) {
+        alert("Restaurante no válido");
+        return;
+    }
 
-    // Modal
-    const seccionDireccion = document.getElementById('direccion-entrega');
-    const modalSuperposicion = document.getElementById('modal-direccion');
-    const botonRegresarAlCarrito = document.getElementById('boton-regresar-carrito');
-    const formularioDireccion = document.getElementById('formulario-direccion');
-    const avisoFormulario = document.getElementById('aviso-formulario');
-    const cuerpoDocumento = document.querySelector('body');
+    await cargarDatosRestaurante(restauranteIdActual);
+    inicializarModales();
+});
 
+function obtenerRestauranteIdDesdeURL() {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get("id"));
+}
 
-    // --- FUNCIONES ---
+async function cargarDatosRestaurante(restauranteId) {
+    const restaurantes = JSON.parse(sessionStorage.getItem("restaurantes")) || [];
 
-    // Función para actualizar el resumen del pedido
-    function actualizarResumen() {
-        const productos = document.querySelectorAll('.producto-item');
-        let subtotal = 0;
-        productos.forEach(producto => {
-            // Extraer el precio del texto. Ej: "$179.00" -> 179
-            const precioTexto = producto.querySelector('.producto-precio').textContent;
-            const precio = parseFloat(precioTexto.replace(/[^0-9.-]+/g,""));
-            subtotal += precio;
+    const restaurante = restaurantes.find(r => r.id_restaurante === restauranteId);
+    if (!restaurante) {
+        console.error("Restaurante no encontrado");
+        return;
+    }
+
+    actualizarInformacionRestaurante(restaurante);
+    actualizarModalRestaurante(restaurante);
+    await cargarProductosRestaurante(restauranteId);
+}
+
+function actualizarInformacionRestaurante(r) {
+    document.querySelector(".seccion-hero-restaurante-banner").src = r.banner_url || "";
+    document.querySelector(".informacion-logo").src = r.logo_url || "";
+    document.querySelector(".informacion-nombre").textContent = r.nombre;
+    document.querySelector(".informacion-detalle span b").textContent = r.telefono;
+    document.querySelectorAll(".informacion-detalle span b")[1].textContent = formatearHorario(r.horario_apertura, r.horario_cierre);
+    document.title = `${r.nombre} - Menú`;
+}
+
+function actualizarModalRestaurante(r) {
+    document.querySelector(".modal-logo-restaurante").src = r.logo_url || "";
+    document.querySelector(".modal-titulo").textContent = r.nombre;
+    document.querySelector(".modal-info-detalle span").textContent = r.telefono;
+    document.querySelectorAll(".modal-info-detalle span")[1].textContent = r.direccion;
+    document.querySelector(".modal-horario").textContent = formatearHorario(r.horario_apertura, r.horario_cierre);
+}
+
+function formatearHorario(apertura, cierre) {
+    function formato(h) {
+        const t = new Date(`1970-01-01T${h}`);
+        return t.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', hour12: true });
+    }
+    return `${formato(apertura)} - ${formato(cierre)}`;
+}
+
+async function cargarProductosRestaurante(idRestaurante) {
+    try {
+        const res = await fetch(`${API_BASE}/products/${idRestaurante}`);
+        if (!res.ok) throw new Error("Error cargando productos");
+
+        const productos = await res.json();
+        if (!productos.length) return mostrarMensajeVacio();
+
+        renderizarProductos(productos);
+    } catch (e) {
+        console.error("Error al cargar productos:", e);
+    }
+}
+
+function mostrarMensajeVacio() {
+    document.querySelector(".seccion-menu-productos").innerHTML = `
+        <div class="mensaje-vacio" style="text-align: center; padding: 40px;">
+            <h3>No hay productos disponibles</h3>
+            <p>Este restaurante aún no tiene productos en su menú.</p>
+        </div>
+    `;
+}
+
+function renderizarProductos(productos) {
+    const contenedor = document.querySelector(".seccion-menu-productos");
+    contenedor.innerHTML = "";
+
+    productos.forEach(prod => {
+        const article = document.createElement("article");
+        article.classList.add("producto-contenedor");
+
+        article.innerHTML = `
+            <img src="${prod.url_imagen || '../../Assets/pizzaPepperoni.png'}" alt="${prod.nombre}" class="producto-contenedor-imagen">
+            <div class="producto-contenedor-detalles">
+                <h4 class="detalles-nombre">${prod.nombre}</h4>
+                <p class="detalles-descripcion">${prod.descripcion}</p>
+                <p class="detalles-precio">$${prod.precio.toFixed(2)}</p>
+            </div>
+            <button class="producto-contenedor-agregar" data-id="${prod.id_producto}" data-nombre="${prod.nombre}" data-precio="${prod.precio}">
+                <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
+            </button>
+        `;
+
+        contenedor.appendChild(article);
+    });
+
+    agregarListenersAgregar();
+}
+
+function agregarListenersAgregar() {
+    const botones = document.querySelectorAll(".producto-contenedor-agregar");
+    const modalAgregado = document.getElementById("modal-agregado");
+
+    botones.forEach(boton => {
+        boton.addEventListener("click", async (e) => {
+            const btn = e.currentTarget;
+            const idProducto = parseInt(btn.dataset.id);
+            const nombre = btn.dataset.nombre;
+            const precio = parseFloat(btn.dataset.precio);
+
+            await agregarProductoAlCarrito({ id: idProducto, nombre, precio });
+
+            modalAgregado.classList.remove("oculto");
+            setTimeout(() => modalAgregado.classList.add("oculto"), 2500);
+        });
+    });
+}
+
+async function agregarProductoAlCarrito(producto) {
+    try {
+        const idUsuario = parseInt(localStorage.getItem("id_usuario"));
+        if (!idUsuario) return alert("Inicia sesión para agregar productos al carrito.");
+
+        const carrito = await obtenerOCrearCarritoActivo(idUsuario);
+
+        const body = {
+            id_carrito: carrito.id_carrito,
+            id_producto: producto.id,
+            cantidad: 1,
+            precio_unitario: producto.precio
+        };
+
+        const res = await fetch(`${API_BASE}/carrito/detalle`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
         });
 
-        const total = subtotal + cuotaServicio;
+        if (!res.ok) throw new Error("No se pudo agregar producto al carrito");
 
-        subtotalValorSpan.textContent = `$${subtotal}`;
-        totalValorSpan.textContent = `$${total}`;
+        console.log(`Producto "${producto.nombre}" agregado al carrito`);
+    } catch (err) {
+        console.error("Error al agregar producto:", err);
     }
+}
 
-    // Función para crear un nuevo item de producto
-    function crearProductoHTML() {
-        contadorProductos++;
-        const productoHTML = `
-            <div class="producto-item" id="producto-${contadorProductos}">
-                <img src="../../Assets/pizzaPepperoni.png" alt="imagen-pizza" class="producto-imagen">
-                <div class="producto-info">
-                    <h3>Pizza peperoni</h3>
-                    <p>Restaurante: La casa de las pizzas</p>
-                </div>
-                <p class="producto-precio">$179</p>
-                <div class="producto-controles">
-                    <button>
-                        <img src="../../Assets/disminuirProducto.png" alt="icono-eliminar">
-                    </button>
-                    <span>1</span>
-                    <button>
-                        <img src="../../Assets/agregarProducto.png" alt="icono-eliminar">
-                    </button>
-                </div>
-                <button class="boton-eliminar" data-product-id="producto-${contadorProductos}">
-                    <img src="../../Assets/eliminar.png" alt="icono-eliminar">
-                </button>
-            </div>
-        `;
-        return productoHTML;
-    }
-    
-    // Función para agregar un producto al carrito
-    function agregarProducto() {
-        // Cambiar de vista si es la primera vez
-        if (carritoVacioDiv.classList.contains('visible')) {
-            carritoVacioDiv.classList.remove('visible');
-            carritoVacioDiv.classList.add('oculto');
-            carritoLlenoDiv.classList.remove('oculto');
-            carritoLlenoDiv.style.display = 'flex'; // Aseguramos el display correcto
-        }
-        
-        // Agregar el producto al DOM
-        const nuevoProducto = crearProductoHTML();
-        listaProductosDiv.insertAdjacentHTML('beforeend', nuevoProducto);
-        
-        // Actualizar el resumen
-        actualizarResumen();
-    }
-    
-    // Función para eliminar un producto
-    function eliminarProducto(idProducto) {
-        const productoParaEliminar = document.getElementById(idProducto);
-        if (productoParaEliminar) {
-            productoParaEliminar.remove();
-            actualizarResumen();
-            
-            // Si ya no quedan productos, volver a la vista de carrito vacío
-            if (listaProductosDiv.children.length === 0) {
-                 carritoVacioDiv.classList.add('visible');
-                 carritoVacioDiv.style.display = 'flex';
-                 carritoLlenoDiv.classList.add('oculto');
-                 contadorProductos = 0; // resetear contador
-            }
-        }
-    }
-    
-    // --- EVENT LISTENERS ---
+async function obtenerOCrearCarritoActivo(idUsuario) {
+    const res = await fetch(`${API_BASE}/carrito/activo/${idUsuario}`);
+    if (res.ok) return await res.json();
 
-    // 1. Agregar producto al hacer clic en "Tu carrito"
-    tituloCarritoLink.addEventListener('click', (e) => {
-        e.preventDefault(); // Evita que la página recargue si es un link
-        agregarProducto();
+    const crear = await fetch(`${API_BASE}/carrito`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id_usuario: idUsuario,
+            fecha_creacion: new Date().toISOString(),
+            activo: true
+        })
     });
-    
-    // Event listener para los botones de eliminar (usando delegación de eventos)
-    listaProductosDiv.addEventListener('click', (e) => {
-        const boton = e.target.closest('.boton-eliminar');
-        if (boton) {
-            const id = boton.dataset.productId;
-            eliminarProducto(id);
+
+    if (!crear.ok) throw new Error("Error creando carrito");
+
+    return await crear.json();
+}
+
+function inicializarModales() {
+    const mainContainer = document.getElementById("main-container");
+
+    const bannerRestaurante = document.getElementById("banner-restaurante");
+    const modalInfo = document.getElementById("modal-info-restaurante");
+    const btnCerrarInfo = document.getElementById("cerrar-modal-info");
+
+    const linksConfirmar = document.querySelectorAll(".nav-link-confirm");
+    const modalConfirmar = document.getElementById("modal-confirmar-salida");
+    const btnSalir = document.getElementById("btn-salir");
+    const btnContinuar = document.getElementById("btn-continuar");
+
+    bannerRestaurante.addEventListener("click", () => {
+        modalInfo.classList.remove("oculto");
+        mainContainer.classList.add("blur-effect");
+    });
+
+    btnCerrarInfo.addEventListener("click", () => {
+        modalInfo.classList.add("oculto");
+        mainContainer.classList.remove("blur-effect");
+    });
+
+    modalInfo.addEventListener("click", (e) => {
+        if (e.target === modalInfo) {
+            modalInfo.classList.add("oculto");
+            mainContainer.classList.remove("blur-effect");
         }
     });
 
-    // 2. Botón "Encuentra productos" regresa a la página anterior
-    botonEncontrarProductos.addEventListener('click', () => {
-        history.back();
+    let urlParaRedirigir = null;
+
+    linksConfirmar.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            urlParaRedirigir = e.currentTarget.href;
+            modalConfirmar.classList.remove("oculto");
+            mainContainer.classList.add("blur-effect");
+        });
     });
 
-    // 3. Abrir el modal de dirección
-    seccionDireccion.addEventListener('click', () => {
-        modalSuperposicion.classList.remove('oculto');
-        // Agregamos un ligero delay para la animación del blur
-        setTimeout(() => {
-            cuerpoDocumento.classList.add('desenfoque');
-        }, 10);
-    });
-
-    // 4. Cerrar el modal de dirección con el botón "Regresar"
-    botonRegresarAlCarrito.addEventListener('click', () => {
-        cuerpoDocumento.classList.remove('desenfoque');
-        modalSuperposicion.classList.add('oculto');
-    });
-
-    // 5. Manejo del formulario de dirección
-    formularioDireccion.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevenir el envío real del formulario
-
-        // Obtener los valores de los inputs
-        const calle = document.getElementById('calle').value.trim();
-        const colonia = document.getElementById('colonia').value.trim();
-        const numero_casa = document.getElementById('numero_casa').value.trim();
-        const codigo_postal = document.getElementById('codigo_postal').value.trim();
-        const referencias = document.getElementById('referencias').value.trim();
-
-        // Validar que los campos no estén vacíos
-        if (!calle || !colonia || !numero_casa || !codigo_postal || !referencias) {
-            // Mostrar la advertencia si algún campo está vacío
-            avisoFormulario.classList.remove('oculto');
-        } else {
-            // Ocultar la advertencia si todo está bien
-            avisoFormulario.classList.add('oculto');
-
-            // Aquí puedes procesar los datos, por ejemplo, enviarlos a un servidor.
-            // Por ahora, solo los mostraremos en la consola como solicitaste.
-            const datosDireccion = {
-                calle,
-                colonia,
-                numero_casa,
-                codigo_postal,
-                referencias
-            };
-            
-            console.log("Datos del formulario a enviar:", datosDireccion);
-            alert("¡Pedido confirmado! Revisa la consola para ver los datos de la dirección.");
-
-            // Opcional: Cerrar el modal y redirigir a una página de éxito
-            modalSuperposicion.classList.add('oculto');
-            cuerpoDocumento.classList.remove('desenfoque');
-            // window.location.href = 'pagina-de-exito.html';
+    btnSalir.addEventListener("click", () => {
+        if (urlParaRedirigir) {
+            window.location.href = urlParaRedirigir;
         }
     });
-});
+
+    btnContinuar.addEventListener("click", () => {
+        modalConfirmar.classList.add("oculto");
+        mainContainer.classList.remove("blur-effect");
+    });
+
+    modalConfirmar.addEventListener("click", (e) => {
+        if (e.target === modalConfirmar) {
+            modalConfirmar.classList.add("oculto");
+            mainContainer.classList.remove("blur-effect");
+        }
+    });
+}

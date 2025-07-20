@@ -1,6 +1,4 @@
-// Script para cargar datos del restaurante dinámicamente
-// Asume que tienes un array de restaurantes llamado 'restaurantes'
-// y el ID del restaurante actual en 'restauranteId'
+
 
 function cargarDatosRestaurante(restauranteId) {
     const restaurantes = JSON.parse(sessionStorage.getItem('restaurantes'));
@@ -291,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('No se encontró ID del restaurante en la URL');
         // Redirigir a la página principal o mostrar error
-        window.location.href = '/index.html';
+     //   window.location.href = '/index.html';
     }
     
     // Inicializar la lógica de modales
