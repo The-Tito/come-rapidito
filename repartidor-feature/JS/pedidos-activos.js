@@ -1,4 +1,12 @@
+
 document.addEventListener("DOMContentLoaded", () => {
+  let idUsuario = localStorage.getItem("id_usuario");
+  let tokenstorage = localStorage.getItem("token")
+  let nombrestorage = localStorage.getItem("nombre")
+  let nombre = nombrestorage.replace(/"/g, '');
+  let token = tokenstorage.replace(/"/g, '');
+  console.log(nombre)
+  console.log(token)
   const contenedorPedidos = document.querySelector(".contenedor-pedidos");
   const modalPedido = document.getElementById("modal-pedido");
   const modalTarifa = document.getElementById("modal_tarifa");
@@ -16,21 +24,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let pedidoSeleccionado = null;
 
-  const token = localStorage.getItem("token");
 
 if (!token) {
   console.error("No hay token en localStorage, perro.");
   return;
 }
 
+  const order = {
+    id_status: 1
+  }
 
   fetch("http://localhost:7000/api/orders/delivery", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
+      "Authorization": `Bearer ${token}`,
+      "X-User-NAME": `${nombre}`
     },
-    mode: "cors"
+    body: JSON.stringify(order)
   })
     .then(res => {
       if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
@@ -66,7 +77,8 @@ if (!token) {
     document.getElementById("num_telefono").textContent = pedido.numero_telefono || "N/A";
     document.getElementById("id_direccion").textContent =
       `${pedido.direccion.calle}, ${pedido.direccion.colonia}, ${pedido.direccion.numero_casa}, ${pedido.direccion.codigo_postal}`;
-    document.getElementById("subtotal").textContent = `Subtotal: $${pedido.totalFinal.toFixed(2)}`;
+    document.getElementById("subtotal").textContent = `Subtotal: $${pedido.total.toFixed(2)}`;
+
   }
 
   btnRegresar.addEventListener("click", () => {
@@ -95,7 +107,8 @@ if (!token) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        "X-User-NAME": `${nombre}`
       },
       body: JSON.stringify({ tarifa })
     })
@@ -109,9 +122,10 @@ if (!token) {
         modalConfirmacion.classList.remove("oculto");
 
         // Actualizar total en memoria y UI
-        const nuevoTotal = pedidoSeleccionado.totalFinal + tarifa;
-        pedidoSeleccionado.totalFinal = nuevoTotal;
+        const nuevoTotal = pedidoSeleccionado.total + tarifa;
+        pedidoSeleccionado.total = nuevoTotal;
         document.getElementById("subtotal").textContent = `Subtotal: $${nuevoTotal.toFixed(2)}`;
+
       })
       .catch(err => console.error("💥 Error PUT tarifa:", err));
   });
