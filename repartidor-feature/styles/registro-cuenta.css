@@ -234,7 +234,6 @@ body {
     width: 100%;
     padding: 15px;
     background-color: var(--color-principal);
-    color: white;
     border: none;
     border-radius: 12px;
     font-size: 1.1rem;
@@ -247,4 +246,9 @@ body {
 
 .boton-enviar:hover {
     background-color: #E03026;
+}
+
+a{
+        color: white;
+    text-decoration: none;
 }
