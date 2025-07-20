@@ -25,12 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let pedidoSeleccionado = null;
 
   if (!token) {
-  console.error("No hay token en localStorage, perro.");
+  console.error("No hay token en localStorage.");
   return;
 }
 
   const order = {
-    id_status: 8 //
+    id_status: 8 //activo
   }
 
   fetch("http://localhost:7000/api/orders/delivery", {
