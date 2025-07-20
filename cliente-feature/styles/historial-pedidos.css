@@ -1,0 +1,222 @@
+:root {
+    --color-primario: #FF502D;
+    --color-secundario: #FCBF30; /* Color para la estrella */
+    --color-texto: #333;
+    --color-borde: #ddd;
+    --color-fondo: #FFFFFF;
+    --color-fondo-ligero: #F8F9FA;
+    --fuente-principal: 'Montserrat', sans-serif;
+    --fuente-titulo: 'Mouse Memoirs', cursive;
+}
+
+/* --- ESTILOS GENERALES --- */
+body {
+    font-family: var(--fuente-principal);
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.1rem 4%; /* REDUCIDO el alto */
+    position: fixed;
+    width: 100%;
+    z-index: 1000; /*lo hace fije*/
+    background-color: white;
+    box-shadow: 0px 8px 10px 0px rgba(168, 166, 166, 0.2)
+
+   
+}
+
+.encabezado-logo img {
+    height: 38px; 
+}
+
+.encabezado-lista {
+    list-style: none;
+    display: flex;
+    gap: 120px;
+}
+
+.encabezado-enlace {
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+.encabezado-iconos {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.encabezado-icono {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+a.encabezado-icono{
+  gap: 4px;
+}
+.encabezado-icono img {
+    height: 24px;
+}
+.encabezado-icono-carrito{
+    height: 30px;
+}
+
+/*dropdown*/
+
+.dropbtn {
+  color: var(--color-primario);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--fuente-principal);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropbtn_img{
+    height: 24px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+main{
+  padding-top: 80px;
+}
+/* --- CONTENEDOR PRINCIPAL Y CABECERA --- */
+.contenedor-principal {
+    width: 100%;
+    max-width: 1100px;
+}
+
+.cabecera-historial {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.titulo-historial {
+    font-family: var(--fuente-titulo);
+    color: var(--color-primario);
+    font-size: 2.8rem;
+    font-weight: 400;
+}
+
+.filtro-seleccion {
+    font-family: var(--fuente-principal);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    background-color: var(--color-fondo);
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23a0a0a0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 0.65em auto;
+    padding-right: 2.5rem;
+}
+/* tabla para pedidos */
+.cuadricula-pedidos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+/* contenedor de pedidos */
+.tarjeta-pedido {
+    border: 1px solid var(--color-borde);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: grid;
+    gap: 0.8rem;
+}
+
+.pedido-fecha {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.pedido-restaurante {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-texto);
+}
+
+.pedido-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.restaurante-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #eee;
+}
+
+
+.pedido-total {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.pedido-calificacion {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+}

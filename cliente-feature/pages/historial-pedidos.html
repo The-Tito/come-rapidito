@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Pedidos - Come Rapidito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/historial-pedidos.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <a href="" class="encabezado-logo">
+            <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
+        </a>
+        <nav class="encabezado-navegacion">
+            <ul class="encabezado-lista">
+                <li class="encabezado-item"><a href="../pages/index.html" class="encabezado-enlace">Home</a></li>
+                <li class="encabezado-item"><a href="./pedidos.html" class="encabezado-enlace">Pedidos</a></li>
+                <li class="encabezado-item"><a href="../../admin-feature/administrador/pages/registro.html" id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
+            </ul>
+        </nav>
+        <div class="encabezado-iconos">
+            <a href="../../repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor" class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+
+            <a href="../pages/carrito.html" class="encabezado-icono"><img src="../../Assets/carrito.png" alt="Icono carrito"></a>
+        </div>
+
+                    <div class="dropdown">
+                <a href="" id="abrir-modal-login" class="dropbtn">
+                    <img src="../../Assets/iconUsuario .png" alt="Icono usuario" class="dropbtn_img"> Nombre Usuario </a>
+                    
+                    <div class="dropdown-content">
+                         <a href="../pages/index.html">Cerrar Sesión</a>
+                         <a href="../pages/modificar-cuenta.html">Mi Cuenta</a>
+                         <a href="#">Pedidos</a>
+                    </div>
+            </div>
+    </header>
+
+    <main class="contenedor-principal">
+        <div class="cabecera-historial">
+            <h1 class="titulo-historial">HISTORIAL DE PEDIDOS</h1>
+            <div class="filtro-contenedor">
+                <select class="filtro-seleccion">
+                    <option value="">Filtrar por</option>
+                    <option value="fecha">Fecha</option>
+                    <option value="calificacion">Calificación</option>
+                </select>
+            </div>
+        </div>
+
+        <section class="cuadricula-pedidos">
+
+            <!-- Pedido 1 -->
+            <article class="tarjeta-pedido">
+                <p class="pedido-fecha">16/06/2025</p>
+                <div class="pedido-info">
+                    <img src="../../Assets/LogoRestaurante.png" alt="Logo del restaurante" class="restaurante-logo">
+                    <h2 class="pedido-restaurante">La casa de las pizzas</h2>
+                </div>
+                <p class="pedido-total">Total MX$391.00</p>
+                <div class="pedido-calificacion">
+                    <img src="../../Assets/estrella.png" alt="Ícono de estrella" class="estrella-icono">
+                    <span>5</span>
+                </div>
+            </article>
+
+            <!-- Pedido 2 -->
+            <!-- Pedido 1 -->
+            <article class="tarjeta-pedido">
+                <p class="pedido-fecha">16/06/2025</p>
+                <div class="pedido-info">
+                    <img src="../../Assets/LogoRestaurante.png" alt="Logo del restaurante" class="restaurante-logo">
+                    <h2 class="pedido-restaurante">La casa de las pizzas</h2>
+                </div>
+                <p class="pedido-total">Total MX$391.00</p>
+                <div class="pedido-calificacion">
+                    <img src="../../Assets/estrella.png" alt="Ícono de estrella" class="estrella-icono">
+                    <span>5</span>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+</body>
+</html>
