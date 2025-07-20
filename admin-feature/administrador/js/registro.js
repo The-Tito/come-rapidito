@@ -108,7 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem("id_usuario_admin", data.id_usuario);
       localStorage.setItem("token", data.token); // token JWT u otro
       localStorage.setItem("nombre_usuario", data.nombre); // o data.nombre_completo
-
+      
+  
     } catch (error) {
       console.error(error);
       alert("Error al registrar usuario");
@@ -178,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       alert("Restaurante registrado exitosamente✅");
       localStorage.setItem("abrirLogin", "true");
+      localStorage.setItem("id_restaurante", data.id_restaurante);
       window.location.href = "../../cliente-feature/pages/index.html";
   } catch (error) {
       console.error(error);
