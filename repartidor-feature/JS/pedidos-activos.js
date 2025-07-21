@@ -33,15 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
     id_status: 8 //activo
   }
 
-fetch("http://localhost:7000/api/orders/delivery", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`,
-    "X-User-NAME": `${nombre}`
-  },
-  body: JSON.stringify({ id_status: 8 }) // 'activo'
-})
+
+  fetch("http://localhost:7000/api/orders/delivery", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+      "X-User-NAME": `${nombre}`
+    },
+    body: JSON.stringify(order)
+  })
     .then(res => {
       if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
       return res.json();
