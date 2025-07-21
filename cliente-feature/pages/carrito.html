@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Carrito</title>
 
+    
     <link rel="icon" href="../../Assets/iconLogo.png">
     <link rel="stylesheet" href="../styles/carrito.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
 <header class="encabezado">
-        <a href="" class="encabezado-logo">
+        <a href="index.html" class="encabezado-logo">
             <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
         </a>
         <nav class="encabezado-navegacion">
@@ -42,12 +44,12 @@
         <div id="carrito-vacio" class="carrito-vacio-contenedor visible">
             <p>Parece que tu carrito está vacío</p>
             <p class="texto-secundario">Abre la página de una tienda y agrega a tu carrito los productos que desees pedir</p>
-           <a href="../pages/sesion-iniciada.html">
-                <button id="boton-encontrar-productos" class="boton-principal">
+        <a href="index.html">
+            <button id="boton-encontrar-productos" class="boton-principal"  >
                 <img src="../../Assets/flechaBlanca.png" alt="icono-flecha-izquierda">
                 Encuentra productos
             </button>
-           </a> 
+            </a>
         </div>
 
         <!-- oculto de momento -->
@@ -65,11 +67,12 @@
                 <div id="lista-productos" class="lista-productos">
                    <!-- los productos se agregan -->
                 </div>
-
+                
                 <button class="boton-agregar-mas"  onclick="volverAtras()">
                     <img src="../../Assets/flechaNaranja.png" alt="icono-flecha-izquierda-roja">
                     Agregar más productos
                 </button>
+            
             </div>
             <div class="columna-derecha">
                 <div class="resumen-pedido">

@@ -183,6 +183,7 @@ document.querySelector(".formulario-inicio-sesion").addEventListener("submit", a
     const data = await response.json();
 
     // Guardar en sessionStorage
+    
     localStorage.setItem("nombre", JSON.stringify(data.nombre));
     localStorage.setItem("token", JSON.stringify(data.token));
     localStorage.setItem("idRol", data.idRol);

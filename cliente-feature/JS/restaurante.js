@@ -1,4 +1,5 @@
 
+let currentRestauranteId = null; // Declare a variable to store the restaurant ID
 
 function cargarDatosRestaurante(restauranteId) {
     const restaurantes = JSON.parse(sessionStorage.getItem('restaurantes'));
@@ -9,14 +10,17 @@ function cargarDatosRestaurante(restauranteId) {
     }
 
     const restaurante = restaurantes.find(r => r.id_restaurante === restauranteId);
-
+    // const id_restaurante = restaurante.id_restaurante; // This line is redundant here
     if (!restaurante) {
         console.error('Restaurante no encontrado');
         return;
     }
 
+    // Set the global currentRestauranteId here
+    currentRestauranteId = restauranteId; 
+
     actualizarInformacionRestaurante(restaurante);
-    actualizarModalRestaurante(restaurante); // Nueva función para actualizar el modal
+    actualizarModalRestaurante(restaurante); 
     cargarProductosRestaurante(restauranteId)
 }
 
@@ -214,8 +218,8 @@ function reagregarEventListenersProductos() {
     botonesAgregar.forEach(boton => {
         boton.addEventListener('click', (e) => {
             const productoId = e.currentTarget.dataset.productoId;
-            const restauranteId = e.currentTarget.dataset.r
             const productoNombre = e.currentTarget.dataset.productoNombre;
+            const id_restaurante = e.currentTarget.dataset.productorestauranteId;
             const productoPrecio = parseFloat(e.currentTarget.dataset.productoPrecio);
             const url_imagen = e.currentTarget.dataset.productoUrlImagen;
             console.log(url_imagen);
@@ -224,6 +228,7 @@ function reagregarEventListenersProductos() {
                 id: productoId,
                 nombre: productoNombre,
                 precio: productoPrecio,
+                id_restaurante: currentRestauranteId,
                 url_imagen: url_imagen
             });
             
@@ -254,7 +259,7 @@ function agregarAlCarrito(producto) {
                 nombre: producto.nombre,
                 precio: producto.precio,
                 url_imagen: producto.url_imagen,
-                id_restaurante: id_restaurante,
+                id_restaurante: currentRestauranteId,
                 cantidad: 1
             });
         }
