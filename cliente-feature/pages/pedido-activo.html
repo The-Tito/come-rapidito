@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento de Pedido</title>
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/pedido-activo.css">
+    <link rel="stylesheet" href="../styles/carrito.css">
+</head>
+<body>
+
+    <!-- para cambiar el stepper tienes q modificar el status de main(1, 2 o 3) -->
+    <main class="tracking-container status-2">
+        <div class="back-pedidos">
+        <a href="pedidos-sesion.html   ">
+        <button class="boton-agregar-mas"  >
+                    <img src="../../Assets/flechaNaranja.png" alt="icono-flecha-izquierda-roja">
+                    Agregar más productos
+                </button>
+                </a>
+                </div>
+        <h1 class="tracking-title">SEGUIMIENTO DEL PEDIDO</h1>
+        <p class="order-id"></p>
+
+        <div class="stepper">
+            <div class="step step-1">EN PREPARACIÓN</div>
+            <div class="step step-2">EN CAMINO</div>
+            <div class="step step-3">ENTREGADO</div>
+        </div>
+
+        <div class="details-grid">
+            <section class="card order-summary">
+                <h2 class="card-title">Resumen del pedido</h2>
+                <div class="restaurant-info">
+                    
+                    <span></span>
+                </div>
+                <div class="price-details">
+                    <div class="price-item">
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="price-item">
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="price-item">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="price-total">
+                    <span></span>
+                    <span></span>
+                </div>
+            </section>
+
+            <section class="card delivery-details">
+                <h2 class="card-title">Detalles</h2>
+                <div class="detail-item">
+                    <span class="detail-label">Tiempo de espera:</span>
+                    <span class="detail-value">20-30 minutos</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">El repartidor te llamará para que salgas a recibir tu pedido</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label"></span>
+                    <span class="detail-value"></span>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="../JS/sesion-iniciada.js"></script>
+    <script src="../JS/pedido-activo.js""></script>
+</body>
+</html>

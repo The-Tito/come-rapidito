@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("Restaurante registrado exitosamente✅");
       localStorage.setItem("abrirLogin", "true");
       localStorage.setItem("id_restaurante", data.id_restaurante);
-      window.location.href = "../../cliente-feature/pages/index.html";
+      window.location.href = "../../../cliente-feature/pages/index.html";
   } catch (error) {
       console.error(error);
       alert("Error al registrar restaurante");
