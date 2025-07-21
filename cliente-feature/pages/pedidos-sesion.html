@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento de Pedido</title>
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/pedidos.css">
+    <link rel="stylesheet" href="../styles/carrito.css">
+</head>
+<body>
+
+   <header class="encabezado">
+        <a href="sesion-iniciada.html" class="encabezado-logo">
+            <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
+        </a>
+
+        <nav class="encabezado-navegacion">
+            <ul class="encabezado-lista">
+                <li class="encabezado-item"><a href="../pages/sesion-iniciada.html" class="encabezado-enlace">Home</a></li>
+                <li class="encabezado-item"><a href="./pedidos-sesion.html" class="encabezado-enlace">Pedidos</a></li>
+                <li class="encabezado-item"><a href="../../admin-feature/administrador/pages/registro.html" id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
+            </ul>
+        </nav>
+
+        <div class="encabezado-iconos">
+            <a href="../../repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor" class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+            <a href="../pages/carrito-sesion.html" class="encabezado-icono"><img src="../../Assets/carrito.png" alt="Icono carrito"></a>
+
+
+            <div class="dropdown">
+                <a href=""class="dropbtn">
+                    <img src="../../Assets/iconUsuario .png" alt="Icono usuario" class="dropbtn_img">
+                    <span id="usuarioNombre">Invitado</span> </a>
+
+                <div class="dropdown-content">
+                    <a href="#">Historial</a>
+                    <a href="../pages/modificar-cuenta.html">Mi Cuenta</a>
+                    <a href="../pages/index.html">Cerrar Sesión</a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- para cambiar el stepper tienes q modificar el status de main(1, 2 o 3) -->
+    <main class="tracking-container status-3">
+        <h1 class="tracking-title">SEGUIMIENTO DEL PEDIDO</h1>
+        <p class="order-id">Pedido #2134 realizado</p>
+
+        <div class="stepper">
+            <div class="step step-1">EN PREPARACIÓN</div>
+            <div class="step step-2">EN CAMINO</div>
+            <div class="step step-3">ENTREGADO</div>
+        </div>
+
+        <div class="details-grid">
+            <section class="card order-summary">
+                <h2 class="card-title">Resumen del pedido</h2>
+                <div class="restaurant-info">
+                    <img src="" alt="Logo La casa de las pizzas" class="restaurant-logo"> <!-- ESPACIO PARA LOGO RESTAURANTE -->
+                    <span>La casa de las pizzas</span>
+                </div>
+                <div class="price-details">
+                    <div class="price-item">
+                        <span>Subtotal</span>
+                        <span>$358.00</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Costo de envío</span>
+                        <span>$25.00</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Cuota de servicio</span>
+                        <span>$8.00</span>
+                    </div>
+                </div>
+                <div class="price-total">
+                    <span>Total</span>
+                    <span>$391.00</span>
+                </div>
+            </section>
+
+            <section class="card delivery-details">
+                <h2 class="card-title">Detalles</h2>
+                <div class="detail-item">
+                    <span class="detail-label">Tiempo de espera:</span>
+                    <span class="detail-value">20-30 minutos</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">El repartidor te llamará para que salgas a recibir tu pedido</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Dirección</span>
+                    <span class="detail-value">Av. Segunda Sur Ote. s/n, San Jacinto</span>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="../JS/sesion-iniciada.js"></script>
+</body>
+</html>

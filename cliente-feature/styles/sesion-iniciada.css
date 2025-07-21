@@ -24,7 +24,6 @@ body {
     background-color: white;
 }
 
-
 .encabezado {
     display: flex;
     justify-content: space-between;
@@ -76,6 +75,7 @@ a.encabezado-icono{
 .encabezado-icono-carrito{
     height: 30px;
 }
+
 
 main{
   padding-top: 80px;
@@ -138,6 +138,9 @@ main{
 
 .boton-secundario {
     color: white;
+}
+#conoce-mas{
+    background-color: transparent;
 }
 
 .seccion-principal-imagen-contenedor {
@@ -370,50 +373,4 @@ main{
 
 .boton-continuar:hover {
     opacity: 0.9;
-}
-
-/*dropdown*/
-
-.dropbtn {
-  color: var(--color-primario);
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: var(--fuente-principal);
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dropbtn_img{
-    height: 24px;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-  display: block;
 }
