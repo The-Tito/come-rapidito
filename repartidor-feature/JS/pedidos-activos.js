@@ -132,6 +132,7 @@ fetch("http://localhost:7000/api/orders/delivery", {
 
   btnContinuar.addEventListener("click", () => {
     modalConfirmacion.classList.add("oculto");
+    window.location.href = "../seguimiento.html"; // Redirigir a seguimiento
   });
 
   tarifaSelect.addEventListener("change", () => {
