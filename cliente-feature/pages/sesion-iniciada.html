@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Come Rapidito</title>
-    
+
     <link rel="icon" href="../../Assets/iconLogo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Mouse+Memoirs&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="../styles/carrito.css">
     <link rel="stylesheet" href="../styles/sesion-iniciada.css">
+    
+   
 </head>
+
 <body>
 
     <header class="encabezado">
-        <a href="" class="encabezado-logo">
+        <a href="sesion-iniciada.html" class="encabezado-logo">
             <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
         </a>
 
         <nav class="encabezado-navegacion">
             <ul class="encabezado-lista">
-                <li class="encabezado-item"><a href="../pages/sesion-iniciada.html" class="encabezado-enlace">Home</a></li>
-                <li class="encabezado-item"><a href="./pedidos.html" class="encabezado-enlace">Pedidos</a></li>
-                <li class="encabezado-item"><a href="../../admin-feature/administrador/pages/registro.html" id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
+                <li class="encabezado-item"><a href="../pages/sesion-iniciada.html" class="encabezado-enlace">Home</a>
+                </li>
+                <li class="encabezado-item"><a href="./pedidos-sesion.html" class="encabezado-enlace">Pedidos</a></li>
+                <li class="encabezado-item"><a href="../../admin-feature/administrador/pages/registro.html"
+                        id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
             </ul>
         </nav>
 
         <div class="encabezado-iconos">
-            <a href="../../repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor" class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
-            <a href="../pages/carrito.html" class="encabezado-icono"><img src="../../Assets/carrito.png" alt="Icono carrito"></a>
+            <a href="../../repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor"
+                class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+            <a href="carrito-sesion.html" class="encabezado-icono"><img src="../../Assets/carrito.png"
+                    alt="Icono carrito"></a>
 
 
             <div class="dropdown">
-                <a href="" id="abrir-modal-login" class="dropbtn">
-               
-                <img src="../../Assets/iconUsuario .png" alt="Icono usuario" class="dropbtn_img">
-               
-                <span id="nombre">Invitado</span> </a>
-                    
-            <div class="dropdown-content">
-                 <a href="../pages/index.html">Cerrar Sesión</a>
+                <a href=""class="dropbtn">
+                    <img src="../../Assets/iconUsuario .png" alt="Icono usuario" class="dropbtn_img">
+                    <span id="usuarioNombre"></span> </a>
+
+                <div class="dropdown-content">
+                    <a href="historial-pedidos.html">Historial</a>
                     <a href="../pages/modificar-cuenta.html">Mi Cuenta</a>
-                     <a href="#">Pedidos</a>
+ <a href="../pages/index.html" id="cerrar-sesion">Cerrar Sesión</a>
+                </div>
+
+                     <a href="../pages/historial-pedidos.html">Pedidos</a>
                     </div>
+
             </div>
 
         </div>
     </header>
 
+   
     <main>
         <section class="seccion-principal">
             <div class="seccion-principal-contenido">
                 <h1 class="seccion-principal-titulo">COME BIEN,<br>COME RAPIDITO</h1>
                 <p class="seccion-principal-descripcion">Haz tu vida más fácil con la mejor empresa delivery de Suchiapa</p>
                 <div class="seccion-principal-botones">
-                    <a href="" class="boton boton-primario">Pide ahora</a>
-                    <a href="" class="boton boton-secundario">Conoce más →</a>
+                    <a href="#restaurantes" class="boton boton-primario">Pide ahora</a>
+                    <a href="" class="boton boton-secundario" id="conoce-mas">Conoce más →</a>
                 </div>
             </div>
             <div class="seccion-principal-imagen-contenedor">
                 <img src="../../Assets/imagenHero.png" alt="imagen Hero" class="seccion-principal-imagen">
             </div>
         </section>
-
 
         <section class="seccion-restaurantes" id="restaurantes">
             <div class="seccion-restaurantes-encabezado">
@@ -81,7 +93,7 @@
                     <button class="carrusel-boton carrusel-boton-izquierda" aria-label="Anterior"><</button>
                     <div class="carrusel-contenedor">
                         <div class="carrusel-pista">
-                            <div class="carrusel-item"><a href="../pages/restaurante.html"><img src="../../Assets/LogoRestaurante.png" alt="Logo restaurante 1"></a></div>
+                            <div class="carrusel-item"><a href="./restaurante.html"><img src="../../Assets/LogoRestaurante.png" alt="Logo restaurante 1"></a></div>
                             <div class="carrusel-item"><img src="../../Assets/restaurante2.png" alt="Logo restaurante 2"></div>
                             <div class="carrusel-item"><img src="../../Assets/restaurante3.png" alt="Logo restaurante 3"></div>
                             <div class="carrusel-item"><img src="../../Assets/restaurante4.png" alt="Logo restaurante 4"></div>
@@ -107,9 +119,38 @@
         </section>
     </main>
 
+    
+    <!-- Modal de iniciar sesion -->
+    <div class="modal-superposicion" id="modal-login">
+    <div class="modal">
+        <h2 class="modal-titulo">Iniciar sesión para continuar</h2>
+
+        <form class="formulario-inicio-sesion">
+            <div class="formulario-grupo">
+                <label for="number" class="formulario-etiqueta">Telefono</label>
+                <input type="text" id="telefono" class="formulario-entrada" placeholder="Telefono" required>
+            </div>
+            <div class="formulario-grupo">
+                <label for="password" class="formulario-etiqueta">Contraseña</label>
+                <input type="password" id="password" class="formulario-entrada" placeholder="Contraseña" required>
+            </div>
+        
+
+        <p class="modal-enlace-registro">
+            ¿No tienes una cuenta? <a href="../pages/registro-cuenta.html">Regístrate aquí</a>
+        </p>
+
+        <div class="modal-botones">
+            <button class="boton-modal boton-regresar" id="cerrar-modal-login">Regresar</button>
+            <button class="boton-modal boton-continuar" type="submit">Continuar</button>
+        </div>
+        </form>
+    </div>
+
+</div>
+
 </body>
-<script src="../JS/index.js"></script>
-<script src="../JS/usuario.js" defer></script>
-<script src="../JS/registro-cuenta.js"></script>
+
+<script src="../JS/sesion-iniciada.js"></script>
 
 </html>

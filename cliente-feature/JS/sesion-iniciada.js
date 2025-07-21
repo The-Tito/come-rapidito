@@ -1,3 +1,15 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const nombreGuardado = localStorage.getItem("nombre");
+
+    if (nombreGuardado) {
+        const nombre = JSON.parse(nombreGuardado); // Deserializa el nombre
+        const usuarioSpan = document.getElementById("usuarioNombre");
+
+        if (usuarioSpan) {
+            usuarioSpan.textContent = nombre;
+        }
+    }
+});
 document.addEventListener('DOMContentLoaded', () => {
 
   const abrirLogin = localStorage.getItem("abrirLogin");
@@ -119,7 +131,7 @@ function crearCarrusel(restaurantes) {
     const item = document.createElement("div");
     item.className = "carrusel-item";
     item.innerHTML = `
-      <a href="../pages/restaurante.html?id=${r.id_restaurante}">
+      <a href="../pages/restaurante-sesion.html?id=${r.id_restaurante}">
         <img src="${r.logo_url}" alt="Logo ${r.nombre_restaurante}" loading="lazy">
       </a>
     `;
@@ -155,59 +167,10 @@ function agregarEventosCarrusel() {
   });
 }
 
-// Login con teléfono y contraseña
-document.querySelector(".formulario-inicio-sesion").addEventListener("submit", async (e) => {
-  e.preventDefault();
+const btnCerrarSesion = document.getElementById("cerrar-sesion")
+btnCerrarSesion.addEventListener("click", ()=>{
+  localStorage.clear();
+})
 
-  const numero_telefono = document.getElementById("telefono").value.trim();
-  const contrasena = document.getElementById("password").value.trim();
 
-  if (!telefono || !contrasena) {
-    alert("Por favor, completa ambos campos.");
-    return;
-  }
 
-  try {
-    const response = await fetch("http://localhost:7000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ numero_telefono, contrasena })
-    });
-
-    if (!response.ok) {
-      throw new Error("Credenciales incorrectas");
-    }
-
-    const data = await response.json();
-
-    // Guardar en sessionStorage
-    
-    localStorage.setItem("nombre", JSON.stringify(data.nombre));
-    localStorage.setItem("token", JSON.stringify(data.token));
-    localStorage.setItem("idRol", data.idRol);
-    localStorage.setItem("id_usuario", data.id_usuario);
-  
-
-    // Redirigir según el rol
-    switch (data.idRol) {
-      case 1: // Cliente
-        window.location.href = "../pages/sesion-iniciada.html";
-        break;
-      case 2: // Admin Restaurante
-        window.location.href = "../../admin-feature/administrador/pages/editInfo.html";
-        break;
-      case 3: // Repartidor
-        window.location.href = "../../repartidor-feature/pages/index.html";
-        break;
-      default:
-        alert("Rol no reconocido.");
-        break;
-    }
-
-  } catch (error) {
-    console.error("Error en el login:", error);
-    alert("No se pudo iniciar sesión. Verifica tus datos.");
-  }
-});

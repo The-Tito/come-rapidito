@@ -1,4 +1,4 @@
-const idStatus = id_status; // reemplaza esta línea según cómo recibas el status
+const idStatus = id_status;
 
 let mensaje = "";
 

@@ -1,4 +1,5 @@
 
+let currentRestauranteId = null; // Declare a variable to store the restaurant ID
 
 function cargarDatosRestaurante(restauranteId) {
     const restaurantes = JSON.parse(sessionStorage.getItem('restaurantes'));
@@ -9,14 +10,17 @@ function cargarDatosRestaurante(restauranteId) {
     }
 
     const restaurante = restaurantes.find(r => r.id_restaurante === restauranteId);
-
+    // const id_restaurante = restaurante.id_restaurante; // This line is redundant here
     if (!restaurante) {
         console.error('Restaurante no encontrado');
         return;
     }
 
+    // Set the global currentRestauranteId here
+    currentRestauranteId = restauranteId; 
+
     actualizarInformacionRestaurante(restaurante);
-    actualizarModalRestaurante(restaurante); // Nueva función para actualizar el modal
+    actualizarModalRestaurante(restaurante); 
     cargarProductosRestaurante(restauranteId)
 }
 
@@ -169,7 +173,6 @@ function mostrarMensajeVacio() {
 function actualizarMenuHTML(productos) {
     const contenedorProductos = document.querySelector('.seccion-menu-productos');
     contenedorProductos.innerHTML = ''; // Limpiar productos existentes
-
     productos.forEach(producto => {
         // Verificar que el producto esté activo (id_status = 1, asumiendo que 1 es activo)
             const productoHTML = crearProductoHTML(producto);
@@ -197,14 +200,17 @@ function crearProductoHTML(producto) {
             <p class="detalles-descripcion">${descripcion}</p>
             <p class="detalles-precio">$${precio.toFixed(2)}</p>
         </div>
-        <button class="producto-contenedor-agregar" data-producto-id="${producto.id_producto}" data-producto-nombre="${nombre}" data-producto-precio="${precio}">
+        <button class="producto-contenedor-agregar" 
+                data-producto-id="${producto.id_producto}" 
+                data-producto-nombre="${nombre}" 
+                data-producto-precio="${precio}"
+                data-producto-url-imagen="${imagen}">
             <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
         </button>
     `;
     
     return article;
 }
-
 function reagregarEventListenersProductos() {
     const botonesAgregar = document.querySelectorAll('.producto-contenedor-agregar');
     const modalAgregado = document.getElementById('modal-agregado');
@@ -213,18 +219,20 @@ function reagregarEventListenersProductos() {
         boton.addEventListener('click', (e) => {
             const productoId = e.currentTarget.dataset.productoId;
             const productoNombre = e.currentTarget.dataset.productoNombre;
+            const id_restaurante = e.currentTarget.dataset.productorestauranteId;
             const productoPrecio = parseFloat(e.currentTarget.dataset.productoPrecio);
+            const url_imagen = e.currentTarget.dataset.productoUrlImagen;
+            console.log(url_imagen);
             
             agregarAlCarrito({
                 id: productoId,
                 nombre: productoNombre,
-                precio: productoPrecio
+                precio: productoPrecio,
+                id_restaurante: currentRestauranteId,
+                url_imagen: url_imagen
             });
             
-            // Muestra la notificación
             modalAgregado.classList.remove('oculto');
-            
-            // Oculta la notificación después de 2.5 segundos
             setTimeout(() => {
                 modalAgregado.classList.add('oculto');
             }, 2500);
@@ -237,7 +245,7 @@ function agregarAlCarrito(producto) {
     try {
         // Obtener carrito existente o crear uno nuevo
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        
+        console.log(producto)
         // Verificar si el producto ya existe en el carrito
         const productoExistente = carrito.find(item => item.id === producto.id);
         
@@ -250,6 +258,8 @@ function agregarAlCarrito(producto) {
                 id: producto.id,
                 nombre: producto.nombre,
                 precio: producto.precio,
+                url_imagen: producto.url_imagen,
+                id_restaurante: currentRestauranteId,
                 cantidad: 1
             });
         }
@@ -382,6 +392,7 @@ function inicializarModales() {
     btnSalir.addEventListener('click', () => {
         if (urlParaRedirigir) {
             window.location.href = urlParaRedirigir;
+             localStorage.removeItem("carrito");
         }
     });
     
