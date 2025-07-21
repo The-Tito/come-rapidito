@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     id_status: 8 //activo
   }
 
+
   fetch("http://localhost:7000/api/orders/delivery", {
     method: "POST",
     headers: {
