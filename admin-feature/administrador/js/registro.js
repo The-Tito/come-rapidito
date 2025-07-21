@@ -189,3 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 });
+function volverAtras() {
+  history.back();
+}

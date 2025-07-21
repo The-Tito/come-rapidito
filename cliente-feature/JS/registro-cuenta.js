@@ -96,7 +96,7 @@ document.querySelector('.formulario').addEventListener('submit', async function(
       case 1: // Cliente
         localStorage.setItem("abrirLogin", "true");
         localStorage.setItem("usuarioNombre", nombre);
-        window.location.href = "../pages/sesion-iniciada.html";
+        window.location.href = "../pages/index.html";
         break;
       default:
         alert("Rol no reconocido");
@@ -115,3 +115,6 @@ document.querySelector('.formulario').addEventListener('submit', async function(
     boton.innerHTML = textoOriginal;
   }
 });
+function volverAtras() {
+  history.back();
+}

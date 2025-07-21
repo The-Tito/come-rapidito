@@ -222,7 +222,7 @@ function reagregarEventListenersProductos() {
             const id_restaurante = e.currentTarget.dataset.productorestauranteId;
             const productoPrecio = parseFloat(e.currentTarget.dataset.productoPrecio);
             const url_imagen = e.currentTarget.dataset.productoUrlImagen;
-            console.log(url_imagen);
+            ;
             
             agregarAlCarrito({
                 id: productoId,
@@ -245,7 +245,7 @@ function agregarAlCarrito(producto) {
     try {
         // Obtener carrito existente o crear uno nuevo
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        console.log(producto)
+        
         // Verificar si el producto ya existe en el carrito
         const productoExistente = carrito.find(item => item.id === producto.id);
         
@@ -270,7 +270,7 @@ function agregarAlCarrito(producto) {
         // Actualizar contador del carrito si existe
         actualizarContadorCarrito();
         
-        console.log(`Producto "${producto.nombre}" agregado al carrito`);
+        
         
     } catch (error) {
         console.error('Error al agregar producto al carrito:', error);

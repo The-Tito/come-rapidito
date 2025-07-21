@@ -29,7 +29,7 @@ const avisoFormulario = document.getElementById('aviso-formulario');
 const CUOTA_SERVICIO = 8;
 
 // Inicialización
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     verificarAutenticacion();
     cargarCarritoDesdeStorage();
     cargarDireccionesUsuario();
@@ -85,7 +85,7 @@ function configurarEventListeners() {
 // Cargar carrito desde localStorage
 function cargarCarritoDesdeStorage() {
     const carritoGuardado = localStorage.getItem('carrito');
-    console.log("carrito",carritoGuardado)
+    
     if (carritoGuardado) {
         try {
             carritoProductos = JSON.parse(carritoGuardado);
@@ -117,7 +117,7 @@ async function cargarDireccionesUsuario() {
 
         if (response.ok) {
             direccionesUsuario = await response.json();
-            console.log(direccionesUsuario)
+            
             actualizarSeccionDireccion();
         }
     } catch (error) {
@@ -128,7 +128,7 @@ async function cargarDireccionesUsuario() {
 // Actualizar sección de dirección
 function actualizarSeccionDireccion() {
     const infoDireccion = seccionDireccion.querySelector('.info-direccion p');
-    
+
     if (direccionSeleccionada) {
         infoDireccion.textContent = `${direccionSeleccionada.calle}, ${direccionSeleccionada.colonia}`;
     } else if (direccionesUsuario.length > 0) {
@@ -157,7 +157,7 @@ function actualizarVistaCarrito() {
 // Renderizar productos en el carrito
 function renderizarProductos() {
     listaProductos.innerHTML = '';
-    
+
     carritoProductos.forEach((item, index) => {
         const productoElement = crearElementoProducto(item, index);
         listaProductos.appendChild(productoElement);
@@ -166,11 +166,10 @@ function renderizarProductos() {
 
 // Crear elemento HTML para un producto
 function crearElementoProducto(item, index) {
-    console.log(item.url_imagen)
-    console.log(item)
+    
     const div = document.createElement('div');
     div.className = 'producto-item';
-    
+
     div.innerHTML = `
         <img src="${item.url_imagen}" alt="${item.nombre}" class="producto-imagen">
         <div class="producto-info">
@@ -187,7 +186,7 @@ function crearElementoProducto(item, index) {
             <img src="../../Assets/eliminar.png" alt="Eliminar">
         </button>
     `;
-    
+
     return div;
 }
 
@@ -195,7 +194,7 @@ function crearElementoProducto(item, index) {
 function cambiarCantidad(index, cambio) {
     if (index >= 0 && index < carritoProductos.length) {
         carritoProductos[index].cantidad += cambio;
-        
+
         if (carritoProductos[index].cantidad <= 0) {
             eliminarProducto(index);
         } else {
@@ -219,9 +218,9 @@ function actualizarTotales() {
     const subtotal = carritoProductos.reduce((total, item) => {
         return total + (item.precio * item.cantidad);
     }, 0);
-    
+
     const total = subtotal + CUOTA_SERVICIO;
-    
+
     subtotalValor.textContent = `$${subtotal.toFixed(2)}`;
     totalValor.textContent = `$${total.toFixed(2)}`;
 }
@@ -229,7 +228,7 @@ function actualizarTotales() {
 // Mostrar modal de dirección
 function mostrarModalDireccion() {
     modalDireccion.classList.remove('oculto');
-    
+
     // Si hay direcciones, mostrar selector en lugar del formulario
     if (direccionesUsuario.length > 0) {
         mostrarSelectorDirecciones();
@@ -240,14 +239,14 @@ function mostrarModalDireccion() {
 function mostrarSelectorDirecciones() {
     const modalContent = modalDireccion.querySelector('.modal-contenido');
     const formularioContainer = modalContent.querySelector('.formulario-direccion');
-    
+
     // Crear selector de direcciones
     let selectorHTML = `
         <div class="selector-direcciones">
             <h3>Selecciona una dirección:</h3>
             <div class="lista-direcciones">
     `;
-    
+
     direccionesUsuario.forEach((direccion, index) => {
         selectorHTML += `
             <div class="direccion-opcion ${direccionSeleccionada?.id_direccion === direccion.id_direccion ? 'seleccionada' : ''}" 
@@ -258,7 +257,7 @@ function mostrarSelectorDirecciones() {
             </div>
         `;
     });
-    
+
     selectorHTML += `
             </div>
             <button type="button" class="boton-secundario" onclick="mostrarFormularioNuevaDireccion()">
@@ -274,9 +273,9 @@ function mostrarSelectorDirecciones() {
             </div>
         </div>
     `;
-    
+
     formularioContainer.innerHTML = selectorHTML;
-    
+
     // Agregar event listener al botón regresar
     document.getElementById('boton-regresar-carrito-selector').addEventListener('click', cerrarModalDireccion);
 }
@@ -284,7 +283,7 @@ function mostrarSelectorDirecciones() {
 // Seleccionar dirección existente
 function seleccionarDireccion(index) {
     direccionSeleccionada = direccionesUsuario[index];
-    
+
     // Actualizar UI
     document.querySelectorAll('.direccion-opcion').forEach(el => el.classList.remove('seleccionada'));
     document.querySelectorAll('.direccion-opcion')[index].classList.add('seleccionada');
@@ -328,10 +327,10 @@ function mostrarFormularioNuevaDireccion() {
             <button type="submit" class="boton-principal">Guardar dirección</button>
         </div>
     `;
-    
+
     // Reconfigurar event listeners
     document.getElementById('boton-regresar-carrito-nuevo').addEventListener('click', cerrarModalDireccion);
-    
+
     const nuevoFormulario = modalDireccion.querySelector('.formulario-direccion');
     nuevoFormulario.addEventListener('submit', manejarEnvioDireccion);
 }
@@ -344,24 +343,25 @@ function cerrarModalDireccion() {
 // Manejar envío de dirección
 async function manejarEnvioDireccion(e) {
     e.preventDefault();
-    
+
     const formData = new FormData(e.target);
     const direccionData = {
+        id_usuario: parseInt(obtenerDatosUsuario().id_usuario),
         calle: formData.get('calle'),
         colonia: formData.get('colonia'),
         numero_casa: formData.get('numero_casa'),
         codigo_postal: formData.get('codigo_postal'),
-        referencias: formData.get('referencias'),
-        id_usuario: obtenerDatosUsuario().id_usuario
+        referencia: formData.get('referencias')  // <- renombrado aquí
     };
-    
+    console.log(JSON.stringify(direccionData))
+
     // Validar campos
-    if (!direccionData.calle || !direccionData.colonia || !direccionData.numero_casa || 
-        !direccionData.codigo_postal || !direccionData.referencias) {
+    if (!direccionData.calle || !direccionData.colonia || !direccionData.numero_casa ||
+        !direccionData.codigo_postal || !direccionData.referencia) {
         mostrarAvisoError('Por favor ingresa todos los datos necesarios');
         return;
     }
-    
+
     try {
         const { token } = obtenerDatosUsuario();
         const response = await fetch(`${API_BASE_URL}/address`, {
@@ -372,8 +372,9 @@ async function manejarEnvioDireccion(e) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(direccionData)
+
         });
-        
+
         if (response.ok) {
             const nuevaDireccion = await response.json();
             direccionesUsuario.push(nuevaDireccion);
@@ -402,19 +403,19 @@ function mostrarAvisoError(mensaje) {
 // Confirmar pedido
 async function confirmarPedido() {
     if (!verificarAutenticacion()) return;
-    
+
     if (carritoProductos.length === 0) {
         alert('Tu carrito está vacío');
         return;
     }
-    
+
     if (!direccionSeleccionada) {
         alert('Por favor selecciona una dirección de entrega');
         return;
     }
-    
+
     const pedidoData = construirPedido();
-        console.log("pedido",pedidoData)
+    console.log("pedido", pedidoData)
     try {
         const { token } = obtenerDatosUsuario();
         const response = await fetch(`${API_BASE_URL}/orders`, {
@@ -426,7 +427,7 @@ async function confirmarPedido() {
             },
             body: JSON.stringify(pedidoData)
         });
-        
+
         if (response.ok) {
             // Limpiar carrito
             carritoProductos = [];
@@ -447,18 +448,18 @@ function construirPedido() {
     const subtotal = carritoProductos.reduce((total, item) => {
         return total + (item.precio * item.cantidad);
     }, 0);
-    
+
     const total = subtotal + CUOTA_SERVICIO;
-    
+
     const detalleCarrito = carritoProductos.map(item => ({
         id_producto: item.id,
         cantidad: item.cantidad,
         precio_unitario: item.precio
     }));
-    
+
     // Asumir que todos los productos son del mismo restaurante (simplificación)
     const id_restaurante = carritoProductos[0]?.id_restaurante || 1;
-    console.log("id_restaurante",id_restaurante)
+    console.log("id_restaurante", id_restaurante)
     return {
         id_usuario: parseInt(obtenerDatosUsuario().id_usuario),
         id_direccion: direccionSeleccionada.id_direccion,
@@ -475,7 +476,7 @@ function construirPedido() {
 // Funciones para agregar productos al carrito (llamadas desde otras páginas)
 function agregarAlCarrito(producto) {
     const productoExistente = carritoProductos.find(item => item.id_producto === producto.id_producto);
-    
+
     if (productoExistente) {
         productoExistente.cantidad += 1;
     } else {
@@ -484,7 +485,7 @@ function agregarAlCarrito(producto) {
             cantidad: 1
         });
     }
-    
+
     guardarCarritoEnStorage();
     actualizarVistaCarrito();
 }
@@ -509,38 +510,38 @@ let urlDestinoCarrito = null; // guarda la URL a donde se quiere salir
 const enlacesSalirDelCarrito = document.querySelectorAll('.nav-link-home-confirm');
 
 enlacesSalirDelCarrito.forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    urlDestinoCarrito = link.href;
-    mostrarModalSalidaCarrito();
-  });
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        urlDestinoCarrito = link.href;
+        mostrarModalSalidaCarrito();
+    });
 });
 
 btnSalirCarrito.addEventListener('click', () => {
-  localStorage.removeItem("carrito");
-  window.location.href = urlDestinoCarrito;
+    localStorage.removeItem("carrito");
+    window.location.href = urlDestinoCarrito;
 });
 
 btnContinuarCarrito.addEventListener('click', () => {
-  ocultarModalSalidaCarrito();
+    ocultarModalSalidaCarrito();
 });
 
 modalConfirmarSalidaCarrito.addEventListener('click', (e) => {
-  if (e.target === modalConfirmarSalidaCarrito) {
-    ocultarModalSalidaCarrito();
-  }
+    if (e.target === modalConfirmarSalidaCarrito) {
+        ocultarModalSalidaCarrito();
+    }
 });
 
 function mostrarModalSalidaCarrito() {
-  modalConfirmarSalidaCarrito.classList.remove('oculto');
-  if (mainContainer) mainContainer.classList.add('blur-effect');
+    modalConfirmarSalidaCarrito.classList.remove('oculto');
+    if (mainContainer) mainContainer.classList.add('blur-effect');
 }
 
 function ocultarModalSalidaCarrito() {
-  modalConfirmarSalidaCarrito.classList.add('oculto');
-  if (mainContainer) mainContainer.classList.remove('blur-effect');
+    modalConfirmarSalidaCarrito.classList.add('oculto');
+    if (mainContainer) mainContainer.classList.remove('blur-effect');
 }
 
 function volverAtras() {
-  history.back();
+    history.back();
 }
