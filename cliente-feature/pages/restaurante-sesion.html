@@ -11,33 +11,48 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/restaurante.css">
+    <link rel="stylesheet" href="../styles/carrito.css">
 </head>
 
 <body>
 
-    <div id="main-container">
-        <header class="encabezado">
-            <a href="./index.html" class="encabezado-logo">
-                <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
-            </a>
-            <nav class="encabezado-navegacion">
-                <ul class="encabezado-lista">
-                    <li class="encabezado-item"><a href="index.html" class="encabezado-enlace nav-link-confirm">Home</a>
-                    </li>
-                    <li class="encabezado-item"><a href="./pedidos.html" class="encabezado-enlace">Pedidos</a></li>
-                    <li class="encabezado-item"><a href="#" id="abrir-modal-negocio"
-                            class="encabezado-enlace nav-link-confirm">Mi negocio</a></li>
-                </ul>
-            </nav>
-            <div class="encabezado-iconos">
-                <a href="#" id="abrir-modal-repartidor" class="encabezado-icono nav-link-confirm"><img
-                        src="../../Assets/repartidores.png" alt="Icono delivery"></a>
-                <a href="carrito.html" class="encabezado-icono"><img src="../../Assets/carrito.png"
-                        alt="Icono carrito"></a>
-                <a href="#" id="abrir-modal-login" class="encabezado-icono nav-link-confirm"><img
-                        src="../../Assets/iconUsuario .png" alt="Icono usuario"> Iniciar Sesión</a>
+    <header class="encabezado">
+        <a href="sesion-iniciada.html" class="encabezado-logo">
+            <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
+        </a>
+
+        <nav class="encabezado-navegacion">
+            <ul class="encabezado-lista">
+                <li class="encabezado-item"><a href="../pages/sesion-iniciada.html" class="encabezado-enlace">Home</a>
+                </li>
+                <li class="encabezado-item"><a href="./pedidos-sesion.html" class="encabezado-enlace">Pedidos</a></li>
+                <li class="encabezado-item"><a href="../../admin-feature/administrador/pages/registro.html"
+                        id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
+            </ul>
+        </nav>
+
+        <div class="encabezado-iconos">
+            <a href="../../repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor"
+                class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+            <a href="carrito-sesion.html" class="encabezado-icono"><img src="../../Assets/carrito.png"
+                    alt="Icono carrito"></a>
+
+
+            <div class="dropdown">
+                <a href=""class="dropbtn">
+                    <img src="../../Assets/iconUsuario .png" alt="Icono usuario" class="dropbtn_img">
+                    <span id="usuarioNombre">Invitado</span> </a>
+
+                <div class="dropdown-content">
+                    <a href="#">Historial</a>
+                    <a href="../pages/modificar-cuenta.html">Mi Cuenta</a>
+                    <a href="../pages/index.html">Cerrar Sesión</a>
+                </div>
             </div>
-        </header>
+
+        </div>
+    </header>
+
 
         <main>
             <section class="seccion-hero-restaurante" id="banner-restaurante">
@@ -191,6 +206,7 @@
     </div>
 
     <script src="../js/restaurante.js"></script>
+    <script src="../JS/sesion-iniciada.js"></script>
 </body>
 
 </html>

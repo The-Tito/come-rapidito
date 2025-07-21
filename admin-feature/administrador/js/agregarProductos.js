@@ -147,6 +147,7 @@ function renderProductos() {
   document.querySelectorAll('.delete-btn').forEach(btn => {
     btn.onclick = async function () {
       const id = this.dataset.id;
+      
       if (confirm("¿Estás seguro de eliminar este producto?")) {
         try {
           const res = await fetch(`http://localhost:7000/api/products/${id}`, {
