@@ -30,7 +30,7 @@ btnGraph.addEventListener("click", async () => {
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
-      type: 'pie',
+      type: 'polarArea',
       data: {
         labels: datos.labels,
         datasets: [{

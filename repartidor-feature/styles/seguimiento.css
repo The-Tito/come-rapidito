@@ -78,6 +78,14 @@
     padding-top: 10px;
 }
 
+.p_instruccion {
+    text-align: center;
+    font-family: var(--fontfamily);
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
 .seccion_titulo {
     color: var(--primarycolor);
     font-weight: 400;

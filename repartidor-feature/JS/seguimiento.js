@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
                 throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
             }
-            return response.json();  // Parsear respuesta JSON
+            return response.json();
         })
         .then(data => {
             console.log("🔄 Estado actualizado:", data);
