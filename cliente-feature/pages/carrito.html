@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Carrito</title>
 
+    
     <link rel="icon" href="../../Assets/iconLogo.png">
     <link rel="stylesheet" href="../styles/carrito.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -19,15 +21,17 @@
         </a>
         <nav class="encabezado-navegacion">
             <ul class="encabezado-lista">
-                <li class="encabezado-item"><a href="index.html" class="encabezado-enlace">Home</a></li>
-                <li class="encabezado-item"><a href="index.html" class="encabezado-enlace">Menu</a></li>
+                <li class="encabezado-item"><a href="../pages/index.html" class="encabezado-enlace">Home</a></li>
+                <li class="encabezado-item"><a href="./pedidos.html" class="encabezado-enlace">Pedidos</a></li>
                 <li class="encabezado-item"><a href="../../admin-feature/administrador/pages/registro.html" id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
             </ul>
         </nav>
         <div class="encabezado-iconos">
-            <a href="../../repartidor-feature/pages/registro.html" id="abrir-modal-repartidor" class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+            <a href="../../repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor" class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+
             <a href="../pages/carrito.html" class="encabezado-icono"><img src="../../Assets/carrito.png" alt="Icono carrito"></a>
-            <a href="" id="abrir-modal-login" class="encabezado-icono"><img src="../../Assets/iconUsuario .png" alt="Icono usuario"> Iniciar Sesión</a>
+
+            <a href="index.html" id="abrir-modal-login" class="encabezado-icono"><img src="../../Assets/iconUsuario .png" alt="Icono usuario"> Iniciar Sesión</a>
         </div>
     </header>
 
@@ -40,10 +44,12 @@
         <div id="carrito-vacio" class="carrito-vacio-contenedor visible">
             <p>Parece que tu carrito está vacío</p>
             <p class="texto-secundario">Abre la página de una tienda y agrega a tu carrito los productos que desees pedir</p>
-            <button id="boton-encontrar-productos" class="boton-principal">
+        <a href="index.html">
+            <button id="boton-encontrar-productos" class="boton-principal"  >
                 <img src="../../Assets/flechaBlanca.png" alt="icono-flecha-izquierda">
                 Encuentra productos
             </button>
+            </a>
         </div>
 
         <!-- oculto de momento -->
@@ -61,11 +67,12 @@
                 <div id="lista-productos" class="lista-productos">
                    <!-- los productos se agregan -->
                 </div>
-
-                <button class="boton-agregar-mas">
+                
+                <button class="boton-agregar-mas"  onclick="volverAtras()">
                     <img src="../../Assets/flechaNaranja.png" alt="icono-flecha-izquierda-roja">
                     Agregar más productos
                 </button>
+            
             </div>
             <div class="columna-derecha">
                 <div class="resumen-pedido">
@@ -131,7 +138,19 @@
             </form>
         </div>
     </div>
+    <div id="modal-confirmar-salida-carrito" class="modal oculto">
+  <div class="modal-contenido">
+    <h2>¿Deseas salir y cancelar tu carrito?</h2>
+    <p>Si sales de esta página, se eliminarán los productos del carrito.</p>
+    <div class="botones-modal">
+      <button id="btn-salir-carrito" class="boton-principal">Salir</button>
+      <button id="btn-continuar-carrito" class="boton-secundario">Continuar aquí</button>
+    </div>
+  </div>
+</div>
+
 
     <script src="../JS/carrito.js"></script>
+
 </body>
 </html>

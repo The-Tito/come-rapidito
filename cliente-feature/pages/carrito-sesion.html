@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Carrito</title>
+
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="stylesheet" href="../styles/carrito.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Mouse+Memoirs&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="encabezado">
+        <a href="sesion-iniciada.html" class="encabezado-logo">
+            <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
+        </a>
+
+        <nav class="encabezado-navegacion">
+            <ul class="encabezado-lista">
+                <li class="encabezado-item"><a href="../pages/sesion-iniciada.html" class="encabezado-enlace">Home</a>
+                </li>
+                <li class="encabezado-item"><a href="./pedidos-sesion.html" class="encabezado-enlace">Pedidos</a></li>
+                <li class="encabezado-item"><a href="../../admin-feature/administrador/pages/registro.html"
+                        id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
+            </ul>
+        </nav>
+
+        <div class="encabezado-iconos">
+            <a href="../../repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor"class="encabezado-icono"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+            <a href="../pages/carrito-sesion.html" class="encabezado-icono"><img src="../../Assets/carrito.png" alt="Icono carrito"></a>
+
+
+            <div class="dropdown">
+                <a href=""class="dropbtn">
+                    <img src="../../Assets/iconUsuario .png" alt="Icono usuario" class="dropbtn_img">
+                    <span id="usuarioNombre"></span> </a>
+
+                <div class="dropdown-content">
+                    <a href="historial-pedidos.html">Historial</a>
+                    <a href="../pages/modificar-cuenta.html">Mi Cuenta</a>
+                    <a href="../pages/index.html" id="cerrar-sesion">Cerrar Sesión</a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="contenedor-principal">
+        <div class="titulo-carrito">
+            <img src="../../Assets/carrito.png" alt="icono-carrito-titulo" class="icono-titulo">
+            <h1>Tu carrito</h1>
+        </div>
+
+        <div id="carrito-vacio" class="carrito-vacio-contenedor visible">
+            <p>Parece que tu carrito está vacío</p>
+            <p class="texto-secundario">Abre la página de una tienda y agrega a tu carrito los productos que desees
+                pedir</p>
+            <button id="boton-encontrar-productos" class="boton-principal">
+                <img src="../../Assets/flechaBlanca.png" alt="icono-flecha-izquierda">
+                Encuentra productos
+            </button>
+        </div>
+
+        <!-- oculto de momento -->
+        <div id="carrito-lleno" class="carrito-lleno-contenedor oculto">
+            <div class="columna-izquierda">
+                <div id="direccion-entrega" class="seccion-direccion">
+                    <img src="../../Assets/direccion.png" alt="icono-ubicacion" class="icono-seccion">
+                    <div class="info-direccion">
+                        <h2>Direccion de entrega</h2>
+                        <p>Agrega tu dirección</p>
+                    </div>
+                    <span class="flecha-direccion">></span>
+                </div>
+
+                <div id="lista-productos" class="lista-productos">
+                    <!-- los productos se agregan -->
+                </div>
+
+                <button class="boton-agregar-mas" onclick="volverAtras()">
+                    <img src="../../Assets/flechaNaranja.png" alt="icono-flecha-izquierda-roja">
+                    Agregar más productos
+                </button>
+            </div>
+            <div class="columna-derecha">
+                <div class="resumen-pedido">
+                    <h2>Resumen del pedido</h2>
+                    <div class="detalle-resumen">
+                        <span>Subtotal</span>
+                        <span id="subtotal-valor">$0</span>
+                    </div>
+                    <div class="detalle-resumen">
+                        <span>Cuota de servicio</span>
+                        <span>$8</span>
+                    </div>
+                    <div class="total-resumen">
+                        <span>Total</span>
+                        <span id="total-valor">$8</span>
+                    </div>
+                    <button id="boton-confirmar-pedido" class="boton-principal boton-confirmar">Confirmar</button>
+                    <p class="nota-envio">Se le notificara el costo de envió al confirmar su pedido.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="pie-de-pagina">
+        <p>@Derechos reservados</p>
+    </footer>
+
+    <!-- modal direccion -->
+    <div id="modal-direccion" class="modal-superposicion oculto">
+        <div class="modal-contenido">
+            <div class="modal-encabezado">
+                <h2>Ingresar tu dirección</h2>
+            </div>
+            <form id="formulario-direccion" class="formulario-direccion">
+                <div class="campo-formulario">
+                    <label for="calle">Calle*</label>
+                    <input type="text" id="calle" name="calle" placeholder="Value">
+                </div>
+                <div class="campo-formulario">
+                    <label for="colonia">Colonia*</label>
+                    <input type="text" id="colonia" name="colonia" placeholder="Value">
+                </div>
+                <div class="campo-formulario">
+                    <label for="numero_casa">No. Edificio*</label>
+                    <input type="text" id="numero_casa" name="numero_casa" placeholder="Value">
+                </div>
+                <div class="campo-formulario">
+                    <label for="codigo_postal">Código Postal*</label>
+                    <input type="text" id="codigo_postal" name="codigo_postal" placeholder="Value">
+                </div>
+                <div class="campo-formulario">
+                    <label for="referencias">Referencias o indicaciones adicionales*</label>
+                    <input type="text" id="referencias" name="referencias" placeholder="Value">
+
+                </div> <!-- advertencia de datos no completados-->
+                <p id="aviso-formulario" class="aviso-error oculto">Por favor ingresa todos lo datos necesarios</p>
+                <div class="botones-formulario">
+                    <button type="button" id="boton-regresar-carrito" class="boton-secundario">Regresar al
+                        carrito</button>
+                    <button type="submit" class="boton-principal">
+                        Confirmar pedido
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="modal-confirmar-salida-carrito" class="modal oculto">
+        <div class="modal-contenido">
+            <h2>¿Deseas salir y cancelar tu carrito?</h2>
+            <p>Si sales de esta página, se eliminarán los productos del carrito.</p>
+            <div class="botones-modal">
+                <button id="btn-salir-carrito" class="boton-principal">Salir</button>
+                <button id="btn-continuar-carrito" class="boton-secundario">Continuar aquí</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../JS/carrito-sesion.js"></script>
+    <script src="../JS/sesion-iniciada.js"></script>
+</body>
+
+</html>

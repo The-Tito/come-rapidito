@@ -1,52 +1,62 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- NUEVO CÓDIGO MODIFICADO PARA EL MODAL ---
 
-    const modal = document.getElementById('modal-login');
-    const cerrarModalBtn = document.getElementById('cerrar-modal-login');
+  const abrirLogin = localStorage.getItem("abrirLogin");
 
-    // 1. Seleccionamos TODOS los botones que deben abrir el modal
-    const botonesParaAbrirModal = [
-        document.getElementById('abrir-modal-login'),
-        document.getElementById('abrir-modal-repartidor'),
-        document.getElementById('abrir-modal-negocio')
-    ];
+  if (abrirLogin === "true") {
+    localStorage.removeItem("abrirLogin"); // 🔒 importante: evita que se abra cada vez
+    mostrarModalLogin(); // 👈 esta función debes tenerla definida para abrir el modal
+  }
 
-    // Función para abrir el modal
-    const abrirModal = (evento) => {
-        evento.preventDefault(); // Previene el comportamiento por defecto del enlace (ej. saltar a '#')
-        if (modal) {
-            modal.classList.add('modal-superposicion-visible');
-        }
-    };
+  function mostrarModalLogin() {
+    const modal = document.getElementById("modal-login"); // o tu selector real
+    modal.classList.add("modal-superposicion-visible"); // o modal.style.display = 'block', depende cómo esté hecho
+  }
 
-    // Función para cerrar el modal
-    const cerrarModal = () => {
-        if (modal) {
-            modal.classList.remove('modal-superposicion-visible');
-        }
-    };
+  // --- NUEVO CÓDIGO MODIFICADO PARA EL MODAL ---
 
-    // 2. Asignamos el evento de 'click' a cada uno de los botones para abrir
-    botonesParaAbrirModal.forEach(boton => {
-        if (boton) { // Verificamos que el botón exista antes de añadir el listener
-            boton.addEventListener('click', abrirModal);
-        }
-    });
+  const modal = document.getElementById('modal-login');
+  const cerrarModalBtn = document.getElementById('cerrar-modal-login');
 
-    // 3. Asignamos los eventos para cerrar el modal (esto no cambia)
-    if (cerrarModalBtn) {
-        cerrarModalBtn.addEventListener('click', cerrarModal);
-    }
-    
+  // 1. Seleccionamos TODOS los botones que deben abrir el modal
+  const botonesParaAbrirModal = [
+    document.getElementById('abrir-modal-login')
+  ];
+
+  // Función para abrir el modal
+  const abrirModal = (evento) => {
+    evento.preventDefault(); // Previene el comportamiento por defecto del enlace (ej. saltar a '#')
     if (modal) {
-        modal.addEventListener('click', (evento) => {
-            // Cierra el modal solo si el clic es en el fondo (la superposición)
-            if (evento.target === modal) {
-                cerrarModal();
-            }
-        });
+      modal.classList.add('modal-superposicion-visible');
     }
+  };
+
+  // Función para cerrar el modal
+  const cerrarModal = () => {
+    if (modal) {
+      modal.classList.remove('modal-superposicion-visible');
+    }
+  };
+
+  // 2. Asignamos el evento de 'click' a cada uno de los botones para abrir
+  botonesParaAbrirModal.forEach(boton => {
+    if (boton) { // Verificamos que el botón exista antes de añadir el listener
+      boton.addEventListener('click', abrirModal);
+    }
+  });
+
+  // 3. Asignamos los eventos para cerrar el modal (esto no cambia)
+  if (cerrarModalBtn) {
+    cerrarModalBtn.addEventListener('click', cerrarModal);
+  }
+
+  if (modal) {
+    modal.addEventListener('click', (evento) => {
+      // Cierra el modal solo si el clic es en el fondo (la superposición)
+      if (evento.target === modal) {
+        cerrarModal();
+      }
+    });
+  }
 
 });
 
@@ -59,18 +69,17 @@ function cargarCarruseles() {
     .then(res => res.json())
     .then(data => {
       sessionStorage.setItem('restaurantes', JSON.stringify(data))
-      console.log(JSON.stringify(data))
       // Corregido: usar la clase correcta del HTML
       const contenedor = document.querySelector(".carruseles");
-      
+
       // Verificar que el contenedor existe
       if (!contenedor) {
         console.error('No se encontró el contenedor de carruseles');
         return;
       }
-      
+
       // Limpiar el contenido existente (los carruseles estáticos del HTML)
-      
+
       const chunkSize = 4;
 
       for (let i = 0; i < data.length; i += chunkSize) {
@@ -145,3 +154,60 @@ function agregarEventosCarrusel() {
     });
   });
 }
+
+// Login con teléfono y contraseña
+document.querySelector(".formulario-inicio-sesion").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const numero_telefono = document.getElementById("telefono").value.trim();
+  const contrasena = document.getElementById("password").value.trim();
+
+  if (!telefono || !contrasena) {
+    alert("Por favor, completa ambos campos.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:7000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ numero_telefono, contrasena })
+    });
+
+    if (!response.ok) {
+      throw new Error("Credenciales incorrectas");
+    }
+
+    const data = await response.json();
+
+    // Guardar en sessionStorage
+    
+    localStorage.setItem("nombre", JSON.stringify(data.nombre));
+    localStorage.setItem("token", JSON.stringify(data.token));
+    localStorage.setItem("idRol", data.idRol);
+    localStorage.setItem("id_usuario", data.id_usuario);
+  
+
+    // Redirigir según el rol
+    switch (data.idRol) {
+      case 1: // Cliente
+        window.location.href = "../pages/sesion-iniciada.html";
+        break;
+      case 2: // Admin Restaurante
+        window.location.href = "../../admin-feature/administrador/pages/editInfo.html";
+        break;
+      case 3: // Repartidor
+        window.location.href = "../../repartidor-feature/pages/index.html";
+        break;
+      default:
+        alert("Rol no reconocido.");
+        break;
+    }
+
+  } catch (error) {
+    console.error("Error en el login:", error);
+    alert("No se pudo iniciar sesión. Verifica tus datos.");
+  }
+});

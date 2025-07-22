@@ -1,0 +1,139 @@
+ /* Estilos CSS */
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+ body {
+     font-family: 'Poppins', sans-serif;
+     background: #f5f5f5;
+     margin: 0;
+     color: #333;
+     display: flex; /* Añadido para layout con sidebar */
+ }
+
+ .container {
+     flex-grow: 1; /* Para que ocupe el espacio restante */
+     margin: 0;
+     background-color: #ffffff;
+     padding: 2rem;
+     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+     height: 100vh;
+     overflow-y: auto;
+ }
+
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 2rem;
+ }
+
+ .title {
+     font-size: 28px;
+     font-weight: 700;
+     color: #212529;
+ }
+
+ .user-info {
+     display: flex;
+     align-items: center;
+     font-size: 16px;
+     font-weight: 500;
+     color: #e85d4d;
+ }
+
+ .user-info i {
+     font-size: 1.1rem;
+     margin-right: 8px;
+ }
+
+ .orders-table {
+     width: 100%;
+     border-collapse: collapse;
+ }
+
+ .orders-table th,
+ .orders-table td {
+     padding: 1.25rem 1rem;
+     text-align: left;
+     vertical-align: middle;
+     border-bottom: 1px solid #dee2e6;
+ }
+
+ .orders-table thead th {
+     font-size: 14px;
+     font-weight: 600;
+     color: #6c757d;
+     text-transform: uppercase;
+     border-bottom-width: 2px;
+ }
+
+ .orders-table tbody tr {
+     font-size: 16px;
+ }
+
+ .orders-table tbody tr:last-child td {
+     border-bottom: none;
+ }
+
+ .orders-table .product-info {
+     white-space: pre-line;
+     line-height: 1.5;
+     color: #495057;
+ }
+
+ .orders-table .order-id {
+     font-weight: 700;
+     color: #495057;
+ }
+
+ .orders-table .total {
+     font-weight: 700;
+     color: #343a40;
+ }
+ 
+ /* --- NUEVOS ESTILOS PARA EL DROPDOWN DE STATUS --- */
+ 
+ .status-select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.status-dropdown {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 8px 30px 8px 12px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #555;
+    cursor: pointer;
+    font-weight: 500;
+    min-width: 140px;
+    transition: border-color 0.2s;
+}
+
+.status-dropdown:hover {
+    border-color: #ccc;
+}
+
+.status-dropdown:focus {
+    outline: none;
+    border-color: #e85d4d; /* Color primario del tema */
+}
+
+.status-select-wrapper::after {
+    content: '▾';
+    font-size: 16px;
+    color: #888;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-55%);
+    pointer-events: none;
+}
+
+.status-dropdown option[disabled] {
+    color: #aaa;
+}

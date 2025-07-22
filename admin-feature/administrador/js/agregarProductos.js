@@ -1,31 +1,26 @@
 // =================== VARIABLES ===================
 let productos = [];
 let editando = false;
-let idxEditando = -1;
+let productoEditandoId = null;
 let imagenFile = null;
-
-ocument.addEventListener('DOMContentLoaded', function() {
-      const usuario = JSON.parse(sessionStorage.getItem('user'));
-      const restaurant = JSON.parse(sessionStorage.getItem('restaurante'))
-      const id_usuario = usuario.find(r => r.id_usuario);
-      const token = usuario.find(r => r.token);
-      const nombre = usuario.find(r => r.nombre);
-      const idRol = usuario.find(r => r.idRol);
-      const id_restaurante = restaurant.find(r => r.id_restaurante)
-})
+let tokenstorage = localStorage.getItem("token")
+  let nombrestorage = localStorage.getItem("nombre")
+  let nombre = nombrestorage.replace(/"/g, '');
+  let token = tokenstorage.replace(/"/g, '');
+  let id_restaurante = localStorage.getItem("id_restaurante");
 // =================== MODAL ===================
-document.getElementById('btnAgregar').onclick = function() {
+document.getElementById('btnAgregar').onclick = function () {
   document.getElementById('modalAgregarProducto').style.display = 'block';
   document.getElementById('modalTitulo').innerText = "Agregar producto";
   editando = false;
-  idxEditando = -1;
+  productoEditandoId = null;
   imagenFile = null;
   document.getElementById('formAgregarProducto').reset();
   document.getElementById('previewImagen').innerHTML = '';
 };
 
 document.getElementById('cerrarModal').onclick = cerrarModal;
-window.onclick = function(event) {
+window.onclick = function (event) {
   var modal = document.getElementById('modalAgregarProducto');
   if (event.target == modal) cerrarModal();
 };
@@ -35,19 +30,19 @@ function cerrarModal() {
   document.getElementById('previewImagen').innerHTML = '';
   imagenFile = null;
   editando = false;
-  idxEditando = -1;
+  productoEditandoId = null;
 }
 
 // =================== IMAGEN: VISTA PREVIA ===================
-document.getElementById('inputImagen').onchange = function(event) {
+document.getElementById('inputImagen').onchange = function (event) {
   const file = event.target.files[0];
   const preview = document.getElementById('previewImagen');
   preview.innerHTML = '';
   imagenFile = null;
   if (file) {
-    imagenFile = file; // Guardamos archivo para el submit
+    imagenFile = file;
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       preview.innerHTML = '<img src="' + e.target.result + '" style="max-width:100%; max-height:170px; border-radius:8px;"/>';
     }
     reader.readAsDataURL(file);
@@ -55,94 +50,94 @@ document.getElementById('inputImagen').onchange = function(event) {
 };
 
 // =================== SUBMIT FORM ===================
-document.getElementById('formAgregarProducto').onsubmit = async function(e) {
+document.getElementById('formAgregarProducto').onsubmit = async function (e) {
   e.preventDefault();
+
   const form = e.target;
 
-  // Validar imagen
-  if (!imagenFile) {
-    alert("Selecciona una imagen antes de guardar.");
-    return;
-  }
-
-  // Prepara FormData (multipart/form-data)
   const formData = new FormData();
   formData.append("nombre", form.nombre.value);
   formData.append("descripcion", form.descripcion.value);
   formData.append("precio", form.precio.value);
   formData.append("id_categoria", form.id_categoria.value);
+  formData.append("id_status", form.id_status.value);
   formData.append("id_restaurante", id_restaurante);
-  formData.append("imagen", imagenFile);
 
-  // Envía a backend
+  // Solo adjunta imagen si se seleccionó
+  if (imagenFile) {
+    formData.append("imagen", imagenFile);
+  }
+
   try {
-    let response = await fetch("http://localhost:7000/api/products", {
-      method: "POST",
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQZWRybyJ9.EtBlTRFLmyKB9U-RlcRA6afFdkaeukIY6hajCE1hLos`,
-      'X-User-NAME': `Pedro`,
-      // Authorization': `Bearer ${token}`,
-      // 'X-User-NAME': `${nombre}`,
-      body: formData // Importante: fetch maneja los headers
+    let url = "http://localhost:7000/api/products";
+    let method = "POST";
+
+    if (editando && productoEditandoId) {
+      url += `/${productoEditandoId}`;
+      method = "PUT";
+    } else if (!imagenFile) {
+      alert("Selecciona una imagen antes de guardar.");
+      return;
+    }
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "X-User-NAME": `${nombre}`
+      },
+      body: formData
     });
+
     if (response.ok) {
-      alert("Producto agregado correctamente en la base de datos.");
-      // Opcional: puedes refrescar productos desde la API aquí
+      alert(editando ? "Producto actualizado correctamente." : "Producto agregado correctamente.");
+      await getProductosDesdeAPI();
+      cerrarModal();
     } else {
-      let error = '';
-      try {
-        const errObj = await response.json();
-        error = errObj.error || '';
-      } catch (e) {}
-      alert("Error al guardar en la base de datos. " + error);
+      const errorText = await response.text();
+      alert("Error al guardar: " + errorText);
     }
   } catch (err) {
+    console.error(err);
     alert("Error de conexión con la API.");
   }
-
-  // Actualiza localmente
-  if (editando && idxEditando !== -1) {
-    productos[idxEditando] = {
-      nombre: form.nombre.value,
-      descripcion: form.descripcion.value,
-      precio: parseFloat(form.precio.value),
-      id_categoria: parseInt(form.id_categoria.value),
-      id_restaurante: parseInt(form.id_restaurante.value),
-      url_imagen: ''
-    };
-  } else {
-    productos.push({
-      nombre: form.nombre.value,
-      descripcion: form.descripcion.value,
-      precio: parseFloat(form.precio.value),
-      id_categoria: parseInt(form.id_categoria.value),
-      id_restaurante: parseInt(form.id_restaurante.value),
-      url_imagen: ''
-    });
-  }
-
-  renderProductos();
-  cerrarModal();
 };
 
-// =================== CARDS ===================
+// =================== CARGAR DESDE API ===================
+async function getProductosDesdeAPI() {
+  try {
+      const id_restaurante = localStorage.getItem("id_restaurante");
+    let response = await fetch(`http://localhost:7000/products/${id_restaurante}`);
+    if (!response.ok) throw new Error("Error al obtener productos desde la API");
+
+    const data = await response.json();
+    productos = data;
+    renderProductos();
+  } catch (error) {
+    console.error(error);
+    alert("No se pudieron cargar los productos desde la base de datos.");
+  }
+}
+
+// =================== RENDER CARDS ===================
 function renderProductos() {
   const cont = document.getElementById('cardsContainer');
   cont.innerHTML = '';
   productos.forEach((prod, idx) => {
     cont.innerHTML += `
       <div class="product-card">
-        <img src="${prod.url_imagen || 'https://via.placeholder.com/100'}" alt="Imagen">
+       <img src="${prod.url_imagen ? prod.url_imagen : 'https://via.placeholder.com/100'}" alt="Imagen">
         <div class="product-info">
           <h3>${prod.nombre}</h3>
           <p><strong>Descripción:</strong> ${prod.descripcion}</p>
-          <p><strong>Precio:</strong> $${prod.precio ? prod.precio.toFixed(2) : '0.00'}</p>
+          <p><strong>Precio:</strong> $${prod.precio ? parseFloat(prod.precio).toFixed(2) : '0.00'}</p>
           <div class="product-tags">
             <span class="product-tag">Categoría: ${prod.id_categoria}</span>
             <span class="product-tag">Restaurante: ${prod.id_restaurante}</span>
           </div>
           <div class="product-actions" style="margin-top:14px; display:flex; gap:8px;">
-            <button class="edit-btn" data-idx="${idx}"><i class="fa fa-pen"></i> Editar</button>
-            <button class="delete-btn" data-idx="${idx}"><i class="fa fa-trash"></i> Eliminar</button>
+            <button class="edit-btn" data-id="${prod.id_producto}"><i class="fa fa-pen"></i> Editar</button>
+            <button class="delete-btn" data-id="${prod.id_producto}"><i class="fa fa-trash"></i> Eliminar</button>
           </div>
         </div>
       </div>
@@ -150,37 +145,112 @@ function renderProductos() {
   });
 
   document.querySelectorAll('.delete-btn').forEach(btn => {
-    btn.onclick = function() {
-      const idx = parseInt(this.dataset.idx);
-      productos.splice(idx, 1);
-      renderProductos();
+    btn.onclick = async function () {
+      const id = this.dataset.id;
+      
+      if (confirm("¿Estás seguro de eliminar este producto?")) {
+        try {
+          const res = await fetch(`http://localhost:7000/api/products/${id}`, {
+             method: "DELETE",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                "X-User-NAME": `${nombre}`
+              }, 
+            
+            });
+          if (res.ok) {
+            alert("Producto eliminado.");
+            await getProductosDesdeAPI();
+          } else {
+            alert("Error al eliminar producto.");
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Error de conexión.");
+        }
+      }
     };
   });
 
   document.querySelectorAll('.edit-btn').forEach(btn => {
-    btn.onclick = function() {
-      const idx = parseInt(this.dataset.idx);
-      editarProducto(idx);
+    btn.onclick = function () {
+      const id = parseInt(this.dataset.id);
+    
+      const prod = productos.find(p => p.id_producto === id);
+      if (!prod) return;
+      console.log(prod)
+      editando = true;
+      productoEditandoId = id;
+
+      document.getElementById('modalAgregarProducto').style.display = 'block';
+      document.getElementById('modalTitulo').innerText = "Editar producto";
+
+      const form = document.getElementById('formAgregarProducto');
+      form.nombre.value = prod.nombre;
+      form.descripcion.value = prod.descripcion;
+      form.precio.value = prod.precio;
+      form.id_categoria.value = prod.id_categoria;
+      form.id_status.value = prod.id_status;
+      document.getElementById('previewImagen').innerHTML = '<img src="' + prod.url_imagen + '" style="max-width:100%; max-height:170px; border-radius:8px;"/>';
+
+      imagenFile = null;
+      
+document.getElementById('formAgregarProducto').onsubmit = async function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+
+  const formData = new FormData();
+  formData.append("nombre", form.nombre.value);
+  formData.append("descripcion", form.descripcion.value);
+  formData.append("precio", form.precio.value);
+  formData.append("id_categoria", form.id_categoria.value);
+  formData.append("id_status", form.id_status.value);
+  formData.append("id_restaurante", id_restaurante);
+
+  // Solo adjunta imagen si se seleccionó
+  if (imagenFile) {
+    formData.append("imagen", imagenFile);
+  }
+
+  try {
+    let url = "http://localhost:7000/api/products";
+    let method = "POST";
+
+    if (editando && productoEditandoId) {
+      url += `/${productoEditandoId}`;
+      method = "PUT";
+    } else if (!imagenFile) {
+      alert("Selecciona una imagen antes de guardar.");
+      return;
+    }
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "X-User-NAME": `${nombre}`
+      },
+      body: formData
+    });
+
+    if (response.ok) {
+      alert(editando ? "Producto actualizado correctamente." : "Producto agregado correctamente.");
+      await getProductosDesdeAPI();
+      cerrarModal();
+    } else {
+      const errorText = await response.text();
+      alert("Error al guardar: " + errorText);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error de conexión con la API.");
+  }
+};
+
     };
   });
 }
 
-function editarProducto(idx) {
-  const prod = productos[idx];
-  editando = true;
-  idxEditando = idx;
-  document.getElementById('modalAgregarProducto').style.display = 'block';
-  document.getElementById('modalTitulo').innerText = "Editar producto";
-  const form = document.getElementById('formAgregarProducto');
-  form.nombre.value = prod.nombre;
-  form.descripcion.value = prod.descripcion;
-  form.precio.value = prod.precio;
-  form.id_categoria.value = prod.id_categoria;
-  form.id_restaurante.value = prod.id_restaurante;
-  // Imagen previa
-  document.getElementById('previewImagen').innerHTML =
-    prod.url_imagen
-      ? `<img src="${prod.url_imagen}" style="max-width:100%; max-height:170px; border-radius:8px;"/>`
-      : '';
-  imagenFile = null;
-}
+// =================== INICIO ===================
+getProductosDesdeAPI();

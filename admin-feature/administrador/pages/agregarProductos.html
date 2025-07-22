@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agregar productos</title>
+  <link rel="icon" href="../../../Assets/iconLogo.png">
   <link rel="stylesheet" href="../styles/header.css">
   <link rel="stylesheet" href="../styles/agregarProducto.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,40 +13,25 @@
 <body>
   <!-- Sidebar reutilizable -->
   <aside class="sidebar">
-    <!-- Logo -->
     <div class="sidebar-header">
       <img src="../../../Assets/Logo (1).png" alt="Logo de Come Rapidito">
-    </div>
-    <!-- Menú de Navegación -->
+        </div>
     <nav class="sidebar-nav">
       <ul>
         <li class="nav-item active">
-          <a href="./editInfo.html">
-            <i class="fas fa-th-large"></i>
-            <span>Informacion</span>
-          </a>
+          <a href="editInfo.html"><i class="fas fa-th-large"></i><span>Informacion</span></a>
         </li>
         <li class="nav-item">
-          <a href="./agregarProductos.html">
-            <i class="fas fa-store"></i>
-            <span>Productos</span>
-          </a>
+          <a href="agregarProductos.html"><i class="fas fa-store"></i><span>Productos</span></a>
         </li>
         <li class="nav-item">
-          <a href="#">
-            <i class="fas fa-shipping-fast"></i>
-            <span>Pedidos</span>
-          </a>
+          <a href="pedidos-activos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
         </li>
         <li class="nav-item">
-          <a href="#">
-            <i class="fas fa-history"></i>
-            <span>Historial</span>
-          </a>
+          <a href="#"><i class="fas fa-history"></i><span>Historial</span></a>
         </li>
       </ul>
     </nav>
-    <!-- Botón de Logout -->
     <div class="sidebar-footer">
       <a href="#" class="logout-button">
         <i class="fas fa-sign-out-alt"></i>
@@ -54,9 +40,7 @@
     </div>
   </aside>
 
-  <!-- Contenido principal -->
   <div class="main-wrapper">
-    <!-- HEADER ARRIBA -->
     <div class="section-header">
       <div class="section-title">
         <h1>Agregar productos</h1>
@@ -67,31 +51,22 @@
         </span>
       </div>
     </div>
-    <!-- CONTENIDO PRINCIPAL DEBAJO -->
     <div class="main-content">
       <div class="top-bar">
-        <div class="top-left">
-          <label>Especialidad:</label>
-          <select><option>Especialidad</option></select>
-          <label>Tipo:</label>
-          <select><option>Tipo</option></select>
-          <select><option>Disponible</option></select>
-        </div>
+        <div class="top-left"></div>
         <div class="top-right">
-          <!-- Solo se modifica el botón aquí -->
           <button id="btnAgregar"><i class="fa-solid fa-plus"></i> Agregar producto</button>
         </div>
       </div>
-      <!-- Cards de productos se mostrarán aquí -->
       <div id="cardsContainer"></div>
     </div>
   </div>
 
-  <!-- MODAL PARA AGREGAR PRODUCTO (NUEVO) -->
+  <!-- MODAL PARA AGREGAR PRODUCTO -->
   <div id="modalAgregarProducto" class="modal">
     <div class="modal-content">
       <span class="close" id="cerrarModal">&times;</span>
-      <h2>Agregar producto</h2>
+      <h2 id="modalTitulo">Agregar producto</h2>
       <form id="formAgregarProducto">
         <label>Nombre del producto:</label>
         <input type="text" name="nombre" required>
@@ -99,114 +74,35 @@
         <label>Descripción:</label>
         <textarea name="descripcion" required></textarea>
 
-        <label>Especialidad:</label>
-        <select name="especialidad" required>
+        <label>Precio:</label>
+        <input type="number" name="precio" step="0.01" min="0" required>
+
+        <label>Categoría:</label>
+        <select name="id_categoria" required>
           <option value="">Selecciona una opción</option>
-          <option value="Bebida">Bebida</option>
-          <option value="Alimento">Alimento</option>
+          <option value="1">Pizzas</option>
+          <option value="2">Hamburguesas</option>
+          <option value="3">Alitas</option>
+          <option value="4">Boneless</option>
+          <option value="5">refrescos</option>
         </select>
 
-        <label>Disponibilidad:</label>
-        <select name="disponibilidad" required>
-          <option value="Disponible">Disponible</option>
-          <option value="No disponible">No disponible</option>
+        <label>Status:</label>
+        <select name="id_status" required>
+          <option value="">Disponibilidad:</option>
+          <option value="6">Disponible</option>
+          <option value="7">No disponible</option>
         </select>
 
         <label>Imagen:</label>
-        <input type="file" name="imagen" id="inputImagen" accept="image/*">
+        <input type="file" name="imagen" id="inputImagen" accept="image/*" required>
         <div id="previewImagen" style="margin-top:10px"></div>
 
-        <button type="submit" class="add-btn">Agregar</button>
+        <button type="submit" class="add-btn">Guardar</button>
       </form>
     </div>
   </div>
 
-  <!-- SCRIPTS PARA MODAL, VISTA PREVIA E IMPRESIÓN DE CARDS -->
-  <script>
-    // Array para almacenar productos agregados
-    let productos = [];
-
-    // Mostrar modal
-    document.getElementById('btnAgregar').onclick = function() {
-      document.getElementById('modalAgregarProducto').style.display = 'block';
-    };
-
-    // Cerrar modal
-    document.getElementById('cerrarModal').onclick = function() {
-      cerrarModal();
-    };
-
-    // Cerrar si hace click fuera del modal
-    window.onclick = function(event) {
-      var modal = document.getElementById('modalAgregarProducto');
-      if (event.target == modal) {
-        cerrarModal();
-      }
-    };
-
-    function cerrarModal() {
-      document.getElementById('modalAgregarProducto').style.display = 'none';
-      document.getElementById('formAgregarProducto').reset();
-      document.getElementById('previewImagen').innerHTML = '';
-      imgPreviewBase64 = "";
-    }
-
-    // Previsualizar imagen
-    let imgPreviewBase64 = "";
-    document.getElementById('inputImagen').onchange = function(event) {
-      const file = event.target.files[0];
-      const preview = document.getElementById('previewImagen');
-      preview.innerHTML = '';
-      imgPreviewBase64 = "";
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          imgPreviewBase64 = e.target.result; // Guardamos el base64 para la card
-          preview.innerHTML = '<img src="' + e.target.result + '" style="max-width:100%; max-height:170px; border-radius:8px;"/>';
-        }
-        reader.readAsDataURL(file);
-      }
-    };
-
-    // Evento submit
-    document.getElementById('formAgregarProducto').onsubmit = function(e) {
-      e.preventDefault();
-      // Tomar los datos del formulario
-      const form = e.target;
-      const nuevoProducto = {
-        nombre: form.nombre.value,
-        descripcion: form.descripcion.value,
-        especialidad: form.especialidad.value,
-        disponibilidad: form.disponibilidad.value,
-        imagen: imgPreviewBase64 // base64 local para prueba (pon la url real cuando uses backend)
-      };
-      productos.push(nuevoProducto);
-
-      // Renderiza los productos
-      renderProductos();
-
-      cerrarModal();
-    };
-
-    function renderProductos() {
-      const cont = document.getElementById('cardsContainer');
-      cont.innerHTML = '';
-      productos.forEach((prod, idx) => {
-        cont.innerHTML += `
-          <div class="product-card">
-            <img src="${prod.imagen || 'https://via.placeholder.com/100'}" alt="Imagen">
-            <div class="product-info">
-              <h3>${prod.nombre}</h3>
-              <p><strong>Descripción:</strong> ${prod.descripcion}</p>
-              <div class="product-tags">
-                <span class="product-tag">${prod.especialidad}</span>
-                <span class="product-tag">${prod.disponibilidad}</span>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-    }
-  </script>
+  <script src="../js/agregarProductos.js"></script>
 </body>
 </html>

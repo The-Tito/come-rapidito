@@ -1,0 +1,203 @@
+:root{
+    --fontfamily: "Montserrat", sans-serif;
+    --fonttitulo: "Mouse Memoirs", sans-serif;
+    --primarycolor: #FF502D;
+    --secondarycolor: #FC0203; 
+    --text-dark: #212121;
+    --text-light: #757575;
+    --border-light: #EAEAEA;
+    --white: #FFFFFF;
+    --card-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.127);
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.nav{
+    background-color: white;
+    border-bottom: 3px solid #EAEAEA;
+    font-family: var(--fontfamily);
+    font-weight: bolder;
+}
+
+.nav_container{
+    width: 90%;
+    margin: 0 auto;
+    height: 80px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo{
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+}
+
+.logo_text {
+    order: 2; 
+    color: var(--primarycolor);
+    font-weight: bold;
+}
+
+.logo_img {
+    order: 1; 
+    height: 38px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 178px; 
+}
+
+.nav_link {
+    display: flex;
+    align-items: center;
+    gap: 4px; 
+    color: var(--primarycolor);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav_img {
+    width: 24px;
+}
+
+.seccion {
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4em;
+}
+
+.pedido_container {
+    flex-basis: 45%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+}
+
+.seccion_img {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.img_banner {
+    max-width: 100%;
+    height: auto;
+}
+
+.h1_titulo {
+    display: flex;
+    font-family: var(--fonttitulo);
+    text-align: left;
+    margin-bottom: 30px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.seccion_titulo {
+    color: var(--primarycolor);
+    font-weight: 400;
+    font-size: 52px;
+    text-transform: uppercase;
+}
+
+.info-restaurante,
+.card-pedido {
+    background-color: var(--white);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+    border: px solid #F5F5F5;
+    font-family: var(--fontfamily);
+}
+
+.info-restaurante {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo_restaurante {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
+
+.restaurante-nombre {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.restaurante-direccion {
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.card-pedido .cliente-nombre {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.card-pedido .cliente-direccion,
+.card-pedido .cliente-subtotal {
+    font-size: 1rem;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.card-pedido .cliente-subtotal {
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+.botones {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.btn-cancelar,
+.btn-seguimiento {
+    flex: 1;
+    padding: 18px 10px;
+    border-radius: 12px;
+    font-family: var(--fontfamily);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.btn-cancelar {
+    background-color: var(--white);
+    color: var(--secondarycolor);
+    border-color: #EAEAEA;
+}
+
+.btn-seguimiento {
+    background-color: var(--secondarycolor);
+    color: var(--white);
+}
+
+a{
+    text-decoration: none;
+}

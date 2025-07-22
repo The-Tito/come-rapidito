@@ -1,0 +1,380 @@
+:root {
+    --fontfamily: "Montserrat", sans-serif;
+    --navcolores: #FF502D;
+    --modal-red: #FC0203; 
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+    font-family: var(--fontfamily);
+}
+
+.nav {
+    background-color: white;
+    border-bottom: 3px solid #EAEAEA;
+    font-family: var(--fontfamily);
+}
+
+.nav_container {
+    width: 90%;
+    margin: 0 auto;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo_img {
+    order: 1;
+    height: 38px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 178px;
+}
+
+.nav_link {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    gap: 4px;
+    color: var(--navcolores);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav_img {
+    width: 24px;
+}
+
+.pedidos-section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+    font-family: var(--fontfamily);
+    color: #000000;
+}
+
+.titulo-seccion {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.contenedor-pedidos {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.card-pedido {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e9ecef;
+}
+
+.fila-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.fila-info strong {
+    font-weight: 600;
+    color: #495057;
+}
+
+.fila-info span {
+    font-weight: 500;
+    color: #212529;
+}
+
+body.modal-abierto {
+  overflow: hidden; 
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 37, 41, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; 
+  padding: 1rem; 
+}
+
+.modal_contenido {
+  background-color: #FFFFFF;
+  width: 100%;
+  max-width: 901.63px; 
+  border-radius: 25.64px; 
+  padding: 2rem 3rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.077); 
+  font-family: var(--fontfamily);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modal_titulo {
+  text-align: center;
+  color: var(--modal-red);
+  margin-bottom: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.titulo{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.restaurante-nombre{
+    padding-left: 1em;
+}
+
+p{
+    margin: 5px auto;
+}
+.modal_seccion {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid #00000030;
+  box-shadow: 1px 1px 10px #88888861;
+}
+
+.seccion_header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.seccion_logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.seccion_titulo {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #212529;
+}
+
+.seccion_linea {
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+.seccion_subtotal {
+    font-size: 1rem;
+    color: #212529;
+    font-weight: 500;
+    margin-top: 0.75rem;
+}
+
+.modal_botones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.logo_restaurante{
+    border-radius: 50%;
+    height: 41px;
+}
+.btn-regresar,
+.btn-aceptar {
+  flex: 1;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.btn-regresar {
+  background-color: #FFFFFF;
+  color: var(--modal-red);
+  border: 1px solid #EAEAEA;
+  font-family: var(--fontfamily);
+}
+
+.btn-regresar:hover {
+    background-color: #f8f9fa;
+    border-color: #dcdcdc;
+}
+
+.btn-aceptar {
+  background-color: var(--modal-red);
+  color: white;
+  border: 1px solid var(--modal-red);
+  font-family: var(--fontfamily);
+}
+
+.btn-aceptar:hover {
+    background-color: #D60000;
+    border-color: #D60000;
+}
+
+.oculto {
+  display: none;
+}
+
+
+.modal-contenido-tarifa {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;
+  height: 322px;
+  max-width: 90vw;
+  position: relative;       /* Asegura posicionamiento correcto */
+  z-index: 2000;            /* Superior al modal padre */
+  box-sizing: border-box; 
+}
+
+.tarifa_titulo {
+    color: var(--modal-red);
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 25px;
+}
+
+.tarifa_dropdown {
+    width: 100%;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.tarifa_dropdown label {
+    display: none;
+}
+
+.tarifa_dropdown select {
+    appearance: none;    
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.5em; /* Tamaño de fuente más grande para los números */
+    font-weight: 500;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.tarifa_dropdown::after {
+    content: '▼';
+    font-size: 1em;
+    color: #555;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; 
+}
+
+.tarifa_botones {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;      
+    gap: 15px; 
+}
+
+.btn-regresar-tarifa,
+.btn-aceptar-tarifa {
+    flex-grow: 1; /* Hace que ambos botones ocupen el mismo espacio */
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-regresar-tarifa {
+  background-color: #FFFFFF;
+  color: var(--modal-red);
+  border: 1px solid #EAEAEA;
+  font-family: var(--fontfamily);
+}
+
+.btn-aceptar-tarifa {
+    background-color: var(--modal-red);
+    border-color: var(--modal-red);
+    color: #fff;
+}
+
+.btn-regresar-tarifa:hover {
+    background-color: #fbe9e7;
+}
+
+.btn-aceptar-tarifa:hover {
+    background-color: #c62828;
+    border-color: #c62828;
+}
+
+.error-mensaje {
+    color: var(--modal-red);
+    font-size: 0.875em; /* Un poco más pequeño que el texto normal */
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+.btn-continuar{
+    background-color: var(--modal-red);
+    border-color: var(--modal-red);
+    color: #fff;
+    flex-grow: 1; /* Hace que ambos botones ocupen el mismo espacio */
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 8px;
+    border: 1px solid;
+    font-size: 1em;
+    font-weight: bold;
+    width: 70%;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}

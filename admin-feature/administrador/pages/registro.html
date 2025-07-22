@@ -1,132 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Registro Restaurante</title>
-  <link rel="stylesheet" href="../styles/registro.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registra tu Restaurante</title>
+
+    <link rel="icon" href="../../../Assets/iconLogo.png">
+    <link rel="stylesheet" href="../styles/registro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-  <img src="/Assets/logo3.png" alt="" class="logo-superior">
-  <div class="layout">
+    <main class="contenedor-principal">
+        <section class="seccion-informativa">
+            <div class="logo-superior">
+                <a href="" onclick="volverAtras()">
+                    <img src="../../../Assets/Logo.png" alt="Logo Come Rapidito">
+                </a>
+                
 
-    <!-- BLOQUE IZQUIERDO (texto) -->
-    <div class="bloque-izquierda">
-      <h1 class="linea1">MEJORA EL ALCANCE</h1>
-      <h1 class="linea2">DE TU NEGOCIO CON</h1>
-      <h1 class="linea3">COME RAPIDITO</h1>
-    </div>
-
-    <!-- BLOQUE DERECHO (formulario) -->
-    <div class="bloque-derecha">
-      <div class="formulario">
-        <h1>Registra tu restaurante</h1>
-
-        <div class="pasos">
-          <span class="activo" onclick="cambiarPaso(this)">1</span>
-          <hr>
-          <span onclick="cambiarPaso(this)">2</span>
-        </div>
-
-        <label for="name">Nombre del negocio</label>
-        <input type="text" id="name" placeholder="Nombre del negocio">
-
-        <div class="horas">
-          <div class="campo">
-            <label>Horario de cierre</label>
-            <div class="selector-hora">
-              <input type="number" min="1" max="12" value="7" class="hora-input">
-              <span class="separador">:</span>
-              <input type="number" min="0" max="59" value="00" class="minuto-input">
-              <select class="ampm">
-                <option>AM</option>
-                <option>PM</option>
-              </select>
             </div>
-          </div>
-
-          <div class="campo">
-            <label>Horario de apertura</label>
-            <div class="selector-hora">
-              <input type="number" min="1" max="12" value="7" class="hora-input">
-              <span class="separador">:</span>
-              <input type="number" min="0" max="59" value="00" class="minuto-input">
-              <select class="ampm">
-                <option>AM</option>
-                <option>PM</option>
-              </select>
+            <div class="texto-principal">
+                <h1>MEJORA EL ALCANCE DE TU NEGOCIO CON <br><span class="resaltado">COME RAPIDITO</span></h1>
             </div>
-          </div>
-        </div>
+        </section>
 
-        <label for="direccion">Direccion</label>
-        <input type="text" id="direccion" placeholder="Dirección">
+        <section class="seccion-formulario">
+            <div class="formulario-contenedor">
+                <h2>Registra tu restaurante</h2>
 
-        <div class="carga">
-          <div class="caja-subida">
-            <img src="/Assets/img.png" alt="Subir imagen">
-            <div class="preview-imagen" id="previewLogo">
-              <img alt="Logo del Restaurante" style="display:none;">
+                <div class="indicador-pasos">
+                    <div id="indicador-1" class="paso activo">
+                        <span class="indicador-paso activo" id="boton-paso-1">1</span>
+                    </div>
+                    <div class="linea-pasos"></div>
+                    <div id="indicador-2" class="paso">
+                        <span class="indicador-paso" id="boton-paso-2">2</span>
+                    </div>
+                </div>
+
+                <form id="paso-1" class="formulario-paso visible">
+                    <div class="campo-formulario">
+                        <label for="nombre-admin">Nombre del Administrador</label>
+                        <input type="text" id="nombre" name="nombre_admin" placeholder="Value">
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidos-admin">Apellidos</label>
+                        <input type="text" id="apellido" name="apellidos_admin" placeholder="Value">
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="email-admin">Correo electrónico</label>
+                        <input type="email" id="email" name="email_admin" placeholder="Value">
+                        <span id="emailFeedback" style="color: red;"></span>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="telefono-admin">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono_admin" placeholder="Value">
+                    </div>
+                    <div class="campo-formulario">
+                        <span id="contrasenaFeedback" style="color: red;"></span>
+                        <label for="contrasena">Contraseña</label>
+                        <input type="password" id="contrasena" name="contrasena" placeholder="Value">
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="confirmar-contrasena">Confirmar contraseña</label>
+                        <input type="password" id="confirmar-contrasena" name="confirmar_contrasena"
+                            placeholder="Value">
+                    </div>
+
+                    <button type="submit" id="boton-finalizar" class="boton-principal">
+                        Continuar
+                    </button>
+                </form>
+                <!-- Paso 1 del Formulario -->
+                <form id="paso-2" class="formulario-paso oculto">
+                    <div class="campo-formulario">
+                        <label for="nombre-negocio">Nombre del negocio</label>
+                        <input type="text" id="nombre-negocio" name="nombre_negocio" placeholder="Value">
+                    </div>
+
+                    <div class="horas">
+                        <div class="campo">
+                            <label>Horario de cierre</label>
+                            <div class="selector-hora">
+                                <input type="number" min="1" max="12" value="7" class="hora-input" id="cierre_hora">
+                                <span class="separador">:</span>
+                                <input type="number" min="0" max="59" value="00" class="minuto-input"
+                                    id="cierre_minuto">
+                                <select class="ampm" id="cierre_ampm">
+                                    <option>AM</option>
+                                    <option>PM</option>
+                                </select>
+                                <input type="hidden" name="horario_cierre" id="horario_cierre">
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <label>Horario de apertura</label>
+                            <div class="selector-hora">
+                                <input type="number" min="1" max="12" value="7" class="hora-input" id="apertura_hora">
+                                <span class="separador">:</span>
+                                <input type="number" min="0" max="59" value="00" class="minuto-input"
+                                    id="apertura_minuto">
+                                <select class="ampm" id="apertura_ampm">
+                                    <option>AM</option>
+                                    <option>PM</option>
+                                </select>
+                                <input type="hidden" name="horario_apertura" id="horario_apertura">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Value">
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="telefono">Telefono</label>
+                        <input type="text" id="telefono-negocio" name="telefono" placeholder="Value">
+                    </div>
+
+                    <div class="contenedor-subida-archivos">
+                        <div class="caja-subida">
+                            <div class="icono-subida">
+                                <img src="../../../Assets/agregarImagen.png" alt="Icono de subida de imagen">
+                            </div>
+                            <label for="logo-restaurante">Subir Logo del Restaurante</label>
+                            <input type="file" id="logo-restaurante" name="logo_restaurante" hidden>
+                        </div>
+                        <div class="caja-subida">
+                            <div class="icono-subida">
+                                <img src="../../../Assets/agregarImagen.png" alt="Icono de subida de imagen">
+                            </div>
+                            <label for="banner-restaurante">Subir Banner del Restaurante</label>
+                            <input type="file" id="banner-restaurante" name="banner_restaurante" hidden>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="boton-continuar-paso1" class="boton-principal">
+                        Continuar
+                    </button>
+                </form>
+
+                <!-- Paso 2 del Formulario -->
+
             </div>
-          </div>
-          <div class="caja-subida">
-            <img src="/Assets/img.png" alt="Subir imagen">
-            <div class="preview-imagen" id="previewBanner">
-              <img alt="Banner del Restaurante" style="display:none;">
-            </div>
-          </div>
-        </div>
+        </section>
+    </main>
 
-        <div class="botones-carga">
-          <button type="button" class="boton-subir" onclick="document.getElementById('inputLogo').click();">
-            Seleccionar Logo
-            <img src="/Assets/sub.png" alt="Subir icono">
-          </button>
-          <button type="button" class="boton-subir" onclick="document.getElementById('inputBanner').click();">
-            Seleccionar Banner
-            <img src="/Assets/sub.png" alt="Subir icono">
-          </button>
-        </div>
-
-        <input type="file" id="inputLogo" accept="image/*" style="display:none;" onchange="mostrarImagen(event, 'previewLogo')">
-        <input type="file" id="inputBanner" accept="image/*" style="display:none;" onchange="mostrarImagen(event, 'previewBanner')">
-
-        <button class="continuar-btn">☆ Continuar</button>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    function mostrarImagen(event, previewId) {
-      const input = event.target;
-      const previewDiv = document.getElementById(previewId);
-      const img = previewDiv.querySelector('img');
-      const placeholderImg = previewDiv.parentElement.querySelector(':scope > img:not(.preview-imagen img)');
-      if (placeholderImg) {
-        placeholderImg.style.display = 'none';
-      }
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          img.src = e.target.result;
-          img.style.display = 'block';
-        }
-        reader.readAsDataURL(input.files[0]);
-      } else {
-        img.src = "";
-        img.style.display = 'none';
-        if (placeholderImg) {
-          placeholderImg.style.display = 'block';
-        }
-      }
-    }
-
-    function cambiarPaso(elemento) {
-      document.querySelectorAll('.pasos span').forEach(span => span.classList.remove('activo'));
-      elemento.classList.add('activo');
-    }
-  </script>
+    <script src="../js/registro.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/pedidos-activos.css">
+    <script src="../JS/pedidos-activos.js" defer></script>
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <title>Pedidos Activos</title>
+</head>
+
+<body>
+
+    <nav class="nav">
+    <div class="nav_container">
+
+        <div class="logo">           
+            <img src="../../Assets/Logo.png" alt="" class="logo_img">
+        </div>
+
+        <div class="links">
+            <a href="../pages/index.html" class="nav_link">
+                Home
+            </a>
+
+             <a href="../pages/historial.html" class="nav_link">
+                <img src="../../Assets/historial.png" alt="" class="nav_img">
+                Historial
+            </a>
+
+             <a href="" class="nav_link">
+                <img src="../../Assets/iconUsuario .png" alt="" class="nav_img">
+                Cerrar Sesión
+            </a>
+        </div>
+    </div>
+</nav>
+
+ <section class="pedidos-section">
+        <h2 class="titulo-seccion">Pedidos activos</h2>
+
+        <div class="contenedor-pedidos" id="detalle-pedido">
+            
+            <div class="card-pedido">
+                <div class="fila-info">
+                    <strong >ID:</strong>
+                    <span id="id_pedido"></span>
+                </div>
+                <div class="fila-info">
+                    <strong>Restaurante:</strong>
+                    <span id="nombre_restaurante"></span>
+                </div>
+                <div class="fila-info">
+                    <strong>Fecha:</strong>
+                    <span id="fecha_pedido"></span>
+                </div>
+                <div class="fila-info">
+                    <strong>Total:</strong>
+                    <span id="total"></span>
+                </div>
+            </div>
+        </div>
+
+ </section>    
+
+    <div id="modal-pedido" class="modal oculto">
+        <div class="modal_contenido">
+            <h2 class="modal_titulo">Información del pedido</h2>
+    
+                <div class="modal_seccion">
+
+                <div class="titulo">
+                    <img src="../../Assets/LogoRestaurante.png" alt="logo restaurante" class="logo_restaurante" id="logo_restaurante">
+                    <strong class="restaurante-nombre" id="nombre_restaurante"> nombre restaurante </strong>
+                </div>
+                <p class="restaurante-direccion" id="direccion_restaurante"> direccion </p>
+                </div>
+
+            <div class="modal_seccion">
+            <p class="cliente-telefono" id="num_telefono">numero cliente</p>
+            <p class="cliente-direccion" id="id_direccion">direccion cliente</p>
+            <p class="cliente-subtotal" id="subtotal">Subtotal pedido</p>
+            </div>
+
+            <div class="modal_botones">
+            <button class="btn-regresar">Regresar</button>
+            <button class="btn-aceptar">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_tarifa" class="modal oculto">
+        <div class="modal-contenido-tarifa">
+            <h2 class="tarifa_titulo">Establecer tarifa</h2>
+
+            <div class="tarifa_dropdown">
+    <label for="tarifa">Tarifa</label>
+    <select name="tarifa" id="tarifa" required>
+
+        <option value=""disabled selected hidden>Tarifa</option>
+        
+        <option value="25">$ 25</option>
+        <option value="35">$ 35</option>
+        <option value="45">$ 45</option>
+    </select>
+    </div>
+
+    <p id="tarifa-error" class="error-mensaje oculto">Por favor ingresa una tarifa</p>
+    <div class="tarifa_botones">
+        <button class="btn-regresar-tarifa">Regresar</button>
+            <button class="btn-aceptar-tarifa">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modal-confirmacion" class="modal oculto">
+        <div class="modal_contenido">
+            <h2 class="modal_titulo">Tarifa Confirmada</h2>
+            <p id="mensaje-confirmacion">Has establecido una tarifa de <strong id="tarifa-confirmada"></strong></p>
+            <button class="btn-continuar">Continuar</button>
+        </div>
+    </div>
+
+</body>
+</html>
