@@ -92,14 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
   id_status: 4
 };
 
-fetch(`http://localhost:7000/api/orders/restaurant/${id_restaurante}`, {
-  method: "POST",
+fetch(`http://localhost:7000/api/orders/restaurant/${id_restaurante}/history`, {
+  method: "GET",
   headers: {
     "Authorization": `Bearer ${token}`,
     "X-User-NAME": `${nombre}`,
     "Content-Type": "application/json"
-  },
-  body: JSON.stringify(order)
+  }
 })
   .then(res => res.json())
   .then(data => {

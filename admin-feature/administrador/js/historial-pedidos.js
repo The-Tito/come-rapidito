@@ -108,19 +108,22 @@ function addOrderRow(orderData) {
                 return response.text();
             })
             .then(data => {
-                console.log(`Pedido #${orderId} actualizado correctamente. Respuesta:`, data);
-                
-                // ✅ MANTENER EL SELECT DESHABILITADO PERMANENTEMENTE
-                statusSelect.disabled = true;
-                statusSelect.style.opacity = '0.6';
-                statusSelect.style.cursor = 'not-allowed';
-                
-                // Marcar como actualizado para evitar futuros cambios
-                statusSelect.dataset.updated = 'true';
-                
-                // Opcional: Mostrar mensaje de éxito
-                console.log(`Estado del pedido #${orderId} bloqueado después de la actualización`);
-            })
+    console.log(`Pedido #${orderId} actualizado correctamente. Respuesta:`, data);
+
+    // Desactivar solo si el estado nuevo es "espera"
+    if (newIdStatus === 2) {
+        statusSelect.disabled = true;
+        statusSelect.style.opacity = '0.6';
+        statusSelect.style.cursor = 'not-allowed';
+        statusSelect.dataset.updated = 'true';
+        console.log(`Pedido #${orderId} bloqueado tras llegar a 'En espera'`);
+    } else {
+        // Permitir seguir cambiando si es otro estado
+        statusSelect.disabled = false;
+        console.log(`Pedido #${orderId} actualizado a estado intermedio.`);
+    }
+})
+
             .catch(error => {
                 console.error(`Error actualizando pedido #${orderId}:`, error);
                 alert("No se pudo actualizar el estado del pedido.");
