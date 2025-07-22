@@ -111,15 +111,10 @@ function crearCarrusel(restaurantes) {
   const carrusel = document.createElement("div");
   carrusel.className = "carrusel";
 
+  //no se pq pero no los eliminen pq se borra el carrusel
   const btnIzq = document.createElement("button");
-  btnIzq.className = "carrusel-boton carrusel-boton-izquierda";
-  btnIzq.setAttribute("aria-label", "Anterior");
-  btnIzq.innerHTML = "&lt;";
 
   const btnDer = document.createElement("button");
-  btnDer.className = "carrusel-boton carrusel-boton-derecha";
-  btnDer.setAttribute("aria-label", "Siguiente");
-  btnDer.innerHTML = "&gt;";
 
   const contenedor = document.createElement("div");
   contenedor.className = "carrusel-contenedor";

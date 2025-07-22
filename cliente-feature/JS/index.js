@@ -12,83 +12,72 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.add("modal-superposicion-visible"); // o modal.style.display = 'block', depende cómo esté hecho
   }
 
-  // --- NUEVO CÓDIGO MODIFICADO PARA EL MODAL ---
-
+  // --- CÓDIGO DEL MODAL (SIN CAMBIOS) ---
   const modal = document.getElementById('modal-login');
   const cerrarModalBtn = document.getElementById('cerrar-modal-login');
+  const botonesParaAbrirModal = [document.getElementById('abrir-modal-login')];
 
-  // 1. Seleccionamos TODOS los botones que deben abrir el modal
-  const botonesParaAbrirModal = [
-    document.getElementById('abrir-modal-login')
-  ];
-
-  // Función para abrir el modal
   const abrirModal = (evento) => {
-    evento.preventDefault(); // Previene el comportamiento por defecto del enlace (ej. saltar a '#')
+    evento.preventDefault();
     if (modal) {
       modal.classList.add('modal-superposicion-visible');
     }
   };
 
-  // Función para cerrar el modal
   const cerrarModal = () => {
     if (modal) {
       modal.classList.remove('modal-superposicion-visible');
     }
   };
 
-  // 2. Asignamos el evento de 'click' a cada uno de los botones para abrir
   botonesParaAbrirModal.forEach(boton => {
-    if (boton) { // Verificamos que el botón exista antes de añadir el listener
+    if (boton) {
       boton.addEventListener('click', abrirModal);
     }
   });
 
-  // 3. Asignamos los eventos para cerrar el modal (esto no cambia)
   if (cerrarModalBtn) {
     cerrarModalBtn.addEventListener('click', cerrarModal);
   }
 
   if (modal) {
     modal.addEventListener('click', (evento) => {
-      // Cierra el modal solo si el clic es en el fondo (la superposición)
       if (evento.target === modal) {
         cerrarModal();
       }
     });
   }
-
 });
 
 
-// Llamar a restaurantes
+// --- SECCIÓN DE RESTAURANTES MODIFICADA ---
+
+// Llamar a restaurantes al cargar la página
 document.addEventListener("DOMContentLoaded", cargarCarruseles);
 
 function cargarCarruseles() {
   fetch("http://localhost:7000/restaurant")
     .then(res => res.json())
     .then(data => {
-      sessionStorage.setItem('restaurantes', JSON.stringify(data))
-      // Corregido: usar la clase correcta del HTML
+      sessionStorage.setItem('restaurantes', JSON.stringify(data));
       const contenedor = document.querySelector(".carruseles");
 
-      // Verificar que el contenedor existe
       if (!contenedor) {
         console.error('No se encontró el contenedor de carruseles');
         return;
       }
 
-      // Limpiar el contenido existente (los carruseles estáticos del HTML)
+      // Limpia cualquier contenido previo del contenedor
+      contenedor.innerHTML = '';
 
       const chunkSize = 4;
-
       for (let i = 0; i < data.length; i += chunkSize) {
         const grupo = data.slice(i, i + chunkSize);
         const carrusel = crearCarrusel(grupo);
         contenedor.appendChild(carrusel);
       }
-
-      agregarEventosCarrusel();
+      
+      // La función para agregar eventos a los botones ha sido eliminada
     })
     .catch(error => {
       console.error('Error al cargar los restaurantes:', error);
@@ -99,16 +88,8 @@ function crearCarrusel(restaurantes) {
   const carrusel = document.createElement("div");
   carrusel.className = "carrusel";
 
-  const btnIzq = document.createElement("button");
-  btnIzq.className = "carrusel-boton carrusel-boton-izquierda";
-  btnIzq.setAttribute("aria-label", "Anterior");
-  btnIzq.innerHTML = "&lt;";
-
-  const btnDer = document.createElement("button");
-  btnDer.className = "carrusel-boton carrusel-boton-derecha";
-  btnDer.setAttribute("aria-label", "Siguiente");
-  btnDer.innerHTML = "&gt;";
-
+  // Los botones < y > han sido removidos
+  
   const contenedor = document.createElement("div");
   contenedor.className = "carrusel-contenedor";
 
@@ -127,42 +108,23 @@ function crearCarrusel(restaurantes) {
   });
 
   contenedor.appendChild(pista);
-  carrusel.appendChild(btnIzq);
-  carrusel.appendChild(contenedor);
-  carrusel.appendChild(btnDer);
+  carrusel.appendChild(contenedor); // Se añade el contenedor directamente al carrusel
 
   return carrusel;
 }
 
-function agregarEventosCarrusel() {
-  document.querySelectorAll(".carrusel").forEach(carrusel => {
-    const pista = carrusel.querySelector(".carrusel-pista");
-    const btnIzq = carrusel.querySelector(".carrusel-boton-izquierda");
-    const btnDer = carrusel.querySelector(".carrusel-boton-derecha");
+// La función agregarEventosCarrusel() ha sido eliminada por completo
+// ya que los botones no existen.
 
-    let scroll = 0;
-    const paso = pista.offsetWidth; // mueve por "pantalla completa" de items
 
-    btnIzq.addEventListener("click", () => {
-      scroll = Math.max(0, scroll - paso);
-      pista.scrollTo({ left: scroll, behavior: "smooth" });
-    });
-
-    btnDer.addEventListener("click", () => {
-      scroll = Math.min(pista.scrollWidth - pista.offsetWidth, scroll + paso);
-      pista.scrollTo({ left: scroll, behavior: "smooth" });
-    });
-  });
-}
-
-// Login con teléfono y contraseña
+// --- SECCIÓN DE LOGIN (SIN CAMBIOS) ---
 document.querySelector(".formulario-inicio-sesion").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const numero_telefono = document.getElementById("telefono").value.trim();
   const contrasena = document.getElementById("password").value.trim();
 
-  if (!telefono || !contrasena) {
+  if (!numero_telefono || !contrasena) {
     alert("Por favor, completa ambos campos.");
     return;
   }
@@ -181,24 +143,20 @@ document.querySelector(".formulario-inicio-sesion").addEventListener("submit", a
     }
 
     const data = await response.json();
-
-    // Guardar en sessionStorage
     
     localStorage.setItem("nombre", JSON.stringify(data.nombre));
     localStorage.setItem("token", JSON.stringify(data.token));
     localStorage.setItem("idRol", data.idRol);
     localStorage.setItem("id_usuario", data.id_usuario);
   
-
-    // Redirigir según el rol
     switch (data.idRol) {
-      case 1: // Cliente
+      case 1:
         window.location.href = "../pages/sesion-iniciada.html";
         break;
-      case 2: // Admin Restaurante
+      case 2:
         window.location.href = "../../admin-feature/administrador/pages/editInfo.html";
         break;
-      case 3: // Repartidor
+      case 3:
         window.location.href = "../../repartidor-feature/pages/index.html";
         break;
       default:
