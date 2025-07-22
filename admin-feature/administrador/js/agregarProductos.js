@@ -173,27 +173,34 @@ function renderProductos() {
   });
 
   document.querySelectorAll('.edit-btn').forEach(btn => {
-    btn.onclick = function () {
-      const id = parseInt(this.dataset.id);
-    
-      const prod = productos.find(p => p.id_producto === id);
-      if (!prod) return;
-      console.log(prod)
-      editando = true;
-      productoEditandoId = id;
+  btn.onclick = async function () {   // cambia a async para usar await
+    const id = parseInt(this.dataset.id);
+    const prod = productos.find(p => p.id_producto === id);
+    if (!prod) return;
+    console.log(prod)
+    editando = true;
+    productoEditandoId = id;
 
-      document.getElementById('modalAgregarProducto').style.display = 'block';
-      document.getElementById('modalTitulo').innerText = "Editar producto";
+    document.getElementById('modalAgregarProducto').style.display = 'block';
+    document.getElementById('modalTitulo').innerText = "Editar producto";
 
-      const form = document.getElementById('formAgregarProducto');
-      form.nombre.value = prod.nombre;
-      form.descripcion.value = prod.descripcion;
-      form.precio.value = prod.precio;
-      form.id_categoria.value = prod.id_categoria;
-      form.id_status.value = prod.id_status;
-      document.getElementById('previewImagen').innerHTML = '<img src="' + prod.url_imagen + '" style="max-width:100%; max-height:170px; border-radius:8px;"/>';
+    const form = document.getElementById('formAgregarProducto');
+    form.nombre.value = prod.nombre;
+    form.descripcion.value = prod.descripcion;
+    form.precio.value = prod.precio;
+    form.id_categoria.value = prod.id_categoria;
+    form.id_status.value = prod.id_status;
+    document.getElementById('previewImagen').innerHTML = '<img src="' + prod.url_imagen + '" style="max-width:100%; max-height:170px; border-radius:8px;"/>';
 
-      imagenFile = null;
+    // Aquí está el cambio clave: asignar imagenFile con el archivo real
+    imagenFile = await fetchImagenComoFile(prod.url_imagen);
+
+    // No olvides resetear el input de archivo para que el usuario pueda elegir otra imagen
+    document.getElementById('inputImagen').value = '';
+  };
+});
+
+
       
 document.getElementById('formAgregarProducto').onsubmit = async function (e) {
   e.preventDefault();
@@ -201,16 +208,19 @@ document.getElementById('formAgregarProducto').onsubmit = async function (e) {
   const form = e.target;
 
   const formData = new FormData();
-  formData.append("nombre", form.nombre.value);
-  formData.append("descripcion", form.descripcion.value);
-  formData.append("precio", form.precio.value);
-  formData.append("id_categoria", form.id_categoria.value);
-  formData.append("id_status", form.id_status.value);
+
+  formData.append("nombre", form.nombre.value || productoOriginal.nombre);
+  formData.append("descripcion", form.descripcion.value || productoOriginal.descripcion);
+  formData.append("precio", form.precio.value || productoOriginal.precio);
+  formData.append("id_categoria", form.id_categoria.value || productoOriginal.id_categoria);
+  formData.append("id_status", form.id_status.value || productoOriginal.id_status);
   formData.append("id_restaurante", id_restaurante);
 
-  // Solo adjunta imagen si se seleccionó
   if (imagenFile) {
     formData.append("imagen", imagenFile);
+  } else if (editando) {
+    // Si no se selecciona nueva imagen, no envíes ninguna. El backend debe conservar la anterior.
+    // Alternativa: podrías reenviar la URL o base64, si el backend lo permite.
   }
 
   try {
@@ -248,9 +258,17 @@ document.getElementById('formAgregarProducto').onsubmit = async function (e) {
   }
 };
 
+
     };
-  });
+
+
+// Convierte la imagen desde la URL a File (solo si estás editando)
+async function fetchImagenComoFile(url, nombre = "imagen_original.jpg") {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return new File([blob], nombre, { type: blob.type });
 }
+
 
 // =================== INICIO ===================
 getProductosDesdeAPI();

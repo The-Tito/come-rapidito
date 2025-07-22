@@ -11,7 +11,8 @@ let id_restaurante = localStorage.getItem("id_restaurante");
 
 // Mapeo de ID de status a texto
 const statusMap = {
-    1: 'En proceso',
+    4: 'Entregado',
+    5: `Cancelado`
 };
 
 /**
@@ -32,6 +33,7 @@ function formatDate(dateString) {
  * @param {object} orderData - Los datos del pedido
  */
 function addOrderRow(orderData) {
+  
     const tableBody = document.getElementById('orders-tbody');
     const row = document.createElement('tr');
 
@@ -52,20 +54,15 @@ function addOrderRow(orderData) {
 
     // Crear celda de status
     const statusCell = document.createElement('td');
-    const statusContent = document.createElement('div');
-    statusContent.className = 'statusContent';
+  
     
     const statusSelect = document.createElement('tr');
     statusSelect.className = 'status';
     const currentStatus = statusMap[orderData.id_status] || 'Desconocido';
     statusSelect.innerHTML = `<option selected>${currentStatus}</option>`;
 
-    const editButton = document.createElement('button');
-    editButton.className = ('edit-btn');
-    editButton.innerHTML = ('Listo para entrega');
-    statusContent.appendChild(statusSelect);
-    statusContent.appendChild(editButton);
-    statusCell.appendChild(statusContent)
+    
+    statusCell.appendChild(statusSelect)
 
     // Crear celdas de fecha y total
     const dateCell = document.createElement('td');
@@ -92,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Añadir la fila desde el JSON
     const order = {
-  id_status: 1
+  id_status: 4
 };
 
 fetch(`http://localhost:7000/api/orders/restaurant/${id_restaurante}`, {
@@ -106,7 +103,7 @@ fetch(`http://localhost:7000/api/orders/restaurant/${id_restaurante}`, {
 })
   .then(res => res.json())
   .then(data => {
-    console.log("Pedidos recibidos:", data); // Asegúrate de que es un array
+     // Asegúrate de que es un array
 
     // data debe ser un array con los pedidos
     for (const pedido of data) {

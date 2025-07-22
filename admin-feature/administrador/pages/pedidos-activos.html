@@ -24,22 +24,22 @@
         </div>
         <nav class="sidebar-nav">
             <ul>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="editInfo.html"><i class="fas fa-th-large"></i><span>Informacion</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="agregarProductos.html"><i class="fas fa-store"></i><span>Productos</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="pedidos-activos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
+                    <a href="historial-pedidos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
                 </li>
-                <li class="nav-item">
-                    <a href="#"><i class="fas fa-history"></i><span>Historial</span></a>
+                <li class="nav-item active">
+                    <a href="pedidos-activos.html"><i class="fas fa-history"></i><span>Historial</span></a>
                 </li>
             </ul>
         </nav>
         <div class="sidebar-footer">
-            <a href="#" class="logout-button">
+            <a href="../../../cliente-feature/pages/index.html" id="cerrar-sesion" class="logout-button">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Logout</span>
             </a>
@@ -48,15 +48,8 @@
 
     <div class="container">
         <header class="header">
-            <h1 class="title">Pedidos en curso</h1>
-            <div class="user-info">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                Usuario
-            </div>
+            <h1 class="title">historial de pedidos</h1>
+            
         </header>
 
         <table class="orders-table">
@@ -74,8 +67,9 @@
             </tbody>
         </table>
     </div>
-
-            <script src="../js/pedidos-activos.js"></script>
+            
+    <script src="../js/cerrar-sesion.js"></script>
+    <script src="../js/pedidos-activos.js"></script>
 </body>
 
 </html>
