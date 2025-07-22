@@ -78,7 +78,7 @@ body {
     padding: 40px;
     border-radius: 24px;
     width: 100%;
-    max-width: 480px;
+    max-width: 450px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
@@ -234,7 +234,6 @@ body {
     width: 100%;
     padding: 15px;
     background-color: var(--color-principal);
-    color: white;
     border: none;
     border-radius: 12px;
     font-size: 1.1rem;
@@ -247,4 +246,9 @@ body {
 
 .boton-enviar:hover {
     background-color: #E03026;
+}
+
+a{
+        color: white;
+    text-decoration: none;
 }

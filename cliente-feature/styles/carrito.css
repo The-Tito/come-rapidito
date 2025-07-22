@@ -38,7 +38,7 @@ a {
 
 .encabezado {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     position: fixed;
     width: 100%;
@@ -446,4 +446,652 @@ a.encabezado-icono{
     margin-top: auto;
     background-color: #b9b9b9;
     color: #676767;
+}
+
+/*dropdown*/
+
+.dropbtn {
+  color: var(--color-primario);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--fuente-principal);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropbtn_img{
+    height: 24px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Estilos adicionales para el selector de direcciones */
+.selector-direcciones {
+    padding: 20px 0;
+}
+
+.selector-direcciones h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: var(--color-texto);
+}
+
+.lista-direcciones {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.direccion-opcion {
+    background-color: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.direccion-opcion:hover {
+    background-color: #f0f0f0;
+    border-color: var(--color-primario);
+}
+
+.direccion-opcion.seleccionada {
+    background-color: #fff5f2;
+    border-color: var(--color-primario);
+    box-shadow: 0 2px 8px rgba(255, 80, 45, 0.2);
+}
+
+.direccion-opcion strong {
+    color: var(--color-texto);
+    font-size: 16px;
+}
+
+.direccion-opcion small {
+    color: #888;
+    font-style: italic;
+}
+
+/* Mejoras para los controles de producto */
+.producto-controles button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    color: var(--color-texto);
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.producto-controles button:hover:not(:disabled) {
+    background-color: var(--color-primario);
+    color: white;
+}
+
+.producto-controles button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Animaciones para cambios en el carrito */
+.producto-item {
+    transition: all 0.3s ease;
+}
+
+.producto-item.eliminando {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+/* Mejoras para el resumen del pedido */
+.resumen-pedido {
+    transition: all 0.3s ease;
+}
+
+.detalle-resumen {
+    transition: all 0.2s ease;
+}
+
+/* Estados de carga */
+.cargando {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.cargando::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--color-primario);
+    border-radius: 50%;
+    animation: girar 1s linear infinite;
+}
+
+@keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive para dispositivos móviles */
+@media (max-width: 768px) {
+    .carrito-lleno-contenedor {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .producto-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .producto-imagen {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+    }
+    
+    .producto-precio {
+        margin: 0;
+        font-size: 20px;
+    }
+    
+    .producto-controles {
+        justify-content: center;
+    }
+    
+    .boton-eliminar {
+        margin: 0;
+    }
+    
+    .modal-contenido {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+    
+    .botones-formulario {
+        flex-direction: column;
+    }
+    
+    .botones-formulario button {
+        width: 100%;
+    }
+}
+
+/* Estilos para notificaciones */
+.notificacion {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background-color: var(--color-primario);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.notificacion.mostrar {
+    transform: translateX(0);
+}
+
+.notificacion.exito {
+    background-color: #28a745;
+}
+
+.notificacion.error {
+    background-color: #dc3545;
+}
+
+/* Mejoras para accesibilidad */
+.boton-principal:focus,
+.boton-secundario:focus,
+.producto-controles button:focus {
+    outline: 2px solid var(--color-primario);
+    outline-offset: 2px;
+}
+
+.campo-formulario input:focus {
+    border-color: var(--color-primario);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 80, 45, 0.2);
+}
+
+/* Estilos adicionales para agregar al archivo carrito.css existente */
+
+/* Contador del carrito */
+.contador-carrito {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--color-primario);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    min-width: 20px;
+}
+
+.encabezado-icono {
+    position: relative;
+}
+
+/* Estilos para los controles de cantidad */
+.producto-controles button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    color: var(--color-primario);
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.producto-controles button:hover {
+    background-color: var(--color-primario);
+    color: white;
+}
+
+/* Notificaciones */
+.notificacion {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1001;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+}
+
+.notificacion.mostrar {
+    transform: translateX(0);
+}
+
+.notificacion p {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Mejoras al modal */
+.modal-contenido {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Estilos para campos requeridos */
+.campo-formulario input:invalid {
+    border-color: #ff6b6b;
+}
+
+.campo-formulario input:valid {
+    border-color: #4CAF50;
+}
+
+/* Loading spinner para cuando se confirma el pedido */
+.cargando {
+    pointer-events: none;
+    opacity: 0.6;
+    position: relative;
+}
+
+.cargando::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 2px solid var(--color-primario);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    .carrito-lleno-contenedor {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .producto-item {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .producto-imagen {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .producto-controles {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    
+    .modal-contenido {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .botones-formulario {
+        flex-direction: column;
+    }
+    
+    .botones-formulario button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Estado vacío del carrito con mejor diseño */
+.carrito-vacio-contenedor {
+    background-color: white;
+    border-radius: 12px;
+    padding: 60px 40px;
+    margin: 40px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Mejor separación visual entre productos */
+.producto-item:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+/* Indicador de producto seleccionado */
+.direccion-seleccionada {
+    border-color: var(--color-primario);
+    background-color: #fff5f2;
+}
+
+.direccion-seleccionada .flecha-direccion {
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+/* Animación para agregar productos */
+@keyframes agregarProducto {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.producto-item.nuevo {
+    animation: agregarProducto 0.5s ease-out;
+}
+
+/* Mejor estilo para botones de cantidad */
+.producto-controles {
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: white;
+}
+
+.producto-controles button {
+    border: none;
+    background: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.producto-controles button:hover {
+    background-color: var(--color-primario);
+    color: white;
+    transform: scale(1.1);
+}
+
+.producto-controles span {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-texto);
+}
+
+/* Mejor diseño para el resumen */
+.resumen-pedido {
+    border: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-radius: 16px;
+}
+
+.resumen-pedido h2 {
+    color: var(--color-primario);
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+/* Estado de carga para botones */
+.boton-cargando {
+    position: relative;
+    color: transparent;
+}
+
+.boton-cargando::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top: 2px solid white;
+    animation: spin 1s linear infinite;
+}
+
+/* Mejor estilo para mensajes de error */
+.aviso-error {
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.aviso-error::before {
+    content: "⚠️";
+    font-size: 18px;
+}
+
+/* Mejora para el dropdown del usuario */
+.dropdown-content {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.dropdown-content a {
+    transition: background-color 0.3s;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--color-primario);
+    color: white;
+}
+
+/* Placeholder para imagen de productos que no cargan */
+.producto-imagen {
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 12px;
+    object-fit: cover;
+}
+
+.producto-imagen::before {
+    content: "🍽️";
+    font-size: 24px;
+}
+
+/* Animación suave para cambios de estado */
+.carrito-vacio-contenedor,
+.carrito-lleno-contenedor {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.carrito-vacio-contenedor.oculto,
+.carrito-lleno-contenedor.oculto {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+/* Estilos para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .titulo-carrito h1 {
+        font-size: 36px;
+    }
+    
+    .producto-item {
+        padding: 15px;
+    }
+    
+    .producto-imagen {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .contenedor-principal {
+        padding-top: 5.5rem;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .encabezado-lista {
+        gap: 2rem;
+    }
+    
+    .encabezado-iconos {
+        gap: 20px;
+    }
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* fondo semitransparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-contenido {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-botones {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-botones button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#btn-continuar {
+  background-color: #ccc;
+}
+
+#btn-salir {
+  background-color: #e74c3c;
+  color: white;
+}
+
+#boton-agregar-mas{
+    background-color: transparent;
+    color: var(--color-primario);
+    width: 300px;
 }

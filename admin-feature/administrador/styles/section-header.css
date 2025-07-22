@@ -1,0 +1,55 @@
+.section-header {
+  margin-left: 280px;   /* igual al ancho de tu sidebar */
+  width: calc(100vw - 230px - 0px); /* RESTA 20px extra */
+  /* El resto igual */
+  background: #f5f5fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 38px 44px 18px 54px;
+  border-bottom: 2px solid #e3e3e9;
+  box-sizing: border-box;
+  border-top-right-radius: 18px;
+  border-top-left-radius: 0;
+}
+
+
+.section-title h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #161616;
+  letter-spacing: -1px;
+}
+.section-user {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: #ffce37;
+  color: #0074bd;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.13rem;
+  box-shadow: 0 2px 6px rgba(51,51,51,0.11);
+  border: 3px solid #fff;
+  margin-right: 2px;
+}
+.username {
+  color: #ff6433;
+  font-weight: 600;
+  font-size: 1.17rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.username i {
+  font-size: 1.21rem;
+  margin-right: 2px;
+}

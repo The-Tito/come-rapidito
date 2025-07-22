@@ -39,7 +39,6 @@ body {
     display: flex;
     flex-direction: column;
     padding: 25px 0;
-    border-right: 2px solid #ededed;
     position: sticky;
     top: 0;
 }

@@ -88,19 +88,21 @@ document.querySelector('.formulario').addEventListener('submit', async function(
 
     console.log('Usuario registrado:', resultado);
     alert('¡Registro exitoso! Bienvenido/a ' + nombre);
-    
+  
     // Limpiar formulario después del registro exitoso
     document.querySelector('.formulario').reset();
 
     switch (datos.idRol) {
       case 1: // Cliente
         localStorage.setItem("abrirLogin", "true");
+        localStorage.setItem("usuarioNombre", nombre);
         window.location.href = "../pages/index.html";
         break;
       default:
         alert("Rol no reconocido");
         break;
     }
+
     // Opcional: redirigir a otra página
     // window.location.href = '/login.html';
 
@@ -113,3 +115,6 @@ document.querySelector('.formulario').addEventListener('submit', async function(
     boton.innerHTML = textoOriginal;
   }
 });
+function volverAtras() {
+  history.back();
+}

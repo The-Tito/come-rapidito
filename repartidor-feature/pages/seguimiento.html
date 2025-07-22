@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/seguimiento.css">
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="../../Assets/iconLogo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mouse+Memoirs&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
+
+    <title>Seguimiento Pedido</title>                              
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav_container">
+        <div class="logo">
+            <h2 class="logo_text"></h2>            
+            <img src="../../Assets/Logo.png" alt="" class="logo_img">
+        </div>
+
+        <div class="links">
+
+            <a href="../pages/index.html" class="nav_link">
+                Home
+            </a>
+
+            <a href="pedidos-activos.html" class="nav_link">
+                <img src="../../Assets/repartidores.png" alt="" class="nav_img">
+                Pedidos
+            </a>
+    
+            <a href="../pages/historial.html" class="nav_link">
+                <img src="../../Assets/historial.png" alt="" class="nav_img">
+                Historial
+            </a>
+
+             <a href="../../cliente-feature/pages/index.html" class="nav_link">
+                <img src="../../Assets/iconUsuario .png" alt="" class="nav_img">
+                Cerrar Sesión
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="h1_titulo">
+        <h1 class="seccion_titulo">Seguimiento</h1>
+</div>
+
+<main class="seccion">
+
+<div class="seguimiento_container">
+   
+    <div class="checkbox-item">
+        <label for="En preparación">En preparación</label>
+        <input type="checkbox" id="En preparación" name="En preparación">
+    </div>
+
+    <div class="checkbox-item">
+        <label for="En camino">En camino</label>
+        <input type="checkbox" id="En camino" name="En camino">
+    </div>
+
+    <div class="checkbox-item">
+        <label for="Entregado">Entregado</label>
+        <input type="checkbox" id="Entregado" name="Entregado">
+    </div>
+      
+        <div class="boton">
+            <a href="../pages/pedido-en-curso.html" class="btn-seguimiento">
+
+            <img src="../../Assets/flecha-delgada-izquierda.png" alt="" class="flecha">
+            Información Pedido
+
+            </a>
+        </div>
+    </div>
+        
+        <figure class="seccion_img">
+            <img src="../../Assets/Wavy Buddies Address.png" alt="Ilustración de una persona esperando su pedido" class="img_banner">
+        </figure>
+
+</main>
+
+<div id="modal-confirmacion" class="modal oculto">
+        <div class="modal_contenido">
+            <h2 class="modal_titulo">Pedido ha sido entregado</h2>
+            <button class="btn-continuar">Continuar</button>
+        </div>
+</div>
+
+<script src="../JS/seguimiento.js"></script>
+<script src="../JS/pedidos-activos.js"></script>
+</body>
+</html>

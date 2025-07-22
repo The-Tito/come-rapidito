@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú</title>
-    
+
     <link rel="icon" href="../../Assets/iconLogo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/restaurante.css">
 </head>
+
 <body>
 
     <div id="main-container">
         <header class="encabezado">
-            <a href="index.html" class="encabezado-logo">
+            <a href="./index.html" class="encabezado-logo">
                 <img src="../../Assets/Logo.png" alt="Logo Come Rapidito">
             </a>
             <nav class="encabezado-navegacion">
                 <ul class="encabezado-lista">
-                    <li class="encabezado-item"><a href="index.html" class="encabezado-enlace nav-link-confirm">Home</a></li>
-                    <li class="encabezado-item"><a href="index.html" class="encabezado-enlace nav-link-confirm">Menu</a></li>
-                    <li class="encabezado-item"><a href="#" id="abrir-modal-negocio" class="encabezado-enlace nav-link-confirm">Mi negocio</a></li>
+                    <li class="encabezado-item"><a href="index.html" class="encabezado-enlace nav-link-confirm">Home</a>
+                    </li>
+                    <li class="encabezado-item"><a href="./pedidos.html" class="encabezado-enlace">Pedidos</a></li>
+                    <li class="encabezado-item"><a href="#" id="abrir-modal-negocio"
+                            class="encabezado-enlace nav-link-confirm">Mi negocio</a></li>
                 </ul>
             </nav>
             <div class="encabezado-iconos">
-                <a href="#" id="abrir-modal-repartidor" class="encabezado-icono nav-link-confirm"><img src="../../Assets/repartidores.png" alt="Icono delivery"></a>
-                <a href="carrito.html" class="encabezado-icono"><img src="../../Assets/carrito.png" alt="Icono carrito"></a>
-                <a href="#" id="abrir-modal-login" class="encabezado-icono nav-link-confirm"><img src="../../Assets/iconUsuario .png" alt="Icono usuario"> Iniciar Sesión</a>
+                <a href="#" id="abrir-modal-repartidor" class="encabezado-icono nav-link-confirm"><img
+                        src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+                <a href="carrito.html" class="encabezado-icono"><img src="../../Assets/carrito.png"
+                        alt="Icono carrito"></a>
+                <a href="index.html" id="abrir-modal-login" class="encabezado-icono nav-link-confirm"><img
+                        src="../../Assets/iconUsuario .png" alt="Icono usuario"> Iniciar Sesión</a>
             </div>
         </header>
 
         <main>
             <section class="seccion-hero-restaurante" id="banner-restaurante">
                 <img src="" alt="Banner de pizza en horno de leña" class="seccion-hero-restaurante-banner">
-                
+
                 <div class="seccion-hero-restaurante-informacion">
                     <img src="" alt="Logo de La casa de las pizzas" class="informacion-logo">
                     <h1 class="informacion-nombre">La casa de las pizzas</h1>
@@ -51,14 +58,15 @@
 
             <section class="seccion-menu">
                 <h2 class="seccion-menu-titulo">Menú</h2>
-                
+
                 <div class="seccion-menu-categorias">
                     <div class="categoria-item">
                         <img src="../../Assets/ejemploCategoria1.png" alt="Promociones" class="categoria-item-imagen">
                         <h3 class="categoria-item-nombre">Promociones</h3>
                     </div>
                     <div class="categoria-item">
-                        <img src="../../Assets/ejemploCategoria2.png" alt="Especialidades" class="categoria-item-imagen">
+                        <img src="../../Assets/ejemploCategoria2.png" alt="Especialidades"
+                            class="categoria-item-imagen">
                         <h3 class="categoria-item-nombre">Especialidades</h3>
                     </div>
                     <div class="categoria-item">
@@ -73,46 +81,58 @@
 
                 <div class="seccion-menu-productos">
                     <article class="producto-contenedor">
-                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni" class="producto-contenedor-imagen">
+                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni"
+                            class="producto-contenedor-imagen">
                         <div class="producto-contenedor-detalles">
                             <h4 class="detalles-nombre">Pizza de pepperoni</h4>
                             <p class="detalles-descripcion">Mozzarella y pepperoni<br>Grande. 8 rebanadas</p>
                             <p class="detalles-precio">$179.00</p>
                         </div>
-                        <button class="producto-contenedor-agregar">
+                        <button class="producto-contenedor-agregar" data-producto-id="123"
+                            data-producto-nombre="Pizza Pepperoni" data-producto-precio="15.99"
+                            data-producto-url-imagen="../../Assets/pizzaPepperoni.png">
                             <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
                         </button>
                     </article>
                     <article class="producto-contenedor">
-                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni" class="producto-contenedor-imagen">
+                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni"
+                            class="producto-contenedor-imagen">
                         <div class="producto-contenedor-detalles">
                             <h4 class="detalles-nombre">Pizza de pepperoni</h4>
                             <p class="detalles-descripcion">Mozzarella y pepperoni<br>Grande. 8 rebanadas</p>
                             <p class="detalles-precio">$179.00</p>
                         </div>
-                        <button class="producto-contenedor-agregar">
+                        <button class="producto-contenedor-agregar" data-producto-id="123"
+                            data-producto-nombre="Pizza Pepperoni" data-producto-precio="15.99"
+                            data-producto-url-imagen="../../Assets/pizzaPepperoni.png">
                             <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
                         </button>
                     </article>
                     <article class="producto-contenedor">
-                        <img src="../../Assets/PizzaHawaiana.png" alt="Pizza hawaiana" class="producto-contenedor-imagen">
+                        <img src="../../Assets/PizzaHawaiana.png" alt="Pizza hawaiana"
+                            class="producto-contenedor-imagen">
                         <div class="producto-contenedor-detalles">
                             <h4 class="detalles-nombre">Pizza hawaiana</h4>
                             <p class="detalles-descripcion">Piña y jamón<br>Grande. 8 rebanadas</p>
                             <p class="detalles-precio">$179.00</p>
                         </div>
-                        <button class="producto-contenedor-agregar">
+                        <button class="producto-contenedor-agregar" data-producto-id="123"
+                            data-producto-nombre="Pizza Pepperoni" data-producto-precio="15.99"
+                            data-producto-url-imagen="../../Assets/pizzaPepperoni.png">
                             <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
                         </button>
                     </article>
-                     <article class="producto-contenedor">
-                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni" class="producto-contenedor-imagen">
+                    <article class="producto-contenedor">
+                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni"
+                            class="producto-contenedor-imagen">
                         <div class="producto-contenedor-detalles">
                             <h4 class="detalles-nombre">Pizza de pepperoni</h4>
                             <p class="detalles-descripcion">Mozzarella y pepperoni<br>Grande. 8 rebanadas</p>
                             <p class="detalles-precio">$179.00</p>
                         </div>
-                        <button class="producto-contenedor-agregar">
+                        <button class="producto-contenedor-agregar" data-producto-id="123"
+                            data-producto-nombre="Pizza Pepperoni" data-producto-precio="15.99"
+                            data-producto-url-imagen="../../Assets/pizzaPepperoni.png">
                             <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
                         </button>
                     </article>
@@ -124,31 +144,31 @@
     <!-- MODALES -->
 
     <!-- Info del restaurante -->
-<div id="modal-info-restaurante" class="modal-overlay oculto">
-    <div class="modal">
-        <button id="cerrar-modal-info" class="modal-cerrar-btn">
-            <img src="../../Assets/exit.png" alt="Icono de cerrar">
-        </button>
-        <img src="" alt="Logo del restaurante" class="modal-logo-restaurante">
-        <h2 class="modal-titulo">Nombre del restaurante</h2>
-        
-        <div class="modal-info-detalle">
-            <strong>Teléfono:</strong>
-            <span>Teléfono del restaurante</span>
-        </div>
-        
-        <div class="modal-info-detalle">
-            <strong>Dirección:</strong>
-            <span>Dirección del restaurante</span>
-        </div>
-        
-        <!-- Elemento opcional para el horario -->
-        <div class="modal-info-detalle">
-            <strong>Horario:</strong>
-            <span class="modal-horario">Horario del restaurante</span>
+    <div id="modal-info-restaurante" class="modal-overlay oculto">
+        <div class="modal">
+            <button id="cerrar-modal-info" class="modal-cerrar-btn">
+                <img src="../../Assets/exit.png" alt="Icono de cerrar">
+            </button>
+            <img src="" alt="Logo del restaurante" class="modal-logo-restaurante">
+            <h2 class="modal-titulo">Nombre del restaurante</h2>
+
+            <div class="modal-info-detalle">
+                <strong>Teléfono:</strong>
+                <span>Teléfono del restaurante</span>
+            </div>
+
+            <div class="modal-info-detalle">
+                <strong>Dirección:</strong>
+                <span>Dirección del restaurante</span>
+            </div>
+
+            <!-- Elemento opcional para el horario -->
+            <div class="modal-info-detalle">
+                <strong>Horario:</strong>
+                <span class="modal-horario">Horario del restaurante</span>
+            </div>
         </div>
     </div>
-</div>
     <!-- Producto agregado -->
     <div id="modal-agregado" class="modal-notificacion oculto">
         <div class="notificacion-contenido">
@@ -156,7 +176,7 @@
             <span>Agregado al carrito</span>
         </div>
     </div>
-    
+
     <!-- confirmar salida -->
     <div id="modal-confirmar-salida" class="modal-overlay oculto">
         <div class="modal modal-confirmacion">
@@ -169,7 +189,8 @@
             </div>
         </div>
     </div>
-    
+
     <script src="../js/restaurante.js"></script>
 </body>
+
 </html>

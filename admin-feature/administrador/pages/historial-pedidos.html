@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de pedidos</title>
+    <link rel="icon" href="../../../Assets/iconLogo.png">
+c    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/pedidos-activos.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <!-- Sidebar reutilizable -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../../../Assets/Logo (1).png" alt="Logo de Come Rapidito">
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item">
+                    <a href="#"><i class="fas fa-th-large"></i><span>Informacion</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#"><i class="fas fa-store"></i><span>Productos</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a href="pedidos-activos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#"><i class="fas fa-history"></i><span>Historial</span></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" class="logout-button">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Historial de pedidos</h1>
+            <div class="user-info">
+                <i class="fas fa-user"></i>
+                <span>Usuario</span>
+            </div>
+        </header>
+
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>Orden ID</th>
+                    <th>Información de Productos</th>
+                    <th>Status</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="orders-tbody">
+                <!-- Las filas de los pedidos se insertarán aquí con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../js/historial-pedidos.js"></script>
+</body>
+</html>

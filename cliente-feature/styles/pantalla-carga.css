@@ -1,0 +1,126 @@
+:root {
+  --color-primario: #FF502D;
+  --color-loader-base: #FFEEDD;
+  --fuente-principal: 'Montserrat', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--fuente-principal);
+  background-color: white;
+}
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0px 8px 10px rgba(168, 166, 166, 0.2);
+}
+
+.encabezado-logo img {
+  height: 38px;
+}
+
+.encabezado-lista {
+  list-style: none;
+  display: flex;
+  gap: 100px;
+}
+
+.encabezado-enlace {
+  text-decoration: none;
+  color: var(--color-primario);
+  font-weight: bold;
+}
+
+.encabezado-iconos {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.encabezado-icono img {
+  height: 24px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  color: var(--color-primario);
+  padding: 8px;
+  font-size: 14px;
+  text-decoration: none;
+  font-family: var(--fuente-principal);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dropbtn_img {
+  height: 24px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 140px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  padding: 10px 14px;
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+.loader-main {
+  margin-top: 150px;
+  height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  width: 70px;
+  height: 70px;
+  border: 6px solid var(--color-loader-base);
+  border-top: 6px solid var(--color-primario);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.loader-text {
+  color: var(--color-primario);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
