@@ -87,46 +87,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkbox = document.getElementById(etapaId);
 
     checkbox.addEventListener("change", () => {
-      if (!checkbox.checked) {
-        // No permitir desmarcar (no reversión)
-        checkbox.checked = true;
-        return;
-      }
+  if (!checkbox.checked) {
+    checkbox.checked = true;
+    return;
+  }
 
-      const estadoPedido = statusMap[etapaId];
+  const estadoPedido = statusMap[etapaId];
 
-      // No permitir bajar estado
-      if (estadoPedido < pedidoStatusActual) {
-        alert("No se puede regresar a un estado anterior.");
-        checkbox.checked = false;
-        return;
-      }
+  if (estadoPedido < pedidoStatusActual) {
+    alert("No se puede regresar a un estado anterior.");
+    checkbox.checked = false;
+    return;
+  }
 
-      // Actualizar estado en backend
-      fetch(`http://localhost:7000/api/orders/${pedidoId}/status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'X-User-NAME': nombre
-        },
-        body: JSON.stringify({ id_status: estadoPedido })
-      })
-        .then(response => {
-          if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-          return response.json();
-        })
-        .then(data => {
-          pedidoStatusActual = estadoPedido; // actualizar variable local
-          localStorage.setItem("pedido_id_status", estadoPedido);
-          updateCheckboxes(estadoPedido);
-          console.log("Estado actualizado correctamente:", data);
-        })
-        .catch(err => {
-          console.error("Error al actualizar estado:", err);
-          checkbox.checked = false;
-        });
-    });
+  fetch(`http://localhost:7000/api/orders/${pedidoId}/status`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'X-User-NAME': nombre
+    },
+    body: JSON.stringify({ id_status: estadoPedido })
+  })
+  .then(response => {
+    if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+    return response.json();
+  })
+  .then(data => {
+    pedidoStatusActual = estadoPedido;
+    localStorage.setItem("pedido_id_status", estadoPedido);
+    updateCheckboxes(estadoPedido);
+    console.log("Estado actualizado correctamente:", data);
+
+    // Si el estado es "Entregado", mostrar alerta y redirigir
+    if (estadoPedido === 4) {
+      alert("Gracias por completar el pedido");
+      window.location.href = "../pages/index.html"; // Ajusta la ruta según tu estructura
+    }
+  })
+  .catch(err => {
+    console.error("Error al actualizar estado:", err);
+    checkbox.checked = false;
+  });
+});
+
   });
 
 });
