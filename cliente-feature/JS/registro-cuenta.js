@@ -33,10 +33,11 @@ document.querySelector('.formulario').addEventListener('submit', async function(
   }
 
   // Validar teléfono (solo números, mínimo 10 dígitos)
-  if (telefono.length < 10 || !/^\d+$/.test(telefono)) {
-    alert('El número telefónico debe tener al menos 10 dígitos');
-    return;
-  }
+ if (!/^\d{1,10}$/.test(telefono)) {
+  alert('El número telefónico debe tener máximo 10 dígitos y solo números');
+  return;
+}
+
 
   // Datos que enviaremos al backend
   const datos = {

@@ -1,85 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/pedidos-en-curso.css">
-    <link rel="icon" href="../../Assets/iconLogo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" href="../../Assets/iconLogo.png">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../styles/pedidos-en-curso.css">
+        <link rel="icon" href="../../Assets/iconLogo.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="icon" href="../../Assets/iconLogo.png">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mouse+Memoirs&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
-    <title>Pedidos Activos</title>                              
-</head>
-<body>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mouse+Memoirs&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
+        <title>Pedidos Activos</title>                              
+    </head>
+    <body>
 
-<nav class="nav">
-    <div class="nav_container">
-        <div class="logo">
-            <h2 class="logo_text"></h2>            
-            <img src="../../Assets/Logo.png" alt="" class="logo_img">
+    <nav class="nav">
+        <div class="nav_container">
+            <div class="logo">
+                <h2 class="logo_text"></h2>            
+                <img src="../../Assets/Logo.png" alt="" class="logo_img">
+            </div>
+
+            <div class="links">
+
+                <a href="../pages/index.html" class="nav_link">
+                    Home
+                </a>
+
+                <a href="../pages/pedidos-activos.html" class="nav_link">
+                    <img src="../../Assets/repartidores.png" alt="" class="nav_img">
+                    Pedidos
+                </a>
+        
+                <a href="../pages/historial.html" class="nav_link">
+                    <img src="../../Assets/historial.png" alt="" class="nav_img">
+                    Historial
+                </a>
+
+                <a href="../../cliente-feature/pages/index.html" class="nav_link" id="cerrar-sesion">
+                    <img src="../../Assets/iconUsuario .png" alt="" class="nav_img">
+                    Cerrar Sesión
+                </a>
+            </div>
         </div>
+    </nav>
 
-        <div class="links">
 
-            <a href="../pages/index.html" class="nav_link">
-                Home
-            </a>
-
-            <a href="../pages/pedidos-activos.html" class="nav_link">
-                <img src="../../Assets/repartidores.png" alt="" class="nav_img">
-                Pedidos
-            </a>
-    
-             <a href="../pages/historial.html" class="nav_link">
-                <img src="../../Assets/historial.png" alt="" class="nav_img">
-                Historial
-            </a>
-
-             <a href="../../cliente-feature/pages/index.html" class="nav_link">
-                <img src="../../Assets/iconUsuario .png" alt="" class="nav_img">
-                Cerrar Sesión
-            </a>
-        </div>
+    <div class="h1_titulo">
+                <h1 class="seccion_titulo">Pedido en Curso</h1>
     </div>
-</nav>
 
+    <main class="seccion">
 
-<div class="h1_titulo">
-            <h1 class="seccion_titulo">Pedido en Curso</h1>
+        <div class="pedido_container">
+    
+            <div class="info-restaurante">
+                <img src="../../Assets/LogoRestaurante.png" alt="Logo de La casa de las pizzas" class="logo_restaurante">
+                <div class="info-restaurante_texto">
+                    <strong class="restaurante-nombre"> </strong>
+                    <p class="restaurante-direccion"> </p>
+                </div>
+            </div>
+
+            <div class="card-pedido">
+    <h3 class="titulo-card">Datos del Pedido</h3>
+    <p><strong class="cliente-nombre">Nombre:</strong> <span class="nombre_cliente"></span></p>
+    <p><strong class="cliente-telefono-label">Teléfono:</strong> <span class="cliente-telefono"></span></p>
+    <p><strong class="cliente-direccion-label">Dirección:</strong> <span class="cliente-direccion"></span></p>
+    <p><strong class="cliente-subtotal-label">Subtotal:</strong> <span class="cliente-subtotal"></span></p>
 </div>
 
-<main class="seccion">
 
-    <div class="pedido_container">
- 
-        <div class="info-restaurante">
-            <img src="../../Assets/LogoRestaurante.png" alt="Logo de La casa de las pizzas" class="logo_restaurante">
-            <div class="info-restaurante_texto">
-                <strong class="restaurante-nombre"> </strong>
-                <p class="restaurante-direccion"> </p>
+            <div class="botones">
+                <a href="../pages/pedidos-activos.html" class="btn-cancelar">Cancelar</a>
+                <a href="../pages/seguimiento.html" class="btn-seguimiento">Seguimiento</a>
             </div>
         </div>
 
-        <div class="card-pedido">
-            <p class="cliente-telefono"> </p>
-            <p class="cliente-direccion"> </p>
-            <p class="cliente-subtotal">Subotal: </p>
-        </div>
-
-        <div class="botones">
-            <a href="../pages/pedidos-activos.html" class="btn-cancelar">Cancelar</a>
-            <a href="../pages/seguimiento.html" class="btn-seguimiento">Seguimiento</a>
-        </div>
-    </div>
-
-    <figure class="seccion_img">
-        <img src="../../Assets/Wavy Buddies Address.png" alt="Ilustración de una persona esperando su pedido" class="img_banner">
-    </figure>
-</main>
-
-</body>
-</html>
+        <figure class="seccion_img">
+            <img src="../../Assets/Wavy Buddies Address.png" alt="Ilustración de una persona esperando su pedido" class="img_banner">
+        </figure>
+    </main>
+        <script src="../JS/pedido-en-curso.js"></script>
+        <script src="../JS/cerrar-sesion.js"></script>
+    </body>
+    </html>
