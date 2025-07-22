@@ -72,9 +72,14 @@ body {
 .titulo-seccion {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 }
 
+.pedidos-section p {
+    font-size: 1rem;
+    color: #000000;
+    margin-bottom: 1.5rem;
+}
 .contenedor-pedidos {
     display: grid;
     gap: 2rem;
