@@ -33,16 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
     id_status: 8 //activo
   }
 
-
-  fetch("http://localhost:7000/api/orders/delivery", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
-      "X-User-NAME": `${nombre}`
-    },
-    body: JSON.stringify(order)
-  })
+fetch("http://localhost:7000/api/orders/delivery", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`,
+    "X-User-NAME": `${nombre}`
+  },
+  body: JSON.stringify({ id_status: 8 }) // 'activo'
+})
     .then(res => {
       if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
       return res.json();
@@ -133,7 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnContinuar.addEventListener("click", () => {
     modalConfirmacion.classList.add("oculto");
-    window.location.href = "../seguimiento.html"; // Redirigir a seguimiento
+    window.location.href = "../pages/seguimiento.html";
+  console.log ()
   });
 
   tarifaSelect.addEventListener("change", () => {

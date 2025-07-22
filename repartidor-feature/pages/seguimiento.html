@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mouse+Memoirs&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mouse+Memoirs&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
 
     <title>Seguimiento Pedido</title>                              
 </head>
@@ -87,14 +87,19 @@
 
 </main>
 
-<div id="modal-confirmacion" class="modal oculto">
-        <div class="modal_contenido">
-            <h2 class="modal_titulo">Pedido ha sido entregado</h2>
-            <button class="btn-continuar">Continuar</button>
-        </div>
+<!-- Modal Pedido Entregado -->
+<div id="modal-entregado" class="modal oculto">
+    <div class="modal_contenido">
+        <h2 class="modal_titulo">¡Pedido Entregado!</h2>
+        <p class="modal_texto">El pedido ha sido entregado correctamente. ¿Quieres ver más detalles?</p>
+        <button class="btn-continuar">Aceptar</button>
+    </div>
 </div>
 
+
+
+
 <script src="../JS/seguimiento.js"></script>
-<script src="../JS/pedidos-activos.js"></script>
+
 </body>
 </html>
