@@ -18,22 +18,22 @@
         </div>
     <nav class="sidebar-nav">
       <ul>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a href="editInfo.html"><i class="fas fa-th-large"></i><span>Informacion</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a href="agregarProductos.html"><i class="fas fa-store"></i><span>Productos</span></a>
         </li>
         <li class="nav-item">
-          <a href="pedidos-activos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
+          <a href="historial-pedidos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
         </li>
         <li class="nav-item">
-          <a href="#"><i class="fas fa-history"></i><span>Historial</span></a>
+          <a href="pedidos-activos.html"><i class="fas fa-history"></i><span>Historial</span></a>
         </li>
       </ul>
     </nav>
     <div class="sidebar-footer">
-      <a href="#" class="logout-button">
+      <a href="../../../cliente-feature/pages/index.html" id="cerrar-sesion" class="logout-button">
         <i class="fas fa-sign-out-alt"></i>
         <span>Logout</span>
       </a>
@@ -45,11 +45,7 @@
       <div class="section-title">
         <h1>Agregar productos</h1>
       </div>
-      <div class="section-user">
-        <span class="username">
-          <i class="fa-regular fa-user"></i> Usuario
-        </span>
-      </div>
+      
     </div>
     <div class="main-content">
       <div class="top-bar">
@@ -80,11 +76,10 @@
         <label>Categoría:</label>
         <select name="id_categoria" required>
           <option value="">Selecciona una opción</option>
-          <option value="1">Pizzas</option>
-          <option value="2">Hamburguesas</option>
-          <option value="3">Alitas</option>
-          <option value="4">Boneless</option>
-          <option value="5">refrescos</option>
+          <option value="1">Alimento</option>
+          <option value="2">Snack</option>
+          <option value="3">Bebidas</option>
+          
         </select>
 
         <label>Status:</label>
@@ -95,7 +90,7 @@
         </select>
 
         <label>Imagen:</label>
-        <input type="file" name="imagen" id="inputImagen" accept="image/*" required>
+        <input type="file" name="imagen" id="inputImagen" accept="image/*" >
         <div id="previewImagen" style="margin-top:10px"></div>
 
         <button type="submit" class="add-btn">Guardar</button>
@@ -103,6 +98,7 @@
     </div>
   </div>
 
+  <script src="../js/cerrar-sesion.js"></script>
   <script src="../js/agregarProductos.js"></script>
 </body>
 </html>

@@ -34,15 +34,15 @@
           <a href="agregarProductos.html"><i class="fas fa-store"></i><span>Productos</span></a>
         </li>
         <li class="nav-item">
-          <a href="pedidos-activos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
+          <a href="historial-pedidos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
         </li>
         <li class="nav-item">
-          <a href="#"><i class="fas fa-history"></i><span>Historial</span></a>
+          <a href="pedidos-activos.html"><i class="fas fa-history"></i><span>Historial</span></a>
         </li>
       </ul>
     </nav>
     <div class="sidebar-footer">
-      <a href="#" class="logout-button">
+      <a href="../../../cliente-feature/pages/index.html" id="cerrar-sesion" class="logout-button">
         <i class="fas fa-sign-out-alt"></i>
         <span>Logout</span>
       </a>
@@ -153,15 +153,73 @@
         <div class="butto">
           <button type="button" class="save-button" onclick="abrirModalFormulario()">
             <i class="far fa-star"></i>
-            <span>Guardar informacion</span>
+            <span>Modificar Informacion</span>
           </button>
         </div>
     </form>
   </div>
 
+<div id="modalEditarInfo" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+        <h2 class="modal-title">Editar Información del Restaurante</h2>
+        <form id="formEditarInfo">
+            <div class="modal-group">
+                <label for="modal-admin-name">Nombre del administrador</label>
+                <input type="text" id="modal-admin-name" name="admin_name" required>
+            </div>
+
+            <div class="modal-group">
+                <label for="modal-admin-phone">Número del administrador</label>
+                <input type="text" id="modal-admin-phone" name="admin_phone" required>
+            </div>
+
+            <div class="modal-group">
+                <label for="modal-restaurant-name">Nombre del restaurante</label>
+                <input type="text" id="modal-restaurant-name" name="restaurant_name" required>
+            </div>
+
+            <div class="modal-group">
+                <label for="modal-restaurant-phone">Número del restaurante</label>
+                <input type="text" id="modal-restaurant-phone" name="restaurant_phone" required>
+            </div>
+
+            <div class="modal-group">
+                <label for="modal-restaurant-address">Dirección</label>
+                <input type="text" id="modal-restaurant-address" name="restaurant_address" required>
+            </div>
+
+            <div class="modal-group">
+                <label for="modal-horario-apertura">Horario de Apertura</label>
+                <input type="time" id="modal-horario-apertura" name="horario_apertura" required>
+            </div>
+
+            <div class="modal-group">
+                <label for="modal-horario-cierre">Horario de Cierre</label>
+                <input type="time" id="modal-horario-cierre" name="horario_cierre" required>
+            </div>
+
+            <div class="modal-group">
+                <label for="modal-logo-upload">Logo del Restaurante</label>
+                <input type="file" id="modal-logo-upload" name="logo" accept="image/*">
+                <img id="modal-logo-preview" src="" alt="Vista previa logo" class="modal-img-preview">
+            </div>
+
+            <div class="modal-group">
+                <label for="modal-banner-upload">Banner del Restaurante</label>
+                <input type="file" id="modal-banner-upload" name="banner" accept="image/*">
+                <img id="modal-banner-preview" src="" alt="Vista previa banner" class="modal-img-preview">
+            </div>
+
+            <div class="modal-actions">
+                <button type="submit" class="btn-guardar">Guardar Cambios</button>
+                <button type="button" id="btnCerrarModal" class="btn-cancelar">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
-
+  <script src="../js/cerrar-sesion.js"></script>
   <script src="../js/editInfo.js"></script>
 
 </body>

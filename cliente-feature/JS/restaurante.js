@@ -1,96 +1,69 @@
-
-let currentRestauranteId = null; // Declare a variable to store the restaurant ID
+let currentRestauranteId = null; // Variable para almacenar el ID del restaurante
+let todosLosProductos = []; // NUEVO: Variable para almacenar todos los productos del restaurante
 
 function cargarDatosRestaurante(restauranteId) {
     const restaurantes = JSON.parse(sessionStorage.getItem('restaurantes'));
-
     if (!restaurantes || restaurantes.length === 0) {
         console.error('No se encontraron restaurantes en sessionStorage');
         return;
     }
-
     const restaurante = restaurantes.find(r => r.id_restaurante === restauranteId);
-    // const id_restaurante = restaurante.id_restaurante; // This line is redundant here
     if (!restaurante) {
         console.error('Restaurante no encontrado');
         return;
     }
-
-    // Set the global currentRestauranteId here
     currentRestauranteId = restauranteId; 
-
     actualizarInformacionRestaurante(restaurante);
     actualizarModalRestaurante(restaurante); 
-    cargarProductosRestaurante(restauranteId)
+    cargarProductosRestaurante(restauranteId);
 }
 
 function actualizarInformacionRestaurante(restaurante) {
-    // Actualizar banner
     const banner = document.querySelector('.seccion-hero-restaurante-banner');
     if (banner && restaurante.banner_url) {
         banner.src = restaurante.banner_url;
         banner.alt = `Banner de ${restaurante.nombre_restaurante}`;
     }
-    
-    // Actualizar logo
     const logo = document.querySelector('.informacion-logo');
     if (logo && restaurante.logo_url) {
         logo.src = restaurante.logo_url;
-        logo.alt = `Logo de ${restaurante.nombre}`;
+        logo.alt = `Logo de ${restaurante.nombre_restaurante}`;
     }
-    
-    // Actualizar nombre del restaurante
     const nombreElement = document.querySelector('.informacion-nombre');
-    if (nombreElement && restaurante.nombre) {
-        nombreElement.textContent = restaurante.nombre;
+    if (nombreElement && restaurante.nombre_restaurante) {
+        nombreElement.textContent = restaurante.nombre_restaurante;
     }
-    // Actualizar teléfono
     const telefonoElement = document.querySelector('.informacion-detalle span b');
     if (telefonoElement && restaurante.telefono) {
         telefonoElement.textContent = restaurante.telefono;
     }
-    
-    // Actualizar horario
     const horarioElement = document.querySelectorAll('.informacion-detalle span b')[1];
     if (horarioElement && restaurante.horario_apertura && restaurante.horario_cierre) {
         const horarioTexto = formatearHorario(restaurante.horario_apertura, restaurante.horario_cierre);
         horarioElement.textContent = horarioTexto;
     }
-    
-    // Actualizar título de la página
     document.title = `${restaurante.nombre_restaurante} - Menú`;
 }
 
-// Nueva función para actualizar el modal del restaurante
 function actualizarModalRestaurante(restaurante) {
-    // Actualizar logo del modal
     const logoModal = document.querySelector('.modal-logo-restaurante');
     if (logoModal && restaurante.logo_url) {
         logoModal.src = restaurante.logo_url;
         logoModal.alt = `Logo de ${restaurante.nombre_restaurante}`;
     }
-    
-    // Actualizar nombre del restaurante en el modal
     const nombreModal = document.querySelector('.modal-titulo');
-    if (nombreModal && restaurante.nombre) {
-        nombreModal.textContent = restaurante.nombre;
+    if (nombreModal && restaurante.nombre_restaurante) {
+        nombreModal.textContent = restaurante.nombre_restaurante;
     }
-    
-    // Actualizar teléfono en el modal
     const telefonoModal = document.querySelector('.modal-info-detalle span');
     if (telefonoModal && restaurante.telefono) {
         telefonoModal.textContent = restaurante.telefono;
     }
-    
-    // Actualizar dirección en el modal
     const direccionModal = document.querySelectorAll('.modal-info-detalle span')[1];
     if (direccionModal && restaurante.direccion) {
         direccionModal.textContent = restaurante.direccion;
     }
-    
-    // Si también quieres mostrar el horario en el modal, puedes agregarlo
-    // Primero necesitarías agregar un elemento en el HTML del modal para el horario
-    const horarioModal = document.querySelector('.modal-horario'); // Elemento que deberías agregar al HTML
+    const horarioModal = document.querySelector('.modal-horario');
     if (horarioModal && restaurante.horario_apertura && restaurante.horario_cierre) {
         const horarioTexto = formatearHorario(restaurante.horario_apertura, restaurante.horario_cierre);
         horarioModal.textContent = horarioTexto;
@@ -98,9 +71,6 @@ function actualizarModalRestaurante(restaurante) {
 }
 
 function formatearHorario(apertura, cierre) {
-    // Función para formatear las horas desde el formato de la base de datos
-    // Asumiendo que vienen en formato HH:mm:ss
-    
     function formatearHora(timeString) {
         const time = new Date(`1970-01-01T${timeString}`);
         return time.toLocaleTimeString('es-MX', { 
@@ -109,32 +79,21 @@ function formatearHorario(apertura, cierre) {
             hour12: true 
         });
     }
-    
     const horaApertura = formatearHora(apertura);
     const horaCierre = formatearHora(cierre);
-    
     return `${horaApertura} - ${horaCierre}`;
 }
 
-// Función para obtener el ID del restaurante desde la URL
 function obtenerRestauranteIdDesdeURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return parseInt(urlParams.get('id')) || null;
 }
 
-
-
 async function cargarProductosRestaurante(restauranteid) {
     try {
-        
-        
         const response = await fetch(`http://localhost:7000/products/${restauranteid}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                // Agregar headers de autenticación si es necesario
-                // 'Authorization': 'Bearer ' + token
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
         
         if (!response.ok) {
@@ -142,24 +101,19 @@ async function cargarProductosRestaurante(restauranteid) {
         }
         
         const productos = await response.json();
+        todosLosProductos = productos; 
         
-        // Verificar si hay productos
         if (productos && productos.length > 0) {
-            actualizarMenuHTML(productos);
+            actualizarMenuHTML(productos); 
             console.log(`Se cargaron ${productos.length} productos del restaurante`);
         } else {
             mostrarMensajeVacio();
         }
-        
     } catch (error) {
         console.error('Error al cargar productos:', error);
     }
 }
 
-
-
-
-// Función para mostrar mensaje cuando no hay productos
 function mostrarMensajeVacio() {
     const contenedorProductos = document.querySelector('.seccion-menu-productos');
     contenedorProductos.innerHTML = `
@@ -172,22 +126,29 @@ function mostrarMensajeVacio() {
 
 function actualizarMenuHTML(productos) {
     const contenedorProductos = document.querySelector('.seccion-menu-productos');
-    contenedorProductos.innerHTML = ''; // Limpiar productos existentes
+    contenedorProductos.innerHTML = ''; 
+
+    if (!productos || productos.length === 0) {
+        contenedorProductos.innerHTML = `
+            <div class="mensaje-vacio" style="text-align: center; padding: 40px;">
+                <h3>No hay productos en esta categoría</h3>
+                <p>Prueba seleccionando otra categoría.</p>
+            </div>
+        `;
+        return;
+    }
+
     productos.forEach(producto => {
-        // Verificar que el producto esté activo (id_status = 1, asumiendo que 1 es activo)
-            const productoHTML = crearProductoHTML(producto);
-            contenedorProductos.appendChild(productoHTML);
+        const productoHTML = crearProductoHTML(producto);
+        contenedorProductos.appendChild(productoHTML);
     });
     
-    // Reagregar los event listeners para los botones de agregar después de recrear el HTML
     reagregarEventListenersProductos();
 }
 
 function crearProductoHTML(producto) {
     const article = document.createElement('article');
     article.className = 'producto-contenedor';
-    
-    // Usar valores por defecto en caso de que algunos datos no estén disponibles
     const nombre = producto.nombre || 'Producto sin nombre';
     const descripcion = producto.descripcion || 'Sin descripción';
     const precio = producto.precio || 0;
@@ -208,9 +169,9 @@ function crearProductoHTML(producto) {
             <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
         </button>
     `;
-    
     return article;
 }
+
 function reagregarEventListenersProductos() {
     const botonesAgregar = document.querySelectorAll('.producto-contenedor-agregar');
     const modalAgregado = document.getElementById('modal-agregado');
@@ -219,10 +180,8 @@ function reagregarEventListenersProductos() {
         boton.addEventListener('click', (e) => {
             const productoId = e.currentTarget.dataset.productoId;
             const productoNombre = e.currentTarget.dataset.productoNombre;
-            const id_restaurante = e.currentTarget.dataset.productorestauranteId;
             const productoPrecio = parseFloat(e.currentTarget.dataset.productoPrecio);
             const url_imagen = e.currentTarget.dataset.productoUrlImagen;
-            ;
             
             agregarAlCarrito({
                 id: productoId,
@@ -240,171 +199,152 @@ function reagregarEventListenersProductos() {
     });
 }
 
-
 function agregarAlCarrito(producto) {
     try {
-        // Obtener carrito existente o crear uno nuevo
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        
-        // Verificar si el producto ya existe en el carrito
         const productoExistente = carrito.find(item => item.id === producto.id);
         
         if (productoExistente) {
-            // Si existe, incrementar la cantidad
             productoExistente.cantidad += 1;
         } else {
-            // Si no existe, agregarlo con cantidad 1
-            carrito.push({
-                id: producto.id,
-                nombre: producto.nombre,
-                precio: producto.precio,
-                url_imagen: producto.url_imagen,
-                id_restaurante: currentRestauranteId,
-                cantidad: 1
-            });
+            carrito.push({ ...producto, cantidad: 1 });
         }
         
-        // Guardar el carrito actualizado
         localStorage.setItem('carrito', JSON.stringify(carrito));
-        
-        // Actualizar contador del carrito si existe
         actualizarContadorCarrito();
-        
-        
-        
     } catch (error) {
         console.error('Error al agregar producto al carrito:', error);
     }
 }
 
-// Función para actualizar el contador del carrito
 function actualizarContadorCarrito() {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
-    
-    // Buscar elemento del contador del carrito y actualizarlo
     const contadorCarrito = document.querySelector('.contador-carrito');
     if (contadorCarrito) {
         contadorCarrito.textContent = totalItems;
     }
 }
 
-// Inicializar cuando se carga la página
+function inicializarFiltros() {
+    const categoriasBotones = document.querySelectorAll('.categoria-item');
+
+    categoriasBotones.forEach(boton => {
+        boton.addEventListener('click', () => {
+            categoriasBotones.forEach(btn => btn.classList.remove('active'));
+            boton.classList.add('active');
+
+            const categoriaId = parseInt(boton.dataset.categoryId, 10);
+            
+            let productosFiltrados;
+
+            if (categoriaId === 0) { 
+                productosFiltrados = todosLosProductos;
+            } else {
+                productosFiltrados = todosLosProductos.filter(producto => producto.id_categoria === categoriaId);
+            }
+            
+            actualizarMenuHTML(productosFiltrados);
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener ID del restaurante desde la URL
     const restauranteId = obtenerRestauranteIdDesdeURL();
     
     if (restauranteId) {
         cargarDatosRestaurante(restauranteId);
     } else {
         console.error('No se encontró ID del restaurante en la URL');
-        // Redirigir a la página principal o mostrar error
-     //   window.location.href = '/index.html';
     }
     
-    // Inicializar la lógica de modales
     inicializarModales();
+    inicializarFiltros(); 
 });
 
-// Función separada para inicializar todos los modales
+
+// ===== FUNCIÓN DE MODALES MODIFICADA =====
 function inicializarModales() {
     const mainContainer = document.getElementById('main-container');
-
-    // Modal 1: Info Restaurante
     const bannerRestaurante = document.getElementById('banner-restaurante');
     const modalInfo = document.getElementById('modal-info-restaurante');
     const btnCerrarInfo = document.getElementById('cerrar-modal-info');
-
-    // Modal 2: Notificación Producto Agregado
-    const botonesAgregar = document.querySelectorAll('.producto-contenedor-agregar');
-    const modalAgregado = document.getElementById('modal-agregado');
-
-    // Modal 3: Confirmación de Salida
-    const linksConfirmar = document.querySelectorAll('.nav-link-confirm');
+    
     const modalConfirmar = document.getElementById('modal-confirmar-salida');
     const btnSalir = document.getElementById('btn-salir');
     const btnContinuar = document.getElementById('btn-continuar');
+    let urlParaRedirigir = null;
 
-    let urlParaRedirigir = null; // Variable para guardar la URL del enlace
-
-    // ===== FUNCIONES GENERALES PARA MODALES =====
-    
-    // Muestra un modal y aplica el efecto blur
     function mostrarModal(modal) {
         modal.classList.remove('oculto');
-        mainContainer.classList.add('blur-effect');
+        if(mainContainer) mainContainer.classList.add('blur-effect');
     }
 
-    // Oculta un modal y quita el efecto blur
     function ocultarModal(modal) {
         modal.classList.add('oculto');
-        mainContainer.classList.remove('blur-effect');
+        if(mainContainer) mainContainer.classList.remove('blur-effect');
     }
 
-    // ===== LÓGICA PARA MODAL 1: INFO RESTAURANTE =====
-    
-    // Abrir modal de info al hacer clic en el banner
-    bannerRestaurante.addEventListener('click', () => {
-        mostrarModal(modalInfo);
-    });
+    // Lógica del modal de información del restaurante (sin cambios)
+    if(bannerRestaurante) bannerRestaurante.addEventListener('click', () => mostrarModal(modalInfo));
+    if(btnCerrarInfo) btnCerrarInfo.addEventListener('click', () => ocultarModal(modalInfo));
+    if(modalInfo) modalInfo.addEventListener('click', (e) => { if (e.target === modalInfo) ocultarModal(modalInfo); });
 
-    // Cerrar modal de info con el botón 'X'
-    btnCerrarInfo.addEventListener('click', () => {
-        ocultarModal(modalInfo);
-    });
-    
-    // Cerrar modal de info al hacer clic fuera del contenido
-    modalInfo.addEventListener('click', (e) => {
-        if (e.target === modalInfo) {
-            ocultarModal(modalInfo);
+    // === INICIO DE LA NUEVA LÓGICA PARA EL MODAL DE CONFIRMACIÓN ===
+
+    // 1. Seleccionar todos los enlaces de navegación que puedan llevar fuera de la página
+    const linksDeNavegacion = document.querySelectorAll(
+        '.encabezado-logo, .encabezado-enlace, .encabezado-iconos > a, .dropdown-content a'
+    );
+
+    linksDeNavegacion.forEach(link => {
+        // Excluir el enlace de "Cerrar Sesión" para que su funcionalidad original no sea interrumpida
+        if (link.id === 'cerrar-sesion') {
+            return; 
         }
-    });
 
-    // ===== LÓGICA PARA MODAL 2: NOTIFICACIÓN PRODUCTO AGREGADO =====
-    
-    botonesAgregar.forEach(boton => {
-        boton.addEventListener('click', (e) => {
-            const productoId = e.currentTarget.dataset.productoId || 'default';
-            agregarAlCarrito(productoId);
-            
-            // Muestra la notificación
-            modalAgregado.classList.remove('oculto');
-            
-            // Oculta la notificación después de 2.5 segundos
-            setTimeout(() => {
-                modalAgregado.classList.add('oculto');
-            }, 2500);
-        });
-    });
-
-    // ===== LÓGICA PARA MODAL 3: CONFIRMACIÓN DE SALIDA =====
-
-    // Abrir modal de confirmación al hacer clic en un enlace de navegación
-    linksConfirmar.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault(); // Previene la navegación inmediata
-            urlParaRedirigir = e.currentTarget.href; // Guarda la URL del enlace
-            mostrarModal(modalConfirmar);
+            // Obtener el carrito de localStorage
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            // Verificar si el enlace es el que va a la página del carrito
+            const esEnlaceAlCarrito = e.currentTarget.href.includes('carrito-sesion.html');
+
+            // Mostrar el modal SÓLO si el carrito tiene productos Y el enlace NO es el del carrito
+            if (carrito.length > 0 && !esEnlaceAlCarrito) {
+                e.preventDefault(); // Detener la navegación
+                urlParaRedirigir = e.currentTarget.href; // Guardar el destino
+                mostrarModal(modalConfirmar); // Mostrar el modal de advertencia
+            }
+            // Si el carrito está vacío o el click es en el ícono del carrito, la navegación procede normalmente.
         });
     });
 
-    // Acción del botón "Salir": redirige a la URL guardada
-    btnSalir.addEventListener('click', () => {
-        if (urlParaRedirigir) {
-            window.location.href = urlParaRedirigir;
-             localStorage.removeItem("carrito");
-        }
-    });
+    // 2. Configurar el botón "Salir" del modal
+    if(btnSalir) {
+        btnSalir.addEventListener('click', () => {
+            if (urlParaRedirigir) {
+                localStorage.removeItem("carrito"); // Vaciar el carrito
+                window.location.href = urlParaRedirigir; // Redirigir al destino
+            }
+        });
+    }
     
-    // Acción del botón "Continuar aquí": simplemente cierra el modal
-    btnContinuar.addEventListener('click', () => {
-        ocultarModal(modalConfirmar);
-    });
+    // 3. Configurar el botón "Continuar aquí" del modal
+    if(btnContinuar) {
+        btnContinuar.addEventListener('click', () => {
+            ocultarModal(modalConfirmar); // Simplemente cerrar el modal
+            urlParaRedirigir = null; // Limpiar la URL guardada
+        });
+    }
     
-    // Cerrar modal de confirmación al hacer clic fuera del contenido
-    modalConfirmar.addEventListener('click', (e) => {
-        if (e.target === modalConfirmar) {
-            ocultarModal(modalConfirmar);
-        }
-    });
+    // 4. Configurar el cierre del modal al hacer clic fuera de él
+    if(modalConfirmar) {
+        modalConfirmar.addEventListener('click', (e) => { 
+            if (e.target === modalConfirmar) {
+                ocultarModal(modalConfirmar);
+                urlParaRedirigir = null; // Limpiar la URL guardada
+            }
+        });
+    }
+    // === FIN DE LA NUEVA LÓGICA ===
 }

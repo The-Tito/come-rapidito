@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de pedidos</title>
     <link rel="icon" href="../../../Assets/iconLogo.png">
-c    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/header.css">
     <link rel="stylesheet" href="../styles/pedidos-activos.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -23,21 +23,21 @@ c    <link rel="stylesheet" href="../styles/header.css">
         <nav class="sidebar-nav">
             <ul>
                 <li class="nav-item">
-                    <a href="#"><i class="fas fa-th-large"></i><span>Informacion</span></a>
+                    <a href="editInfo.html"><i class="fas fa-th-large"></i><span>Informacion</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#"><i class="fas fa-store"></i><span>Productos</span></a>
+                    <a href="agregarProductos.html"><i class="fas fa-store"></i><span>Productos</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a href="pedidos-activos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
+                    <a href="historial-pedidos.html"><i class="fas fa-shipping-fast"></i><span>Pedidos</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#"><i class="fas fa-history"></i><span>Historial</span></a>
+                    <a href="pedidos-activos.html"><i class="fas fa-history"></i><span>Historial</span></a>
                 </li>
             </ul>
         </nav>
         <div class="sidebar-footer">
-            <a href="#" class="logout-button">
+            <a href="../../../cliente-feature/pages/index.html" id="cerrar-sesion" class="logout-button">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Logout</span>
             </a>
@@ -46,11 +46,8 @@ c    <link rel="stylesheet" href="../styles/header.css">
 
     <div class="container">
         <header class="header">
-            <h1 class="title">Historial de pedidos</h1>
-            <div class="user-info">
-                <i class="fas fa-user"></i>
-                <span>Usuario</span>
-            </div>
+            <h1 class="title">Pedidos en curso</h1>
+            <
         </header>
 
         <table class="orders-table">
@@ -70,5 +67,6 @@ c    <link rel="stylesheet" href="../styles/header.css">
     </div>
 
     <script src="../js/historial-pedidos.js"></script>
+    <script src="../js/cerrar-sesion.js"></script>
 </body>
 </html>
