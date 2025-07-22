@@ -101,10 +101,10 @@ async function cargarProductosRestaurante(restauranteid) {
         }
         
         const productos = await response.json();
-        todosLosProductos = productos; // NUEVO: Guardamos la lista completa de productos
+        todosLosProductos = productos; 
         
         if (productos && productos.length > 0) {
-            actualizarMenuHTML(productos); // Mostramos todos los productos inicialmente
+            actualizarMenuHTML(productos); 
             console.log(`Se cargaron ${productos.length} productos del restaurante`);
         } else {
             mostrarMensajeVacio();
@@ -124,10 +124,9 @@ function mostrarMensajeVacio() {
     `;
 }
 
-// ACTUALIZADO: Para manejar listas de productos filtrados vacías
 function actualizarMenuHTML(productos) {
     const contenedorProductos = document.querySelector('.seccion-menu-productos');
-    contenedorProductos.innerHTML = ''; // Limpiar productos existentes
+    contenedorProductos.innerHTML = ''; 
 
     if (!productos || productos.length === 0) {
         contenedorProductos.innerHTML = `
@@ -227,13 +226,11 @@ function actualizarContadorCarrito() {
     }
 }
 
-// NUEVA FUNCIÓN: Para configurar los botones de filtro de categoría
 function inicializarFiltros() {
     const categoriasBotones = document.querySelectorAll('.categoria-item');
 
     categoriasBotones.forEach(boton => {
         boton.addEventListener('click', () => {
-            // Manejar la clase 'active' para feedback visual
             categoriasBotones.forEach(btn => btn.classList.remove('active'));
             boton.classList.add('active');
 
@@ -241,7 +238,7 @@ function inicializarFiltros() {
             
             let productosFiltrados;
 
-            if (categoriaId === 0) { // 0 es para "Todo"
+            if (categoriaId === 0) { 
                 productosFiltrados = todosLosProductos;
             } else {
                 productosFiltrados = todosLosProductos.filter(producto => producto.id_categoria === categoriaId);
@@ -252,7 +249,6 @@ function inicializarFiltros() {
     });
 }
 
-// Inicializar cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
     const restauranteId = obtenerRestauranteIdDesdeURL();
     
@@ -263,17 +259,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     inicializarModales();
-    inicializarFiltros(); // NUEVO: Llamamos a la función para activar los filtros
+    inicializarFiltros(); 
 });
 
-// Función separada para inicializar todos los modales (sin cambios)
+
+// ===== FUNCIÓN DE MODALES MODIFICADA =====
 function inicializarModales() {
     const mainContainer = document.getElementById('main-container');
     const bannerRestaurante = document.getElementById('banner-restaurante');
     const modalInfo = document.getElementById('modal-info-restaurante');
     const btnCerrarInfo = document.getElementById('cerrar-modal-info');
-    const modalAgregado = document.getElementById('modal-agregado');
-    const linksConfirmar = document.querySelectorAll('.nav-link-confirm');
+    
     const modalConfirmar = document.getElementById('modal-confirmar-salida');
     const btnSalir = document.getElementById('btn-salir');
     const btnContinuar = document.getElementById('btn-continuar');
@@ -289,25 +285,66 @@ function inicializarModales() {
         if(mainContainer) mainContainer.classList.remove('blur-effect');
     }
 
+    // Lógica del modal de información del restaurante (sin cambios)
     if(bannerRestaurante) bannerRestaurante.addEventListener('click', () => mostrarModal(modalInfo));
     if(btnCerrarInfo) btnCerrarInfo.addEventListener('click', () => ocultarModal(modalInfo));
     if(modalInfo) modalInfo.addEventListener('click', (e) => { if (e.target === modalInfo) ocultarModal(modalInfo); });
 
-    linksConfirmar.forEach(link => {
+    // === INICIO DE LA NUEVA LÓGICA PARA EL MODAL DE CONFIRMACIÓN ===
+
+    // 1. Seleccionar todos los enlaces de navegación que puedan llevar fuera de la página
+    const linksDeNavegacion = document.querySelectorAll(
+        '.encabezado-logo, .encabezado-enlace, .encabezado-iconos > a, .dropdown-content a'
+    );
+
+    linksDeNavegacion.forEach(link => {
+        // Excluir el enlace de "Cerrar Sesión" para que su funcionalidad original no sea interrumpida
+        if (link.id === 'cerrar-sesion') {
+            return; 
+        }
+
         link.addEventListener('click', (e) => {
-            e.preventDefault(); 
-            urlParaRedirigir = e.currentTarget.href; 
-            mostrarModal(modalConfirmar);
+            // Obtener el carrito de localStorage
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            // Verificar si el enlace es el que va a la página del carrito
+            const esEnlaceAlCarrito = e.currentTarget.href.includes('carrito-sesion.html');
+
+            // Mostrar el modal SÓLO si el carrito tiene productos Y el enlace NO es el del carrito
+            if (carrito.length > 0 && !esEnlaceAlCarrito) {
+                e.preventDefault(); // Detener la navegación
+                urlParaRedirigir = e.currentTarget.href; // Guardar el destino
+                mostrarModal(modalConfirmar); // Mostrar el modal de advertencia
+            }
+            // Si el carrito está vacío o el click es en el ícono del carrito, la navegación procede normalmente.
         });
     });
 
-    if(btnSalir) btnSalir.addEventListener('click', () => {
-        if (urlParaRedirigir) {
-            window.location.href = urlParaRedirigir;
-            localStorage.removeItem("carrito");
-        }
-    });
+    // 2. Configurar el botón "Salir" del modal
+    if(btnSalir) {
+        btnSalir.addEventListener('click', () => {
+            if (urlParaRedirigir) {
+                localStorage.removeItem("carrito"); // Vaciar el carrito
+                window.location.href = urlParaRedirigir; // Redirigir al destino
+            }
+        });
+    }
     
-    if(btnContinuar) btnContinuar.addEventListener('click', () => ocultarModal(modalConfirmar));
-    if(modalConfirmar) modalConfirmar.addEventListener('click', (e) => { if (e.target === modalConfirmar) ocultarModal(modalConfirmar); });
+    // 3. Configurar el botón "Continuar aquí" del modal
+    if(btnContinuar) {
+        btnContinuar.addEventListener('click', () => {
+            ocultarModal(modalConfirmar); // Simplemente cerrar el modal
+            urlParaRedirigir = null; // Limpiar la URL guardada
+        });
+    }
+    
+    // 4. Configurar el cierre del modal al hacer clic fuera de él
+    if(modalConfirmar) {
+        modalConfirmar.addEventListener('click', (e) => { 
+            if (e.target === modalConfirmar) {
+                ocultarModal(modalConfirmar);
+                urlParaRedirigir = null; // Limpiar la URL guardada
+            }
+        });
+    }
+    // === FIN DE LA NUEVA LÓGICA ===
 }
