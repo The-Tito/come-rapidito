@@ -63,7 +63,7 @@
               <label for="logo-upload" class="upload-box">
                 <img id="logo-preview" class="preview-image" src="" alt="Vista previa del logo">
               </label>
-              <input type="file" id="logo-upload" hidden>
+              
               <div class="upload-caption">
                 <span>Subir Logo del Restaurante</span>
                 <i class="fas fa-upload upload-icon"></i>
@@ -75,7 +75,7 @@
               <label for="banner-upload" class="upload-box">
                 <img id="banner-preview" class="preview-image" src="" alt="Vista previa del banner">
               </label>
-              <input type="file" id="banner-upload" hidden>
+              
               <div class="upload-caption">
                 <span>Subir imagen del Banner</span>
                 <i class="fas fa-upload upload-icon"></i>
@@ -89,15 +89,15 @@
           <div class="form-column">
             <div class="form-group">
               <label for="admin-name">Nombre del administrador</label>
-              <input type="text" id="admin-name">
+              <input type="text" id="admin-name" disabled>
             </div>
             <div class="form-group">
               <label for="restaurant-name">Nombre del restaurante</label>
-              <input type="text" id="restaurant-name" placeholder="Ingrese el nombre del restaurante">
+              <input type="text" id="restaurant-name" placeholder="Ingrese el nombre del restaurante" disabled>
             </div>
             <div class="form-group">
               <label for="restaurant-address">Dirección del restaurante</label>
-              <input type="text" id="restaurant-address" placeholder="Ingrese la dirección del restaurante">
+              <input type="text" id="restaurant-address" placeholder="Ingrese la dirección del restaurante" disabled>
             </div>
           </div>
 
@@ -105,11 +105,11 @@
           <div class="form-column">
             <div class="form-group">
               <label for="admin-phone">Número del administrador</label>
-              <input type="text" id="admin-phone" placeholder="Ingrese el número del administrador">
+              <input type="text" id="admin-phone" placeholder="Ingrese el número del administrador" disabled>
             </div>
             <div class="form-group">
               <label for="restaurant-phone">Número del restaurante</label>
-              <input type="text" id="restaurant-phone" placeholder="Ingrese el número del restaurante">
+              <input type="text" id="restaurant-phone" placeholder="Ingrese el número del restaurante" disabled>
             </div>
 
             <div class="horarios-row">
@@ -118,11 +118,11 @@
                 <label>Horario de Apertura</label>
                 <div class="horario-flex">
                   <div class="time-display">
-                    <input type="number" min="1" max="12" value="7" class="hour-input">
+                    <input type="number" min="1" max="12" value="7" class="hour-input" disabled>
                     <span class="colon">:</span>
-                    <input type="number" min="0" max="59" value="00" class="minute-input">
+                    <input type="number" min="0" max="59" value="00" class="minute-input" disabled>
                   </div>
-                  <select class="ampm-select">
+                  <select class="ampm-select" disabled>
                     <option value="AM" selected>AM</option>
                     <option value="PM">PM</option>
                   </select>
@@ -134,11 +134,11 @@
                 <label>Horario de Cierre</label>
                 <div class="horario-flex">
                   <div class="time-display">
-                    <input type="number" min="1" max="12" value="7" class="hour-input">
+                    <input type="number" min="1" max="12" value="7" class="hour-input" disabled>
                     <span class="colon">:</span>
-                    <input type="number" min="0" max="59" value="00" class="minute-input">
+                    <input type="number" min="0" max="59" value="00" class="minute-input" disabled>
                   </div>
-                  <select class="ampm-select">
+                  <select class="ampm-select" disabled>
                     <option value="AM">AM</option>
                     <option value="PM" selected>PM</option>
                   </select>

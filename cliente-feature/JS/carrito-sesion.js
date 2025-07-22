@@ -467,7 +467,7 @@ function construirPedido() {
             total: total,
             detalleCarrito: detalleCarrito
         },
-        id_status: 1,
+        id_status: 8,
         tarifa: CUOTA_SERVICIO,
         id_restaurante: id_restaurante
     };
