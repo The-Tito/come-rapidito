@@ -2,8 +2,8 @@ let datosOriginales = {}; // Para comparar luego
 
 document.addEventListener("DOMContentLoaded", async () => {
   let idUsuario = localStorage.getItem("id_usuario");
-  let tokenstorage = localStorage.getItem("token")
-  let nombrestorage = localStorage.getItem("nombre")
+  let tokenstorage = localStorage.getItem("token");
+  let nombrestorage = localStorage.getItem("nombre");
   let nombre = nombrestorage.replace(/"/g, '');
   let token = tokenstorage.replace(/"/g, '');
 
@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         "X-User-NAME": `${nombre}`
       }
     });
+
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
 
     const data = await response.json();
     datosOriginales = { ...data }; // Guardamos copia original
@@ -47,10 +51,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (error) {
     console.error("Error al obtener datos del restaurante:", error);
+    alert("Error al cargar los datos del restaurante: " + error.message);
   }
 
   // Configurar subida de archivos después de que el DOM esté listo
   setupFileUpload();
+  setupModal();
 });
 
 function setHoraInput(hora24, isApertura) {
@@ -145,149 +151,253 @@ function getHorarioFromInputs(isApertura) {
   return `${hora24.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}:00`;
 }
 
-// Función para guardar información (reemplaza abrirModalFormulario)
-function abrirModalFormulario() {
-  // Como no hay modal, haremos la actualización directamente
-  guardarInformacion();
+// Función para formato de hora input (HH:MM)
+function formatoHoraInput(hora24) {
+  if (!hora24) return "";
+  return hora24.substring(0, 5); // extrae HH:mm
 }
 
-async function guardarInformacion() {
-  // Confirmar antes de guardar
-  if (!confirm("¿Deseas guardar los cambios realizados?")) {
-    return;
-  }
+// MODAL FUNCTIONALITY
+let logoFileModal = null;
+let bannerFileModal = null;
 
+function setupModal() {
+  const modal = document.getElementById('modalEditarInfo');
+  const formModal = document.getElementById('formEditarInfo');
+  const btnCerrarModal = document.getElementById('btnCerrarModal');
 
-  const id_restaurante = localStorage.getItem("id_restaurante");
+  // Cerrar modal
+  btnCerrarModal.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  // Cerrar al hacer click fuera del contenido
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+
+  // Manejar preview y guardar archivos seleccionados en variables
+  document.getElementById('modal-logo-upload').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (file) {
+      logoFileModal = file;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        document.getElementById('modal-logo-preview').src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  document.getElementById('modal-banner-upload').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (file) {
+      bannerFileModal = file;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        document.getElementById('modal-banner-preview').src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Manejar submit del formulario modal
+  formModal.addEventListener('submit', async e => {
+    e.preventDefault();
+    await guardarInformacionModal();
+  });
+}
+
+// Función para abrir modal y cargar datos
+function abrirModalFormulario() {
+  const modal = document.getElementById('modalEditarInfo');
   
-  if (!id_restaurante) {
-    alert("Error: No se encontró el ID del restaurante");
+  // Carga datos actuales en inputs del modal
+  document.getElementById('modal-admin-name').value = document.getElementById('admin-name').value;
+  document.getElementById('modal-admin-phone').value = document.getElementById('admin-phone').value;
+  document.getElementById('modal-restaurant-name').value = document.getElementById('restaurant-name').value;
+  document.getElementById('modal-restaurant-phone').value = document.getElementById('restaurant-phone').value;
+  document.getElementById('modal-restaurant-address').value = document.getElementById('restaurant-address').value;
+  
+  // Asignar horarios usando datosOriginales
+  const aperturaVal = formatoHoraInput(datosOriginales.horario_apertura);
+  const cierreVal = formatoHoraInput(datosOriginales.horario_cierre);
+  
+  document.getElementById('modal-horario-apertura').value = aperturaVal;
+  document.getElementById('modal-horario-cierre').value = cierreVal;
+
+  // Mostrar previews
+  const logoSrc = document.getElementById('logo-preview').src;
+  const bannerSrc = document.getElementById('banner-preview').src;
+
+  const logoPreview = document.getElementById('modal-logo-preview');
+  const bannerPreview = document.getElementById('modal-banner-preview');
+
+  logoPreview.src = logoSrc || '';
+  bannerPreview.src = bannerSrc || '';
+  logoPreview.style.display = logoSrc ? 'block' : 'none';
+  bannerPreview.style.display = bannerSrc ? 'block' : 'none';
+
+  // Reset file inputs y archivos
+  document.getElementById('modal-logo-upload').value = '';
+  document.getElementById('modal-banner-upload').value = '';
+  logoFileModal = null;
+  bannerFileModal = null;
+
+  // Mostrar modal
+  modal.style.display = 'flex';
+}
+
+// Función para guardar información desde el modal
+async function guardarInformacionModal() {
+  if (!confirm("¿Deseas guardar los cambios realizados?")) return;
+
+  const idUsuario = localStorage.getItem("id_usuario");
+  const idRestaurante = localStorage.getItem("id_restaurante");
+  
+  if (!idUsuario || !idRestaurante) {
+    alert("Error: No se encontró el ID del usuario o restaurante.");
     return;
   }
 
-  console.log("ID Restaurante:", id_restaurante);
+  // Recoger datos del modal
+  const nombreUsuario = document.getElementById('modal-admin-name').value.trim();
+  const telefonoUsuario = document.getElementById('modal-admin-phone').value.trim();
+  const nombreRestaurante = document.getElementById('modal-restaurant-name').value.trim();
+  const telefonoRestaurante = document.getElementById('modal-restaurant-phone').value.trim();
+  const direccion = document.getElementById('modal-restaurant-address').value.trim();
+  const horarioAperturaRaw = document.getElementById('modal-horario-apertura').value; // ej. "07:00"
+  const horarioCierreRaw = document.getElementById('modal-horario-cierre').value; // ej. "20:00"
 
-  // Obtener valores de los inputs actuales
-  const nombre = document.getElementById("restaurant-name").value;
-  const telefono = document.getElementById("restaurant-phone").value;
-  const direccion = document.getElementById("restaurant-address").value;
-  const apertura = getHorarioFromInputs(true);
-  const cierre = getHorarioFromInputs(false);
-
-  // Validar que los campos requeridos no estén vacíos
-  if (!nombre || !telefono || !direccion) {
-    alert("Por favor completa todos los campos requeridos");
+  // Validaciones básicas
+  if (!nombreUsuario || !telefonoUsuario || !nombreRestaurante || !telefonoRestaurante || !direccion) {
+    alert("Por favor completa todos los campos.");
     return;
   }
 
-  // Validar que los horarios sean válidos
-  if (!apertura || !cierre) {
-    alert("Por favor completa los horarios de apertura y cierre");
+  if (!horarioAperturaRaw || !horarioCierreRaw) {
+    alert("Por favor complete los horarios de apertura y cierre.");
     return;
   }
 
-  console.log("Horarios:", { apertura, cierre });
+  const horarioApertura = horarioAperturaRaw + ":00"; // "07:00:00"
+  const horarioCierre = horarioCierreRaw + ":00"; // "20:00:00"
 
-  // Obtener archivos de imagen
-  const logoFile = document.getElementById("logo-upload").files[0];
-  const bannerFile = document.getElementById("banner-upload").files[0];
-
+  // Armar FormData
   const formData = new FormData();
-  formData.append("nombre", nombre);
-  formData.append("telefono", telefono);
-  formData.append("direccion", direccion);
-  formData.append("horario_apertura", apertura);
-  formData.append("horario_cierre", cierre);
   formData.append("id_usuario", idUsuario);
+  formData.append("nombre_usuario", nombreUsuario);
+  formData.append("telefono_usuario", telefonoUsuario);
+  formData.append("nombre", nombreRestaurante);
+  formData.append("telefono", telefonoRestaurante);
+  formData.append("direccion", direccion);
+  formData.append("horario_apertura", horarioApertura);
+  formData.append("horario_cierre", horarioCierre);
 
-  // Agregar archivos si fueron seleccionados
-  if (logoFile) {
-    formData.append("logo", logoFile);
+  if (logoFileModal) {
+    formData.append("logo", logoFileModal);
   }
-  if (bannerFile) {
-    formData.append("banner", bannerFile);
+
+  if (bannerFileModal) {
+    formData.append("banner", bannerFileModal);
   }
 
-  // Obtener token del localStorage
+  // Deshabilitar botón mientras carga
+  const btnGuardar = document.querySelector('#formEditarInfo button[type="submit"]');
+  const originalText = btnGuardar.textContent;
+  btnGuardar.disabled = true;
+  btnGuardar.textContent = "Guardando...";
 
+  const token = localStorage.getItem("token").replace(/"/g, '');
+  const nombreUser = localStorage.getItem("nombre").replace(/"/g, '');
 
-  console.log("Enviando datos...");
-
-  // Mostrar indicador de carga
-  const saveButton = document.querySelector('.save-button');
-  const originalText = saveButton.innerHTML;
-  saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Guardando...</span>';
-  saveButton.disabled = true;
+  console.log("Enviando PUT a:", `http://localhost:7000/api/restaurant/${idRestaurante}`);
+  console.log("Contenido de formData:");
+  for (const pair of formData.entries()) {
+    console.log(pair[0] + ':', pair[1]);
+  }
 
   try {
-    const response = await fetch(`http://localhost:7000/api/restaurant/${id_restaurante}`, {
+    const res = await fetch(`http://localhost:7000/api/restaurant/${idRestaurante}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`,
-        "X-User-NAME": `${nombre}`
+        "X-User-NAME": nombreUser
       },
       body: formData
     });
 
-    console.log("Status de respuesta:", response.status);
-    console.log("Headers de respuesta:", response.headers);
+    console.log("Respuesta del servidor:", res.status, res.statusText);
 
-    // Verificar si la respuesta es exitosa
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Error del servidor:", errorText);
+      throw new Error(`Error ${res.status}: ${errorText || "Error desconocido"}`);
     }
 
-    // Obtener el texto de la respuesta primero
-    const responseText = await response.text();
-    console.log("Texto de respuesta:", responseText);
-
-    // Intentar parsear como JSON si no está vacío
-    let data = {};
+    // Intentar obtener respuesta JSON si existe
+    const responseText = await res.text();
+    let responseData = {};
     if (responseText.trim()) {
       try {
-        data = JSON.parse(responseText);
-      } catch (parseError) {
-        console.warn("La respuesta no es JSON válido:", responseText);
-        // Si la respuesta no es JSON pero el status es OK, asumir éxito
-        if (response.status >= 200 && response.status < 300) {
-          data = { success: true, message: "Operación exitosa" };
-        } else {
-          throw new Error("Respuesta inválida del servidor");
-        }
-      }
-    } else {
-      // Respuesta vacía pero status OK
-      if (response.status >= 200 && response.status < 300) {
-        data = { success: true, message: "Operación exitosa" };
-      } else {
-        throw new Error("Respuesta vacía del servidor");
+        responseData = JSON.parse(responseText);
+      } catch (e) {
+        console.log("Respuesta no es JSON válido:", responseText);
       }
     }
 
-    console.log("Datos procesados:", data);
-    alert("Información actualizada correctamente ✅");
-    
-    // Recargar los datos después de un breve delay
-    setTimeout(() => {
-      location.reload();
-    }, 500);
+    alert("Información actualizada correctamente.");
+    document.getElementById('modalEditarInfo').style.display = "none";
 
-  } catch (error) {
-    console.error("Error en la actualización:", error);
-    
-    // Mostrar diferentes mensajes según el tipo de error
-    if (error.name === 'SyntaxError') {
-      alert("Error: La respuesta del servidor no es válida. Verifica la conexión con el servidor.");
-    } else if (error.message.includes('HTTP error')) {
-      alert(`Error del servidor: ${error.message}`);
-    } else if (error.message.includes('Failed to fetch')) {
-      alert("Error de conexión: No se puede conectar al servidor. Verifica que esté ejecutándose.");
-    } else {
-      alert("Ocurrió un error al actualizar la información: " + error.message);
+    // Actualizar inputs visibles con los datos nuevos
+    document.getElementById("admin-name").value = nombreUsuario;
+    document.getElementById("admin-phone").value = telefonoUsuario;
+    document.getElementById("restaurant-name").value = nombreRestaurante;
+    document.getElementById("restaurant-phone").value = telefonoRestaurante;
+    document.getElementById("restaurant-address").value = direccion;
+
+    // Actualizar datosOriginales
+    datosOriginales = {
+      ...datosOriginales,
+      nombre_usuario: nombreUsuario,
+      telefono_usuario: telefonoUsuario,
+      nombre_restaurante: nombreRestaurante,
+      telefono: telefonoRestaurante,
+      direccion: direccion,
+      horario_apertura: horarioApertura,
+      horario_cierre: horarioCierre
+    };
+
+    // Actualizar previews (si se subieron nuevos archivos)
+    if (logoFileModal) {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        document.getElementById("logo-preview").src = ev.target.result;
+        document.getElementById("logo-preview").style.display = "block";
+      };
+      reader.readAsDataURL(logoFileModal);
     }
+
+    if (bannerFileModal) {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        document.getElementById("banner-preview").src = ev.target.result;
+        document.getElementById("banner-preview").style.display = "block";
+      };
+      reader.readAsDataURL(bannerFileModal);
+    }
+
+    // Actualizar los horarios visibles
+    setHoraInput(horarioApertura, true);
+    setHoraInput(horarioCierre, false);
+
+  } catch (err) {
+    console.error("Error completo:", err);
+    alert("Error al actualizar: " + err.message);
   } finally {
-    // Restaurar botón
-    saveButton.innerHTML = originalText;
-    saveButton.disabled = false;
+    btnGuardar.disabled = false;
+    btnGuardar.textContent = originalText;
   }
 }

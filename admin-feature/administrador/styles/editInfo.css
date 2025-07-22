@@ -289,68 +289,207 @@ body {
 }
 
 
+/* Estilos Base del Modal */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente más oscuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    backdrop-filter: blur(5px); /* Efecto de desenfoque */
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
 }
 
 .modal-content {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 400px;
-  max-width: 90%;
-  height: auto;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px; /* Bordes más suaves */
+    width: 500px; /* Ancho fijo para desktops */
+    max-width: 90%; /* Máximo ancho en pantallas pequeñas */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaciado entre elementos */
+    animation: slideIn 0.3s ease-out; /* Animación de entrada */
+    max-height: 90vh; /* Para permitir scroll si el contenido es largo */
+    overflow-y: auto; /* Habilita el scroll vertical */
 }
 
-.modal-content form {
-  display: flex;
-  flex-direction: column;
+/* Título del Modal */
+.modal-title {
+    font-size: 26px;
+    font-weight: 700; /* Más negrita */
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+    border-bottom: 1px solid #eee; /* Separador sutil */
+    padding-bottom: 15px;
 }
 
-.modal-content label {
-  margin-top: 10px;
-  font-weight: bold;
+/* Grupos de Campos del Formulario */
+.modal-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Espacio entre label e input */
 }
 
-.modal-content input {
-  padding: 8px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.modal-group label {
+    font-weight: 600; /* Etiquetas más destacadas */
+    font-size: 15px;
+    color: #555;
 }
 
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+.modal-group input[type="text"],
+.modal-group input[type="time"],
+.modal-group input[type="file"] {
+    padding: 12px 15px;
+    border: 1px solid #ddd; /* Borde más claro */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f9f9f9; /* Fondo suave para inputs */
 }
 
-.modal-buttons button {
-  padding: 10px 20px;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.modal-group input:focus {
+    border-color: #ff5722; /* Color de enfoque más vibrante */
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.2); /* Sombra de enfoque */
+    background-color: #ffffff;
 }
 
-.modal-buttons button:first-child {
-  background-color: #28a745;
-  color: white;
+/* Estilos para inputs de tipo file (ocultos visualmente) */
+.modal-group input[type="file"] {
+    display: none; /* Oculta el input de archivo predeterminado */
 }
 
-.modal-buttons button:last-child {
-  background-color: #dc3545;
-  color: white;
+/* Estilo para las etiquetas de carga de imágenes (como botones) */
+.modal-group input[type="file"] + label {
+    background-color: #007bff; /* Un color primario para el botón de carga */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block; /* Ocupa solo el ancho necesario */
+    margin-top: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.modal-group input[type="file"] + label:hover {
+    background-color: #0056b3;
+}
+
+
+/* Previsualización de Imágenes */
+.modal-img-preview {
+    margin-top: 15px;
+    max-width: 200px; /* Tamaño más manejable para previews */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: block; /* Asegura que ocupe su propia línea */
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #eee; /* Borde sutil para la imagen */
+}
+
+/* Botones del Modal */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 15px; /* Espacio entre botones */
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee; /* Separador superior */
+}
+
+.modal-actions button {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    letter-spacing: 0.5px; /* Pequeño espaciado para mejor lectura */
+}
+
+.btn-guardar {
+    background-color: #ff4b23; /* Verde para guardar */
+    color: #fff;
+}
+
+.btn-guardar:hover {
+    background-color: #ff4b23;
+    transform: translateY(-2px); /* Pequeño efecto al pasar el mouse */
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+
+.btn-cancelar {
+    background-color: white; /* Gris para cancelar */
+    color: #ff4b23;
+}
+
+.btn-cancelar:hover {
+    background-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(108, 117, 125, 0.2);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .modal-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+    .modal-group label {
+        font-size: 14px;
+    }
+
+    .modal-group input {
+        padding: 10px 12px;
+        font-size: 15px;
+    }
+
+    .modal-img-preview {
+        max-width: 150px;
+    }
+
+    .modal-actions {
+        flex-direction: column; /* Apila los botones en pantallas pequeñas */
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+
+    .modal-actions button {
+        width: 100%; /* Botones ocupan todo el ancho */
+        padding: 10px;
+        font-size: 15px;
+    }
 }
