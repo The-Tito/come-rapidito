@@ -71,15 +71,24 @@ fetch("http://localhost:7000/api/orders/delivery", {
 
   // Mostrar modal con datos del pedido
   function abrirModalPedido(pedido) {
-    modalPedido.classList.remove("oculto");
-    document.getElementById("nombre_restaurante").textContent = pedido.restaurante.nombre_restaurante;
-    document.getElementById("direccion_restaurante").textContent = pedido.restaurante.direccion;
-    document.getElementById("num_telefono").textContent = pedido.numero_telefono || "N/A";
-    document.getElementById("id_direccion").textContent =
-      `${pedido.direccion.calle}, ${pedido.direccion.colonia}, ${pedido.direccion.numero_casa}, ${pedido.direccion.codigo_postal}`;
-    document.getElementById("subtotal").textContent = `Subtotal: $${pedido.total.toFixed(2)}`;
+  modalPedido.classList.remove("oculto");
 
-  }
+  // Datos del restaurante
+  document.getElementById("modal_nombre_restaurante").textContent = pedido.restaurante.nombre_restaurante;
+  document.getElementById("direccion_restaurante").textContent = pedido.restaurante.direccion;
+  document.getElementById("logo_restaurante").src = pedido.restaurante.logo_url; // <-- Aquí se actualiza el logo
+
+  // Cliente
+  document.getElementById("nombre_cliente").textContent = `Cliente: ${pedido.nombre}`;
+  document.getElementById("num_telefono").textContent = `Teléfono: ${pedido.numero_telefono}`;
+  document.getElementById("id_direccion").textContent =
+    `Dirección: ${pedido.direccion.calle}, ${pedido.direccion.colonia}, ${pedido.direccion.numero_casa}, CP ${pedido.direccion.codigo_postal}. Ref: ${pedido.direccion.referencia}`;
+
+  // Total inicial sin tarifa
+  document.getElementById("subtotal").textContent = `Subtotal: $${pedido.total.toFixed(2)}`;
+}
+
+
 
   btnRegresar.addEventListener("click", () => {
     modalPedido.classList.add("oculto");
@@ -131,10 +140,15 @@ fetch("http://localhost:7000/api/orders/delivery", {
   });
 
   btnContinuar.addEventListener("click", () => {
-    modalConfirmacion.classList.add("oculto");
-    window.location.href = "../pages/seguimiento.html";
-  console.log ()
-  });
+  modalConfirmacion.classList.add("oculto");
+
+  // Guardar pedido completo como string JSON
+  localStorage.setItem("pedido_en_curso", JSON.stringify(pedidoSeleccionado));
+
+  // Redirigir
+  window.location.href = "../pages/pedido-en-curso.html";
+});
+
 
   tarifaSelect.addEventListener("change", () => {
     if (tarifaSelect.value !== "") {

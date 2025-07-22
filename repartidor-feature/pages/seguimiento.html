@@ -59,21 +59,24 @@
 <main class="seccion">
 
 <div class="seguimiento_container">
-   
+   <div class="checkbox-item">
+  <label for="En preparación">En preparación</label>
+  <input type="checkbox" id="En preparación" name="En preparación" disabled>
+</div>
     <div class="checkbox-item">
-        <label for="En preparación">En preparación</label>
-        <input type="checkbox" id="En preparación" name="En preparación">
-    </div>
+  <label for="En espera">En espera</label>
+  <input type="checkbox" id="En espera" name="En espera" disabled>
+</div>
 
-    <div class="checkbox-item">
-        <label for="En camino">En camino</label>
-        <input type="checkbox" id="En camino" name="En camino">
-    </div>
+<div class="checkbox-item">
+  <label for="En camino">En camino</label>
+  <input type="checkbox" id="En camino" name="En camino">
+</div>
+<div class="checkbox-item">
+  <label for="Entregado">Entregado</label>
+  <input type="checkbox" id="Entregado" name="Entregado">
+</div>
 
-    <div class="checkbox-item">
-        <label for="Entregado">Entregado</label>
-        <input type="checkbox" id="Entregado" name="Entregado">
-    </div>
       
         <div class="boton">
             <a href="../pages/pedido-en-curso.html" class="btn-seguimiento">
@@ -91,14 +94,7 @@
 
 </main>
 
-<!-- Modal Pedido Entregado -->
-<div id="modal-entregado" class="modal oculto">
-    <div class="modal_contenido">
-        <h2 class="modal_titulo">¡Pedido Entregado!</h2>
-        <p class="modal_texto">El pedido ha sido entregado correctamente. ¿Quieres ver más detalles?</p>
-        <button class="btn-continuar">Aceptar</button>
-    </div>
-</div>
+
 
 
 
