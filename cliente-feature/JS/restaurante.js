@@ -1,4 +1,3 @@
-
 let currentRestauranteId = null; // Declare a variable to store the restaurant ID
 
 function cargarDatosRestaurante(restauranteId) {
@@ -36,14 +35,16 @@ function actualizarInformacionRestaurante(restaurante) {
     const logo = document.querySelector('.informacion-logo');
     if (logo && restaurante.logo_url) {
         logo.src = restaurante.logo_url;
-        logo.alt = `Logo de ${restaurante.nombre}`;
+        logo.alt = `Logo de ${restaurante.nombre_restaurante}`;
     }
     
+    // --- CORRECCIÓN AQUÍ ---
     // Actualizar nombre del restaurante
     const nombreElement = document.querySelector('.informacion-nombre');
-    if (nombreElement && restaurante.nombre) {
-        nombreElement.textContent = restaurante.nombre;
+    if (nombreElement && restaurante.nombre_restaurante) { // Se cambió de .nombre a .nombre_restaurante
+        nombreElement.textContent = restaurante.nombre_restaurante; // Se cambió de .nombre a .nombre_restaurante
     }
+
     // Actualizar teléfono
     const telefonoElement = document.querySelector('.informacion-detalle span b');
     if (telefonoElement && restaurante.telefono) {
@@ -70,10 +71,11 @@ function actualizarModalRestaurante(restaurante) {
         logoModal.alt = `Logo de ${restaurante.nombre_restaurante}`;
     }
     
+    // --- CORRECCIÓN AQUÍ ---
     // Actualizar nombre del restaurante en el modal
     const nombreModal = document.querySelector('.modal-titulo');
-    if (nombreModal && restaurante.nombre) {
-        nombreModal.textContent = restaurante.nombre;
+    if (nombreModal && restaurante.nombre_restaurante) { // Se cambió de .nombre a .nombre_restaurante
+        nombreModal.textContent = restaurante.nombre_restaurante; // Se cambió de .nombre a .nombre_restaurante
     }
     
     // Actualizar teléfono en el modal
