@@ -13,7 +13,17 @@
     margin: 0;
     padding: 0;
 }
-
+/* categorias */
+.categoria-item {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+    border-bottom: 3px solid transparent; /* Borde transparente por defecto */
+    padding-bottom: 5px;
+}
+.categoria-item.active {
+    border-bottom: 3px solid var(--color-primario);
+    transform: scale(1.05);
+}
 body {
     font-family: var(--fuente-principal);
     color: var(--color-texto);
