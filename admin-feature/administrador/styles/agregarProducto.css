@@ -23,10 +23,10 @@ body {
   box-sizing: border-box;
 }
 .section-title h1 {
-  font-size: 2.4rem;
+  font-size: 28px;
   font-weight: 700;
+  color: #212529;
   margin: 0;
-  color: #161616;
   letter-spacing: -1px;
 }
 .section-user {
@@ -243,4 +243,43 @@ body {
   padding: 6px 15px;
   border-radius: 7px;
   font-weight: 600;
+}
+/* Botón Editar */
+.edit-btn {
+  background: #ffa95e;
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 169, 94, 0.2);
+  transition: background 0.2s ease;
+}
+.edit-btn i {
+  margin-right: 6px;
+}
+.edit-btn:hover {
+  background: #e68a3c;
+}
+
+/* Botón Eliminar */
+.delete-btn {
+  background: #ff4b23;
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 75, 35, 0.2);
+  transition: background 0.2s ease;
+}
+.delete-btn i {
+  margin-right: 6px;
+}
+.delete-btn:hover {
+  background: #d93d18;
 }

@@ -2,14 +2,14 @@ let tokenstorage = localStorage.getItem("token");
 let nombrestorage = localStorage.getItem("nombre");
 let nombre = nombrestorage ? nombrestorage.replace(/"/g, '') : 'default-user';
 let token = tokenstorage ? tokenstorage.replace(/"/g, '') : 'default-token';
-let id_restaurante = localStorage.getItem("id_restaurante") || '1'; // Default para prueba
+let id_restaurante = localStorage.getItem("id_restaurante");
 
 // Mapeo de ID de status a texto
 const statusMap = {
-    1: 'En proceso',
-    2: 'En preparación',
-    3: 'En espera',
-    4: 'En camino'
+    1: 'En preparación',
+    2: 'En espera',
+    3: 'En camino',
+    8: 'Activo'
 };
 
 /**
@@ -56,24 +56,82 @@ function addOrderRow(orderData) {
 
     // Opciones del dropdown
     statusSelect.innerHTML = `
-        <option value="proceso">En proceso</option>
+        <option value="proceso">Activo</option>
         <option value="preparacion">En preparación</option>
         <option value="espera">En espera</option>
         <option value="camino" disabled>En camino</option>
     `;
-    
-    // Establecer la opción seleccionada según los datos del pedido
-    const currentStatusKey = Object.keys(statusMap).find(key => statusMap[key] === statusMap[orderData.id_status]);
-    if(currentStatusKey) {
-        statusSelect.value = statusMap[currentStatusKey].toLowerCase().replace(' ', '');
-    }
+
+    // Mapeo inverso para convertir id_status numérico al value del select
+    const statusIdToValueMap = {
+        1: "preparacion",
+        2: "espera",
+        3: "camino",
+        8: "proceso"
+    };
+
+    // Asignar el valor preseleccionado al <select>
+    statusSelect.value = statusIdToValueMap[orderData.id_status] || "proceso";
 
     // Funcionalidad al cambiar el status
     statusSelect.addEventListener('change', (event) => {
-        const newStatus = event.target.options[event.target.selectedIndex].text;
+        const selectedOption = event.target.value;
         const orderId = event.target.dataset.orderId;
-        console.log(`El status del Pedido #${orderId} ha cambiado a: "${newStatus}"`);
-        // Aquí iría la lógica para enviar la actualización al servidor (API)
+
+        // Mapear valor del select a id_status
+        const statusToIdMap = {
+            preparacion: 1,
+            espera: 2
+        };
+
+        const newIdStatus = statusToIdMap[selectedOption];
+
+        // Solo proceder si el nuevo estado es válido (preparacion o espera)
+        if (newIdStatus) {
+            // Deshabilitar el select temporalmente durante la actualización
+            statusSelect.disabled = true;
+            
+            // ✅ CORRECCIÓN: Incluir el id_pedido en la URL y el cuerpo
+            fetch(`http://localhost:7000/api/orders/${orderId}/status`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "X-User-NAME": nombre,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id_status: newIdStatus
+                })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(`Error al actualizar: ${response.status}`);
+                return response.text();
+            })
+            .then(data => {
+                console.log(`Pedido #${orderId} actualizado correctamente. Respuesta:`, data);
+                
+                // ✅ MANTENER EL SELECT DESHABILITADO PERMANENTEMENTE
+                statusSelect.disabled = true;
+                statusSelect.style.opacity = '0.6';
+                statusSelect.style.cursor = 'not-allowed';
+                
+                // Marcar como actualizado para evitar futuros cambios
+                statusSelect.dataset.updated = 'true';
+                
+                // Opcional: Mostrar mensaje de éxito
+                console.log(`Estado del pedido #${orderId} bloqueado después de la actualización`);
+            })
+            .catch(error => {
+                console.error(`Error actualizando pedido #${orderId}:`, error);
+                alert("No se pudo actualizar el estado del pedido.");
+                
+                // Revertir la selección y rehabilitar en caso de error
+                statusSelect.value = statusIdToValueMap[orderData.id_status] || "proceso";
+                statusSelect.disabled = false;
+            });
+        } else {
+            console.warn("Estado no permitido para actualización.");
+        }
     });
 
     statusWrapper.appendChild(statusSelect);
