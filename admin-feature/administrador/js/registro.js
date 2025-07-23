@@ -1,9 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // === CÓDIGO NUEVO AÑADIDO PARA LA SUBIDA DE IMÁGENES ===
+  // Esto hace que todo el contenedor de la imagen sea clickable
+  const cajasSubida = document.querySelectorAll('.caja-subida');
+
+  cajasSubida.forEach(caja => {
+    caja.addEventListener('click', () => {
+      // Busca el input de tipo "file" que está dentro de la caja y simula un clic en él
+      caja.querySelector('input[type="file"]').click();
+    });
+  });
+  // === FIN DEL CÓDIGO NUEVO ===
+
+
   const botonPaso1 = document.getElementById('boton-paso-1');
   const botonPaso2 = document.getElementById('boton-paso-2');
   const formulario = document.getElementById('paso-1');
   const formulario2 = document.getElementById("paso-2");
+  let usuarioRegistrado = false; // Añadido para controlar el estado
 
   function mostrarPaso(numeroPaso) {
   if (numeroPaso === 1 && usuarioRegistrado) return;
@@ -61,11 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Validar teléfono (solo números, mínimo 10 dígitos)
+    // Validar teléfono (solo números, máximo 10 dígitos)
     if (!/^\d{1,10}$/.test(telefono)) {
-  alert('El número telefónico debe tener máximo 10 dígitos y solo números');
-  return;
-}
+      alert('El número telefónico debe tener máximo 10 dígitos y solo números');
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:7000/signup", {
