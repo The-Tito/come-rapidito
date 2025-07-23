@@ -62,10 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Validar teléfono (solo números, mínimo 10 dígitos)
-    if (telefono.length < 10 || !/^\d+$/.test(telefono)) {
-      alert('El número telefónico debe tener al menos 10 dígitos');
-      return;
-    }
+    if (!/^\d{1,10}$/.test(telefono)) {
+  alert('El número telefónico debe tener máximo 10 dígitos y solo números');
+  return;
+}
 
     try {
       const response = await fetch("http://localhost:7000/signup", {

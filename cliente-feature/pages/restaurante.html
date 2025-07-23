@@ -14,7 +14,7 @@
 </head>
 
 <body>
-
+    <!-- Se agrega 'main-container' para el efecto blur del modal -->
     <div id="main-container">
         <header class="encabezado">
             <a href="./index.html" class="encabezado-logo">
@@ -22,19 +22,18 @@
             </a>
             <nav class="encabezado-navegacion">
                 <ul class="encabezado-lista">
-                    <li class="encabezado-item"><a href="index.html" class="encabezado-enlace nav-link-confirm">Home</a>
-                    </li>
+                    <li class="encabezado-item"><a href="index.html" class="encabezado-enlace">Home</a></li>
                     <li class="encabezado-item"><a href="./pedidos.html" class="encabezado-enlace">Pedidos</a></li>
-                    <li class="encabezado-item"><a href="#" id="abrir-modal-negocio"
-                            class="encabezado-enlace nav-link-confirm">Mi negocio</a></li>
+                    <li class="encabezado-item"><a href="../../admin-feature/administrador/pages/registro.html" id="abrir-modal-negocio"class="encabezado-enlace">Mi negocio</a></li>
                 </ul>
             </nav> 
             <div class="encabezado-iconos">
-                <a href="#" id="abrir-modal-repartidor" class="encabezado-icono nav-link-confirm"><img
+                <a href="#" id="abrir-modal-repartidor" class="encabezado-icono"><img
                         src="../../Assets/repartidores.png" alt="Icono delivery"></a>
+                <!-- Este enlace al carrito es importante para la lógica del modal -->
                 <a href="carrito.html" class="encabezado-icono"><img src="../../Assets/carrito.png"
                         alt="Icono carrito"></a>
-                <a href="index.html" id="abrir-modal-login" class="encabezado-icono nav-link-confirm"><img
+                <a href="index.html" id="abrir-modal-login" class="encabezado-icono"><img
                         src="../../Assets/iconUsuario .png" alt="Icono usuario"> Iniciar Sesión</a>
             </div>
         </header>
@@ -42,7 +41,6 @@
         <main>
             <section class="seccion-hero-restaurante" id="banner-restaurante">
                 <img src="" alt="Banner de pizza en horno de leña" class="seccion-hero-restaurante-banner">
-
                 <div class="seccion-hero-restaurante-informacion">
                     <img src="" alt="Logo de La casa de las pizzas" class="informacion-logo">
                     <h1 class="informacion-nombre">La casa de las pizzas</h1>
@@ -59,126 +57,45 @@
             <section class="seccion-menu">
                 <h2 class="seccion-menu-titulo">Menú</h2>
 
+                <!-- ===== SECCIÓN DE CATEGORÍAS MODIFICADA ===== -->
+                <!-- Se añaden los 'data-category-id' para que el JS pueda filtrar -->
                 <div class="seccion-menu-categorias">
-                    <div class="categoria-item">
+                    <div class="categoria-item active" data-category-id="0">
                         <img src="../../Assets/ejemploCategoria1.png" alt="Promociones" class="categoria-item-imagen">
                         <h3 class="categoria-item-nombre">Todo</h3>
                     </div>
                     <div class="categoria-item">
-                        <img src="../../Assets/alimentos-categoria.png"alt="Especialidades"
+                        <img src="../../Assets/alimentos-categoria.png" alt="Especialidades"
                             class="categoria-item-imagen">
                         <h3 class="categoria-item-nombre">Alimentos</h3>
                     </div>
-                    <div class="categoria-item">
+                    <div class="categoria-item" data-category-id="2">
                         <img src="../../Assets/ejemploCategoria3.png" alt="Snacks" class="categoria-item-imagen">
                         <h3 class="categoria-item-nombre">Snacks</h3>
                     </div>
-                    <div class="categoria-item">
+                    <div class="categoria-item" data-category-id="3">
                         <img src="../../Assets/ejemploCategoria4.png" alt="Bebidas" class="categoria-item-imagen">
                         <h3 class="categoria-item-nombre">Bebidas</h3>
                     </div>
                 </div>
-
+                
+                <!-- ===== SECCIÓN DE PRODUCTOS MODIFICADA ===== -->
                 <div class="seccion-menu-productos">
-                    <article class="producto-contenedor">
-                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni"
-                            class="producto-contenedor-imagen">
-                        <div class="producto-contenedor-detalles">
-                            <h4 class="detalles-nombre">Pizza de pepperoni</h4>
-                            <p class="detalles-descripcion">Mozzarella y pepperoni<br>Grande. 8 rebanadas</p>
-                            <p class="detalles-precio">$179.00</p>
-                        </div>
-                        <button class="producto-contenedor-agregar" data-producto-id="123"
-                            data-producto-nombre="Pizza Pepperoni" data-producto-precio="15.99"
-                            data-producto-url-imagen="../../Assets/pizzaPepperoni.png">
-                            <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
-                        </button>
-                    </article>
-                    <article class="producto-contenedor">
-                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni"
-                            class="producto-contenedor-imagen">
-                        <div class="producto-contenedor-detalles">
-                            <h4 class="detalles-nombre">Pizza de pepperoni</h4>
-                            <p class="detalles-descripcion">Mozzarella y pepperoni<br>Grande. 8 rebanadas</p>
-                            <p class="detalles-precio">$179.00</p>
-                        </div>
-                        <button class="producto-contenedor-agregar" data-producto-id="123"
-                            data-producto-nombre="Pizza Pepperoni" data-producto-precio="15.99"
-                            data-producto-url-imagen="../../Assets/pizzaPepperoni.png">
-                            <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
-                        </button>
-                    </article>
-                    <article class="producto-contenedor">
-                        <img src="../../Assets/PizzaHawaiana.png" alt="Pizza hawaiana"
-                            class="producto-contenedor-imagen">
-                        <div class="producto-contenedor-detalles">
-                            <h4 class="detalles-nombre">Pizza hawaiana</h4>
-                            <p class="detalles-descripcion">Piña y jamón<br>Grande. 8 rebanadas</p>
-                            <p class="detalles-precio">$179.00</p>
-                        </div>
-                        <button class="producto-contenedor-agregar" data-producto-id="123"
-                            data-producto-nombre="Pizza Pepperoni" data-producto-precio="15.99"
-                            data-producto-url-imagen="../../Assets/pizzaPepperoni.png">
-                            <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
-                        </button>
-                    </article>
-                    <article class="producto-contenedor">
-                        <img src="../../Assets/pizzaPepperoni.png" alt="Pizza de pepperoni"
-                            class="producto-contenedor-imagen">
-                        <div class="producto-contenedor-detalles">
-                            <h4 class="detalles-nombre">Pizza de pepperoni</h4>
-                            <p class="detalles-descripcion">Mozzarella y pepperoni<br>Grande. 8 rebanadas</p>
-                            <p class="detalles-precio">$179.00</p>
-                        </div>
-                        <button class="producto-contenedor-agregar" data-producto-id="123"
-                            data-producto-nombre="Pizza Pepperoni" data-producto-precio="15.99"
-                            data-producto-url-imagen="../../Assets/pizzaPepperoni.png">
-                            <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
-                        </button>
-                    </article>
+                    <!-- Los productos se cargarán aquí dinámicamente -->
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- MODALES -->
+    <!-- MODALES-->
 
-    <!-- Info del restaurante -->
-    <div id="modal-info-restaurante" class="modal-overlay oculto">
-        <div class="modal">
-            <button id="cerrar-modal-info" class="modal-cerrar-btn">
-                <img src="../../Assets/exit.png" alt="Icono de cerrar">
-            </button>
-            <img src="" alt="Logo del restaurante" class="modal-logo-restaurante">
-            <h2 class="modal-titulo">Nombre del restaurante</h2>
-
-            <div class="modal-info-detalle">
-                <strong>Teléfono:</strong>
-                <span>Teléfono del restaurante</span>
-            </div>
-
-            <div class="modal-info-detalle">
-                <strong>Dirección:</strong>
-                <span>Dirección del restaurante</span>
-            </div>
-
-            <!-- Elemento opcional para el horario -->
-            <div class="modal-info-detalle">
-                <strong>Horario:</strong>
-                <span class="modal-horario">Horario del restaurante</span>
-            </div>
-        </div>
-    </div>
-    <!-- Producto agregado -->
     <div id="modal-agregado" class="modal-notificacion oculto">
         <div class="notificacion-contenido">
             <img src="../../Assets/iconAgregado.png" alt="Checkmark">
             <span>Agregado al carrito</span>
         </div>
-    </div>
 
-    <!-- confirmar salida -->
-    <div id="modal-confirmar-salida" class="modal-overlay oculto">
+<div id="modal-confirmar-salida" class="modal-overlay oculto">
         <div class="modal modal-confirmacion">
             <img src="../../Assets/AvisoCarrito.png" alt="Icono de carrito" class="modal-icono-carrito">
             <h3 class="modal-texto-confirmacion">¿Estás seguro?</h3>
@@ -189,6 +106,8 @@
             </div>
         </div>
     </div>
+
     <script src="../js/restaurante.js"></script>
+
 </body>
 </html>

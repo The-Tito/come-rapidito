@@ -56,7 +56,7 @@ function addOrderRow(orderData) {
 
     // Opciones del dropdown
     statusSelect.innerHTML = `
-        <option value="proceso">Activo</option>
+        <option value="Activo">Activo</option>
         <option value="preparacion">En preparación</option>
         <option value="espera">En espera</option>
         <option value="camino" disabled>En camino</option>
@@ -67,7 +67,7 @@ function addOrderRow(orderData) {
         1: "preparacion",
         2: "espera",
         3: "camino",
-        8: "proceso"
+        8: "Activo"
     };
 
     // Asignar el valor preseleccionado al <select>
@@ -156,13 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     fetch(`http://localhost:7000/api/orders/restaurant/${id_restaurante}`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "X-User-NAME": `${nombre}`,
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify(orderPayload)
+            }
         })
         .then(res => {
             if (!res.ok) {
