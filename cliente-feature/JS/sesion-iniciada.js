@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener("DOMContentLoaded", cargarCarruseles);
 
 function cargarCarruseles() {
-  fetch("http://localhost:7000/restaurant")
+  fetch("http://54.88.1.254/restaurant")
     .then(res => res.json())
     .then(data => {
       sessionStorage.setItem('restaurantes', JSON.stringify(data))

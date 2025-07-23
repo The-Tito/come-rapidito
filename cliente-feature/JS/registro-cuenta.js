@@ -56,7 +56,7 @@ document.querySelector('.formulario').addEventListener('submit', async function(
   boton.innerHTML = '<span class="boton-registrar-icono">⏳</span> Registrando...';
 
   try {
-    const respuesta = await fetch('http://localhost:7000/signup', {
+    const respuesta = await fetch('http://54.88.1.254/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

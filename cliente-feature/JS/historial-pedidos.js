@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const id_usuario = localStorage.getItem("id_usuario"); // o el ID según tengas almacenado
 
     try {
-        const response = await fetch(`http://localhost:7000/api/users/${id_usuario}/orders`, {
+        const response = await fetch(`http://54.88.1.254/api/users/${id_usuario}/orders`, {
             method: 'GET',
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -133,7 +133,7 @@ document.getElementById("submit-rating-btn").addEventListener("click", async () 
     const nombre = localStorage.getItem("nombre")?.replace(/"/g, '');
 
     try {
-        const res = await fetch("http://localhost:7000/api/reviews", {
+        const res = await fetch("http://54.88.1.254/api/reviews", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,

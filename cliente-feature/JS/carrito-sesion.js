@@ -1,6 +1,6 @@
 
 // Configuración de la API
-const API_BASE_URL = 'http://localhost:7000/api'; // Ajusta según tu configuración
+const API_BASE_URL = 'http://54.88.1.254/api'; // Ajusta según tu configuración
 
 // Estado del carrito
 let carritoProductos = [];

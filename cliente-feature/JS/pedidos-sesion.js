@@ -62,7 +62,7 @@ function cargarPedidosActivos() {
     const token = localStorage.getItem("token")?.replace(/"/g, '');
     const id_usuario = localStorage.getItem("id_usuario");
 
-  fetch(`http://localhost:7000/api/users/${id_usuario}/orders/active`, {
+  fetch(`http://54.88.1.254/api/users/${id_usuario}/orders/active`, {
     method: 'GET',
             headers: {
                 "Authorization": `Bearer ${token}`,

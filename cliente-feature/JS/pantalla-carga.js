@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const idPedido = localStorage.getItem("id_pedido"); // Asegúrate que guardas esto al confirmar el pedido
     const token = localStorage.getItem("token")?.replace(/"/g, '');
     const nombre = localStorage.getItem("nombre")?.replace(/"/g, '');
-    const API_BASE_URL = 'http://localhost:7000/api';
+    const API_BASE_URL = 'http://54.88.1.254/api';
 
     async function verificarTarifaAsignada() {
         
