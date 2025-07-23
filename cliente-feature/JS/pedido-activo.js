@@ -35,29 +35,42 @@ document.addEventListener("DOMContentLoaded", () => {
             return res.json();
         })
         .then(pedido => {
-            // Actualizar clase de estado principal
-            const statusClass = pedido.id_status >= 4 ? 3 : pedido.id_status; // Si es 4 (entregado) o más, visualmente será como el 3
-            document.querySelector("main").className = `tracking-container status-${statusClass}`;
+            let statusClass = pedido.id_status;
+
+// Si el status es mayor o igual a 4 (excepto 8), lo tratamos como status-3 visualmente
+if (pedido.id_status >= 4 && pedido.id_status !== 8) {
+    statusClass = 3;
+} else if (pedido.id_status === 8) {
+    statusClass = "none"; // clase personalizada que no activa pasos
+}
+
+document.querySelector("main").className = `tracking-container${statusClass !== "none" ? ` status-${statusClass}` : ""}`;
             
             // Actualizar número de pedido
             contenedorOrderId.textContent = `Pedido #${pedido.id_pedido} realizado`;
 
             // Actualizar stepper visualmente
-            const pasos = ["EN PREPARACIÓN", "EN CAMINO", "ENTREGADO"];
-            contenedorStepper.innerHTML = "";
-            pasos.forEach((paso, idx) => {
-                const div = document.createElement("div");
-                div.classList.add("step", `step-${idx + 1}`);
+            // Actualizar stepper visualmente
+const pasos = ["EN PREPARACIÓN", "EN CAMINO", "ENTREGADO"];
+contenedorStepper.innerHTML = "";
+pasos.forEach((paso, idx) => {
+    const div = document.createElement("div");
+    div.classList.add("step", `step-${idx + 1}`);
 
-                if ((pedido.id_status === 1 && idx === 0) ||
-                    (pedido.id_status === 2 && idx < 2) ||
-                    (pedido.id_status === 3 && idx < 3) ||
-                    (pedido.id_status === 4 && idx < 3)) { // Si status es 4, todos los pasos se marcan como completados
-                    div.classList.add("activo");
-                }
-                div.textContent = paso;
-                contenedorStepper.appendChild(div);
-            });
+    // Solo marcar como activo si el status NO es 8
+    if (pedido.id_status !== 8) {
+        if ((pedido.id_status === 1 && idx === 0) ||
+            (pedido.id_status === 2 && idx < 2) ||
+            (pedido.id_status === 3 && idx < 3) ||
+            (pedido.id_status === 4 && idx < 3)) {
+            div.classList.add("activo");
+        }
+    }
+    
+    div.textContent = paso;
+    contenedorStepper.appendChild(div);
+});
+
 
 
             // Llenar detalles del pedido
@@ -65,18 +78,19 @@ document.addEventListener("DOMContentLoaded", () => {
             priceDetails.innerHTML = `
               <div class="price-item">
                 <span>Subtotal</span>
-                <span>$${pedido.carrito.total.toFixed(2)}</span>
+                <span>$${pedido.carrito.total.toFixed(2) - 8}</span>
               </div>
               <div class="price-item">
                 <span>Costo de envío</span>
-                <span>$25.00</span>
+                <span>$${pedido.tarifa.toFixed(2)}</span>
               </div>
               <div class="price-item">
                 <span>Cuota de servicio</span>
                 <span>$8.00</span>
               </div>
             `;
-            priceTotal.textContent = `$${pedido.totalFinal.toFixed(2)}`;
+            const totalConTarifa = pedido.totalFinal + pedido.tarifa;
+            priceTotal.textContent = `$${totalConTarifa.toFixed(2)}`;
             tiempoEspera.textContent = "20-30 minutos";
             const dir = pedido.direccion;
             direccionEntrega.textContent = `${dir.calle} ${dir.numero_casa}, ${dir.colonia}, CP ${dir.codigo_postal} - ${dir.referencia}`;
@@ -147,36 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Prepara los datos para enviar a la BD
-        const datosValoracion = {
-            id_pedido: parseInt(idPedido),
-            puntuacion_pedido: parseInt(puntuacionSeleccionada),
-        };
         
-        console.log("Enviando valoración:", datosValoracion);
+        
+        
 
-        // **AQUÍ VA TU FETCH PARA GUARDAR LA VALORACIÓN**
-        fetch('http://localhost:7000/api/reviews', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(datosValoracion)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Hubo un problema al guardar la valoración.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Valoración guardada con éxito:', data);
-            alert("¡Gracias por tu valoración!");
-            cerrarModalValoracion();
-        })
-        .catch(error => {
-            console.error('Error al enviar la valoración:', error);
-            alert(error.message);
-        });
+       
     });
 });

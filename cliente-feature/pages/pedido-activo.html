@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Mouse+Memoirs&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/pedido-activo.css">
-    <link rel="stylesheet" href="../styles/carrito.css">
 </head>
 <body>
 
@@ -17,7 +16,7 @@
         <!-- para cambiar el stepper tienes q modificar el status de main(1, 2 o 3) -->
         <main class="tracking-container status-2">
             <div class="back-pedidos">
-            <a href="pedidos-sesion.html">
+            <a href="pedidos-sesion.html" id="regresar-pedidos">
             <button class="boton-agregar-mas"  >
                         <img src="../../Assets/flechaNaranja.png" alt="icono-flecha-izquierda-roja">
                         Regresar a pedidos
@@ -78,30 +77,10 @@
         </main>
     </div>
 
-    <!-- ===== INICIO: MODAL DE VALORACIÓN ===== -->
-    <div id="rating-modal-overlay" class="rating-modal-overlay">
-        <div class="rating-modal">
-            <button class="close-modal-btn" id="close-rating-modal">×</button>
-            <div class="modal-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.646 12.646a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0-.708-.708L7 11.293 4.854 9.146a.5.5 0 1 0-.708.708l2.5 2.5z"/>
-                </svg>
-            </div>
-            <h2>¡Pedido realizado!</h2>
-            <p>¿Desea enviar una valoración?</p>
-            <div class="stars-container" id="rating-stars">
-                <span class="star" data-value="1">☆</span>
-                <span class="star" data-value="2">☆</span>
-                <span class="star" data-value="3">☆</span>
-                <span class="star" data-value="4">☆</span>
-                <span class="star" data-value="5">☆</span>
-            </div>
-            <button class="submit-rating-btn" id="submit-rating-btn">Enviar</button>
-        </div>
-    </div>
-    <!-- ===== FIN: MODAL DE VALORACIÓN ===== -->
+    
 
     <script src="../JS/sesion-iniciada.js"></script>
     <script src="../JS/pedido-activo.js"></script>
+    
 </body>
 </html>
