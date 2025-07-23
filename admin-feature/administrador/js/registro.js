@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch("http://localhost:7000/signup", {
+      const response = await fetch("http://54.88.1.254:7000/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("estoy en submit")
     // Enviar al backend
     try {
-      const response = await fetch('http://localhost:7000/api/restaurant', {
+      const response = await fetch('http://54.88.1.254:7000/api/restaurant', {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${token}`,

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let token = tokenstorage.replace(/"/g, '');
 
   try {
-    const response = await fetch(`http://localhost:7000/api/restaurant/${idUsuario}`, {
+    const response = await fetch(`http://54.88.1.254:7000/api/restaurant/${idUsuario}`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -313,14 +313,13 @@ async function guardarInformacionModal() {
   const token = localStorage.getItem("token").replace(/"/g, '');
   const nombreUser = localStorage.getItem("nombre").replace(/"/g, '');
 
-  console.log("Enviando PUT a:", `http://localhost:7000/api/restaurant/${idRestaurante}`);
-  console.log("Contenido de formData:");
+  
   for (const pair of formData.entries()) {
     console.log(pair[0] + ':', pair[1]);
   }
 
   try {
-    const res = await fetch(`http://localhost:7000/api/restaurant/${idRestaurante}`, {
+    const res = await fetch(`http://54.88.1.254:7000/api/restaurant/${idRestaurante}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -329,7 +328,7 @@ async function guardarInformacionModal() {
       body: formData
     });
 
-    console.log("Respuesta del servidor:", res.status, res.statusText);
+   
 
     if (!res.ok) {
       const errorText = await res.text();
