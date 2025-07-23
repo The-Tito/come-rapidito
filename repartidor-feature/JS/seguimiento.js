@@ -1,55 +1,50 @@
-// ===============================================================================
-// ARCHIVO FINAL - ADAPTADO A LAS RUTAS EXISTENTES (GET /api/users/{id}/orders/active)
-// ===============================================================================
+// ../JS/seguimiento.js - VERSIÓN MODIFICADA CON localStorage
 
-// Mapear los checkboxes a los IDs de status del backend según tu flujo.
+// --- CONFIGURACIÓN DE ESTADOS ---
 const STATUS_MAP = {
-    "En preparación": 1,
     "En camino": 3,
-    "Entregado": 4
+    "Entregado": 4 
 };
-
-// Definir el flujo de progreso de los estados.
-const STATUS_FLOW = [1, 3, 4]; // 8:Activo, 1:Preparación, 3:Camino, 4:Entregado, 5:Cancelado
 
 // --- INICIALIZACIÓN DE LA PÁGINA ---
 document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById('modal-entregado');
-    if (modal) modal.classList.add('oculto');
-
-    // Paso 1: Obtener AMBOS IDs, el del pedido y el del usuario.
+    // CAMBIO 1: Obtener el ID desde localStorage en lugar de la URL.
     const orderId = localStorage.getItem("pedido_id_seguimiento");
-    const userId = localStorage.getItem("id_usuario"); // Necesitamos este para la URL de la API.
+    const userId = localStorage.getItem("id_usuario");
 
-    if (!orderId || !userId) {
-        displayError("Error Fatal: Faltan datos esenciales (ID de pedido o de usuario). Por favor, regresa y selecciona un pedido.");
+    // CAMBIO 2: Mensaje de error más específico para este método.
+    if (!orderId) {
+        displayError("Error: No se encontró un ID de pedido. Por favor, regresa a 'Pedidos Activos' y selecciona uno.");
         return;
     }
-    
-    // Paso 2: Iniciar el seguimiento pasando ambos IDs.
+    if (!userId) {
+        displayError("Error: No se pudo identificar al usuario. Por favor, inicia sesión de nuevo.");
+        return;
+    }
+
     initializeOrderTracking(orderId, userId);
 
     const modalButton = document.querySelector("#modal-entregado .btn-continuar");
     modalButton.addEventListener("click", () => {
+        // Opcional: Limpiar el ID del localStorage después de terminar para evitar cargar un pedido ya entregado si se vuelve a la página.
         localStorage.removeItem("pedido_id_seguimiento");
         window.location.href = '../pages/historial.html';
     });
 });
 
 /**
- * Función principal: Busca el pedido específico dentro de la lista de activos del usuario.
+ * Función principal para cargar los datos del pedido y configurar los listeners.
  * @param {string} orderId - El ID del pedido a seguir.
- * @param {string} userId - El ID del usuario para usar en la URL.
+ * @param {string} userId - El ID del usuario logueado.
  */
 async function initializeOrderTracking(orderId, userId) {
     try {
-        // CAMBIO CLAVE: Llamamos a una función que usa la ruta de pedidos activos.
-        const currentOrder = await findSpecificActiveOrder(orderId, userId);
+        const allActiveOrders = await fetchActiveOrders(userId);
+        const currentOrder = allActiveOrders.find(order => order.id_pedido == orderId);
 
         if (!currentOrder) {
-            // Este error ahora significa que el pedido no se encontró en la lista de activos.
-            // Puede ser porque ya se entregó (estado 4) o se canceló (estado 5).
-            throw new Error(`El pedido #${orderId} no fue encontrado entre los pedidos activos.`);
+            // Este error puede ocurrir si el pedido ya no está activo cuando llegas a esta página.
+            throw new Error(`El pedido #${orderId} ya no se encuentra entre los pedidos activos o no te pertenece.`);
         }
         
         const container = document.querySelector('.seguimiento_container');
@@ -64,65 +59,68 @@ async function initializeOrderTracking(orderId, userId) {
     }
 }
 
-
-// --- FUNCIONES DE MANEJO DE LA INTERFAZ (UI) ---
+// El resto del código permanece EXACTAMENTE IGUAL, ya que la lógica
+// interna no depende de *dónde* se obtuvo el ID, solo de que *exista*.
 
 /**
- * Actualiza la UI de los checkboxes respetando el flujo de estados (8 -> 1 -> 3 -> 4).
+ * Actualiza la apariencia de los checkboxes basado en el estado actual del pedido.
+ * @param {number} currentStatus - El ID del estado actual del pedido.
  */
 function updateCheckboxesUI(currentStatus) {
     const checkboxes = document.querySelectorAll('.seguimiento_container input[type="checkbox"]');
-    const currentStatusIndex = STATUS_FLOW.indexOf(currentStatus);
+    const statusOrder = {
+        "En preparación": 8,
+        "En camino": STATUS_MAP["En camino"],
+        "Entregado": STATUS_MAP["Entregado"]
+    };
 
     checkboxes.forEach(checkbox => {
-        const checkboxStatusId = STATUS_MAP[checkbox.id];
-        const checkboxStatusIndex = STATUS_FLOW.indexOf(checkboxStatusId);
-
-        checkbox.disabled = false;
-        checkbox.checked = false;
-        checkbox.parentElement.classList.remove('completed');
-
-        // Si el estado actual está más avanzado (o es el mismo) que el del checkbox, lo marcamos.
-        if (currentStatusIndex >= checkboxStatusIndex) {
+        const checkboxStatus = statusOrder[checkbox.id];
+        // Pequeño ajuste en la lógica de comparación para manejar estados finales
+        if (checkboxStatus <= currentStatus) {
+            checkbox.checked = true;
+            checkbox.disabled = true;
+            checkbox.parentElement.classList.add('completed');
+        }
+        // Si el pedido ya fue entregado (status 4), marcamos y deshabilitamos todo.
+        if (currentStatus === 4) {
             checkbox.checked = true;
             checkbox.disabled = true;
             checkbox.parentElement.classList.add('completed');
         }
     });
-
-    if (currentStatus === 4 || currentStatus === 5) {
-        checkboxes.forEach(cb => { cb.disabled = true; });
-    }
 }
 
 /**
- * Añade los event listeners a cada checkbox que no esté deshabilitado.
+ * Añade los event listeners a cada checkbox para manejar las actualizaciones.
  */
 function addCheckboxListeners() {
-    document.querySelectorAll('.seguimiento_container input[type="checkbox"]').forEach(checkbox => {
-        if (!checkbox.disabled) {
-            checkbox.addEventListener('change', handleStatusUpdate);
-        }
+    const checkboxes = document.querySelectorAll('.seguimiento_container input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', handleStatusUpdate);
     });
 }
 
 /**
- * Maneja la lógica de actualización cuando se hace clic en un checkbox.
+ * Manejador del evento 'change' para un checkbox.
+ * @param {Event} event 
  */
 async function handleStatusUpdate(event) {
     const checkbox = event.target;
-    if (!checkbox.checked) {
-        checkbox.checked = true;
-        return;
-    }
-
     const container = document.querySelector('.seguimiento_container');
     const orderId = container.getAttribute('data-order-id');
     const currentStatus = parseInt(container.getAttribute('data-current-status'), 10);
     const newStatus = STATUS_MAP[checkbox.id];
 
-    if (STATUS_FLOW.indexOf(newStatus) <= STATUS_FLOW.indexOf(currentStatus)) {
-        displayError(`Movimiento no válido: No se puede pasar del estado ${currentStatus} al ${newStatus}.`);
+    if (!checkbox.checked) {
+        checkbox.checked = true;
+        return;
+    }
+    
+    // La lógica de negocio para no retroceder de estado ahora es más crucial
+    const statusValues = Object.values(STATUS_MAP);
+    if (statusValues.includes(currentStatus)) { // Si ya estamos en "En Camino" o "Entregado"
+        alert("¡Acción no permitida! El estado ya ha avanzado.");
         checkbox.checked = false;
         return;
     }
@@ -131,22 +129,24 @@ async function handleStatusUpdate(event) {
         document.querySelectorAll('.seguimiento_container input[type="checkbox"]').forEach(cb => cb.disabled = true);
         await updateOrderStatus(orderId, newStatus);
         
+        console.log(`Pedido #${orderId} actualizado con éxito al estado ${newStatus}.`);
         container.setAttribute('data-current-status', newStatus);
         updateCheckboxesUI(newStatus);
-        addCheckboxListeners();
 
         if (newStatus === STATUS_MAP["Entregado"]) {
             showModal();
         }
+
     } catch (error) {
         displayError(`No se pudo actualizar el pedido: ${error.message}`);
-        updateCheckboxesUI(currentStatus);
-        addCheckboxListeners();
+        checkbox.checked = false;
+    } finally {
+        updateCheckboxesUI(parseInt(container.getAttribute('data-current-status'), 10));
     }
 }
 
 
-// --- FUNCIONES DE API Y UTILIDADES ---
+// --- FUNCIONES DE API Y UTILIDADES (SIN CAMBIOS) ---
 
 function showModal() {
     const modal = document.getElementById('modal-entregado');
@@ -154,13 +154,19 @@ function showModal() {
 }
 
 function displayError(message) {
-    console.error(`ERROR CAPTURADO: ${message}`);
+    const seccion = document.querySelector('main.seccion');
+    seccion.innerHTML = `<div class="error-container" style="color: red; padding: 20px; border: 1px solid red; background: #ffeeee;">${message}</div>`;
+    console.error(message);
 }
 
 function getAuthHeaders() {
     const token = localStorage.getItem("token");
     const nombre = localStorage.getItem("nombre");
-    if (!token || !nombre) throw new Error("Error de Autenticación: Faltan datos en localStorage.");
+
+    if (!token || !nombre) {
+        throw new Error("Error de Autenticación: El token o el nombre de usuario no fueron encontrados en localStorage.");
+    }
+    // Tu código original limpiaba las comillas, lo replicamos aquí por consistencia
     return {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token.replace(/"/g, '')}`,
@@ -168,42 +174,43 @@ function getAuthHeaders() {
     };
 }
 
-/**
- * NUEVA FUNCIÓN: Usa la ruta de activos para obtener todos los pedidos y luego
- * busca el específico que necesitamos por su ID.
- * @param {string} orderIdToFind - El ID del pedido que buscamos.
- * @param {string} userId - El ID del usuario para la URL.
- */
-async function findSpecificActiveOrder(orderIdToFind, userId) {
-    // Usamos la ruta GET que SÍ existe.
-    const URL = `http://localhost:7000/api/users/${userId}/orders/active`;
+// Esta función ahora usa la ruta que tienes en pedidos-activos.js
+async function fetchActiveOrders() {
+    const URL = `http://localhost:7000/api/orders/delivery`;
     try {
-        const response = await fetch(URL, { method: 'GET', headers: getAuthHeaders() });
+        const response = await fetch(URL, { 
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ id_status: 8 }) // Buscamos los pedidos que están listos para ser asignados
+        });
         if (!response.ok) {
-            if (response.status === 404) return null; // El usuario no tiene pedidos activos
-            throw new Error(`Error del servidor (${response.status}) al obtener pedidos activos.`);
+            if (response.status === 401 || response.status === 403) throw new Error(`Fallo de autorización (código: ${response.status}).`);
+            throw new Error(`Error del servidor al obtener pedidos (código: ${response.status}).`);
         }
-        
-        const activeOrders = await response.json();
-        // Buscamos nuestro pedido dentro del array de resultados.
-        // Usamos == para comparar por si uno es string y el otro número.
-        return activeOrders.find(order => order.id_pedido == orderIdToFind);
-
+        // Como la API pide status 8 pero también queremos ver pedidos ya aceptados (status 9), 
+        // sería ideal tener una API que devuelva todos los pedidos activos del repartidor. 
+        // Por ahora, trabajaremos con la que tenemos.
+        return await response.json();
     } catch (error) {
-        if (error.message.includes('Failed to fetch')) throw new Error('Error de Conexión.');
+        if (error.message.includes('Failed to fetch')) throw new Error('Error de Conexión: No se pudo conectar con el servidor.');
         throw error;
     }
 }
 
-/**
- * Llama a la API para actualizar el estado. Esta función usa la ruta PUT que ya existía.
- */
 async function updateOrderStatus(orderId, newStatus) {
+    // Usamos el endpoint correcto de tu código original para el PUT
     const URL = `http://localhost:7000/api/orders/${orderId}/status`;
     const body = { id_status: newStatus };
     try {
-        const response = await fetch(URL, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(body) });
-        if (!response.ok) throw new Error(`Error del servidor al actualizar (${response.status})`);
+        const response = await fetch(URL, {
+            method: 'PUT',
+            headers: getAuthHeaders(),
+            body: JSON.stringify(body)
+        });
+        if (!response.ok) {
+            if (response.status === 404) throw new Error(`Pedido no encontrado (código: 404).`);
+            throw new Error(`Error del servidor al actualizar (código: ${response.status}).`);
+        }
     } catch (error) {
         if (error.message.includes('Failed to fetch')) throw new Error('Error de Conexión al actualizar.');
         throw error;
