@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   id_status: 4
 };
 
-fetch(`http://localhost:7000/api/orders/restaurant/${id_restaurante}/history`, {
+fetch(`http://54.88.1.254:7000/api/orders/restaurant/${id_restaurante}/history`, {
   method: "GET",
   headers: {
     "Authorization": `Bearer ${token}`,
