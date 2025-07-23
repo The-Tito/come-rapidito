@@ -42,7 +42,7 @@ function verificarAutenticacion() {
     const token = localStorage.getItem('token');
     if (!token) {
         // Redirigir al login si no hay token
-        window.location.href = '../pages/index.html';
+        window.location.href = '/come-rapidito/index.html';
         return false;
     }
     return true;
