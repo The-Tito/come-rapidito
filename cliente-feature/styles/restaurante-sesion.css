@@ -1,0 +1,875 @@
+:root {
+    --color-primario: #FF502D;
+    --color-secundario: #FCBF30;
+    --color-fondo-contenedor: #FFF6EE;
+    --color-texto: #333;
+    --color-borde: #ddd;
+    --fuente-principal: 'Montserrat', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    background-color: white;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* ================== ENCABEZADO ================== */
+:root {
+    --color-primario: #FF502D;
+    --color-secundario: #FCBF30;
+    --color-fondo-contenedor: #FFF6EE;
+    --color-texto: #333;
+    --color-borde: #ddd;
+    --fuente-principal: 'Montserrat', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    background-color: white;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* ================== ENCABEZADO ================== */
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.encabezado-logo img {
+    height: 38px;
+}
+
+.encabezado-lista {
+    list-style: none;
+    display: flex;
+    gap: 120px;
+}
+
+.encabezado-enlace {
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+.encabezado-iconos {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.encabezado-icono {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: bold;
+}
+
+.encabezado-icono img {
+    height: 24px;
+}
+
+.encabezado-icono-carrito {
+    height: 30px;
+}
+
+/* ================== HERO RESTAURANTE ================== */
+.seccion-hero-restaurante {
+    position: relative;
+    width: 100%;
+    margin-top: 80px;
+    overflow: hidden;
+    border-radius: 20px;
+    max-width: 95%;
+    margin-inline: auto;
+}
+
+.seccion-hero-restaurante-banner {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    display: block;
+}
+
+.seccion-hero-restaurante-informacion {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+    background-color: var(--color-primario);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.informacion-logo {
+    height: 100px;
+    width: 100px;
+    border: 4px solid white;
+    border-radius: 15px;
+    background-color: black;
+    object-fit: cover;
+    margin-top: -250px;
+}
+
+.informacion-nombre {
+    font-size: 2.5rem;
+    font-weight: bold;
+    flex-grow: 1;
+    color: white;
+}
+
+.informacion-detalle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: white;
+}
+
+.informacion-detalle img {
+    height: 16px;
+}
+
+/* ================== SECCIÓN MENÚ ================== */
+.seccion-menu {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 40px auto;
+}
+
+.seccion-menu-titulo {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.seccion-menu-categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.categoria-item {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+    border-bottom: 3px solid transparent;
+    padding-bottom: 5px;
+}
+
+.categoria-item.active {
+    border-bottom-color: var(--color-primario);
+    transform: scale(1.05);
+}
+
+.categoria-item-imagen {
+    width: 100%;
+    max-width: 150px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.categoria-item-nombre {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ================== PRODUCTOS ================== */
+.seccion-menu-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+}
+
+.producto-contenedor {
+    background-color: var(--color-fondo-contenedor);
+    border: 1px solid #f0e6d9;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.producto-contenedor:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.producto-contenedor-imagen {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 15px;
+    flex-shrink: 0;
+}
+
+.producto-contenedor-detalles {
+    flex-grow: 1;
+}
+
+.detalles-nombre {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.detalles-descripcion {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.detalles-precio {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.producto-contenedor-agregar {
+    background-color: var(--color-primario);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.producto-contenedor-agregar img {
+    height: 20px;
+}
+
+
+/* ============================================= */
+/* ===== ESTILOS DE MODALES (MEJORADOS) ===== */
+/* ============================================= */
+
+/* 1. EL FONDO OSCURO (OVERLAY) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    
+    /* Clave para centrar el modal: */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    z-index: 2000;
+    opacity: 0; /* Inicia oculto */
+    pointer-events: none; /* No se puede interactuar cuando está oculto */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-overlay:not(.oculto) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 2. EL CONTENEDOR DEL MODAL (LA VENTANA BLANCA) */
+.modal {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    
+    max-width: 480px;
+    width: 90%;
+    
+    transform: scale(0.9); /* Inicia un poco más pequeño */
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal-overlay:not(.oculto) .modal {
+    transform: scale(1); /* Crece a su tamaño normal al aparecer */
+}
+
+/* 3. MODAL DE CONFIRMACIÓN DE SALIDA (CONTENIDO ESPECÍFICO) */
+.modal-confirmacion .modal-icono-carrito {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+}
+
+.modal-confirmacion .modal-texto-confirmacion {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.modal-confirmacion p {
+    margin-bottom: 2rem;
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.modal-confirmacion .modal-botones {
+    display: flex;
+    flex-direction: column; /* Botones apilados por defecto */
+    gap: 1rem;
+}
+
+/* 4. BOTONES DEL MODAL */
+.btn-modal {
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: 2px solid;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+}
+
+.btn-salir {
+    background-color: transparent;
+    border-color: #ddd;
+    color: #555;
+}
+
+.btn-salir:hover {
+    background-color: #f5f5f5;
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+
+.btn-continuar {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+    color: white;
+}
+
+.btn-continuar:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 80, 45, 0.3);
+}
+
+/* Media query para poner botones en línea en pantallas más grandes */
+@media (min-width: 480px) {
+    .modal-confirmacion .modal-botones {
+        flex-direction: row; /* Botones en horizontal */
+    }
+}
+
+
+/* 5. OTROS MODALES (NOTIFICACIÓN Y DETALLES) */
+.modal-notificacion {
+    position: fixed;
+    top: 20px; 
+    left: 50%;
+    transform: translateX(-50%) translateY(-150%); /* Inicia fuera de la pantalla */
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.modal-notificacion:not(.oculto) {
+    transform: translateX(-50%) translateY(0);
+}
+
+.notificacion-contenido {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #4CAF50; 
+    font-weight: bold;
+}
+
+.notificacion-contenido img {
+    height: 28px;
+}
+
+.modal-cerrar-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.modal-cerrar-btn:hover {
+    background-color: #e0e0e0;
+    transform: rotate(90deg);
+}
+
+.modal-cerrar-btn img {
+    width: 12px; 
+}
+
+/* ================== HERO RESTAURANTE ================== */
+.seccion-hero-restaurante {
+    position: relative;
+    width: 100%;
+    margin-top: 80px;
+    overflow: hidden;
+    border-radius: 20px;
+    max-width: 95%;
+    margin-inline: auto;
+}
+
+.seccion-hero-restaurante-banner {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    display: block;
+}
+
+.seccion-hero-restaurante-informacion {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+    background-color: var(--color-primario);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.informacion-logo {
+    height: 100px;
+    width: 100px;
+    border: 4px solid white;
+    border-radius: 15px;
+    background-color: black;
+    object-fit: cover;
+    margin-top: -250px;
+}
+
+.informacion-nombre {
+    font-size: 2.5rem;
+    font-weight: bold;
+    flex-grow: 1;
+    color: white;
+}
+
+.informacion-detalle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: white;
+}
+
+.informacion-detalle img {
+    height: 16px;
+}
+
+/* ================== SECCIÓN MENÚ ================== */
+.seccion-menu {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 40px auto;
+}
+
+.seccion-menu-titulo {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.seccion-menu-categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.categoria-item {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+    border-bottom: 3px solid transparent;
+    padding-bottom: 5px;
+}
+
+.categoria-item.active {
+    border-bottom-color: var(--color-primario);
+    transform: scale(1.05);
+}
+
+.categoria-item-imagen {
+    width: 100%;
+    max-width: 150px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.categoria-item-nombre {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ================== PRODUCTOS ================== */
+.seccion-menu-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+}
+
+.producto-contenedor {
+    background-color: var(--color-fondo-contenedor);
+    border: 1px solid #f0e6d9;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.producto-contenedor:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.producto-contenedor-imagen {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 15px;
+    flex-shrink: 0;
+}
+
+.producto-contenedor-detalles {
+    flex-grow: 1;
+}
+
+.detalles-nombre {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.detalles-descripcion {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.detalles-precio {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.producto-contenedor-agregar {
+    background-color: var(--color-primario);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.producto-contenedor-agregar img {
+    height: 20px;
+}
+
+
+/* ============================================= */
+/* ===== ESTILOS DE MODALES (MEJORADOS) ===== */
+/* ============================================= */
+
+/* 1. EL FONDO OSCURO (OVERLAY) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    
+    /* Clave para centrar el modal: */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    z-index: 2000;
+    opacity: 0; /* Inicia oculto */
+    pointer-events: none; /* No se puede interactuar cuando está oculto */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-overlay:not(.oculto) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 2. EL CONTENEDOR DEL MODAL (LA VENTANA BLANCA) */
+.modal {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    
+    max-width: 480px;
+    width: 90%;
+    
+    transform: scale(0.9); /* Inicia un poco más pequeño */
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal-overlay:not(.oculto) .modal {
+    transform: scale(1); /* Crece a su tamaño normal al aparecer */
+}
+
+/* 3. MODAL DE CONFIRMACIÓN DE SALIDA (CONTENIDO ESPECÍFICO) */
+.modal-confirmacion .modal-icono-carrito {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+}
+
+.modal-confirmacion .modal-texto-confirmacion {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.modal-confirmacion p {
+    margin-bottom: 2rem;
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.modal-confirmacion .modal-botones {
+    display: flex;
+    flex-direction: column; /* Botones apilados por defecto */
+    gap: 1rem;
+}
+
+/* 4. BOTONES DEL MODAL */
+.btn-modal {
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: 2px solid;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+}
+
+.btn-salir {
+    background-color: transparent;
+    border-color: #ddd;
+    color: #555;
+}
+
+.btn-salir:hover {
+    background-color: #f5f5f5;
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+
+.btn-continuar {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+    color: white;
+}
+
+.btn-continuar:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 80, 45, 0.3);
+}
+
+/* Media query para poner botones en línea en pantallas más grandes */
+@media (min-width: 480px) {
+    .modal-confirmacion .modal-botones {
+        flex-direction: row; /* Botones en horizontal */
+    }
+}
+
+
+/* 5. OTROS MODALES (NOTIFICACIÓN Y DETALLES) */
+.modal-notificacion {
+    position: fixed;
+    top: 20px; 
+    left: 50%;
+    transform: translateX(-50%) translateY(-150%); /* Inicia fuera de la pantalla */
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.modal-notificacion:not(.oculto) {
+    transform: translateX(-50%) translateY(0);
+}
+
+.notificacion-contenido {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #4CAF50; 
+    font-weight: bold;
+}
+
+.notificacion-contenido img {
+    height: 28px;
+}
+
+.modal-cerrar-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.modal-cerrar-btn:hover {
+    background-color: #e0e0e0;
+    transform: rotate(90deg);
+}
+
+.modal-cerrar-btn img {
+    width: 12px; 
+}
+
+.dropbtn {
+  color: var(--color-primario);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--fuente-principal);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropbtn_img{
+    height: 24px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.dropdown-content a {
+    transition: background-color 0.3s;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--color-primario);
+    color: white;
+}

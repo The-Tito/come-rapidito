@@ -100,7 +100,7 @@ function cargarCarruseles() {
         contenedor.appendChild(carrusel);
       }
 
-      agregarEventosCarrusel();
+  
     })
     .catch(error => {
       console.error('Error al cargar los restaurantes:', error);
@@ -141,26 +141,7 @@ function crearCarrusel(restaurantes) {
   return carrusel;
 }
 
-function agregarEventosCarrusel() {
-  document.querySelectorAll(".carrusel").forEach(carrusel => {
-    const pista = carrusel.querySelector(".carrusel-pista");
-    const btnIzq = carrusel.querySelector(".carrusel-boton-izquierda");
-    const btnDer = carrusel.querySelector(".carrusel-boton-derecha");
 
-    let scroll = 0;
-    const paso = pista.offsetWidth; // mueve por "pantalla completa" de items
-
-    btnIzq.addEventListener("click", () => {
-      scroll = Math.max(0, scroll - paso);
-      pista.scrollTo({ left: scroll, behavior: "smooth" });
-    });
-
-    btnDer.addEventListener("click", () => {
-      scroll = Math.min(pista.scrollWidth - pista.offsetWidth, scroll + paso);
-      pista.scrollTo({ left: scroll, behavior: "smooth" });
-    });
-  });
-}
 
 const btnCerrarSesion = document.getElementById("cerrar-sesion")
 btnCerrarSesion.addEventListener("click", ()=>{

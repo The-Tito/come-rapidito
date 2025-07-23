@@ -245,16 +245,18 @@ function inicializarModales() {
     let urlParaRedirigir = null;
 
     const mostrarModal = (modal) => {
-        if (!modal) return;
-        modal.classList.remove('oculto');
-        if (mainContainer) mainContainer.classList.add('blur-effect');
-    };
+    if (!modal) return;
+    modal.classList.remove('oculto');
+    modal.classList.add('visible'); // Añade esta línea
+    if (mainContainer) mainContainer.classList.add('blur-effect');
+};
 
     const ocultarModal = (modal) => {
-        if (!modal) return;
-        modal.classList.add('oculto');
-        if (mainContainer) mainContainer.classList.remove('blur-effect');
-    };
+    if (!modal) return;
+    modal.classList.remove('visible'); // Añade esta línea
+    modal.classList.add('oculto');
+    if (mainContainer) mainContainer.classList.remove('blur-effect');
+};
     
     // Lógica para el modal de confirmación de salida
     const linksDeNavegacion = document.querySelectorAll(

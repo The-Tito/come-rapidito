@@ -3,11 +3,9 @@ const token = localStorage.getItem("token");
 
 btnGraph.addEventListener("click", async () => {
   try {
-    const token = localStorage.getItem("token");
-    const name = localStorage.getItem("nombre");
     
-    console.log(token);
-    console.log(name);
+    
+    
     
     const response = await fetch("http://localhost:7000/stats/sum", {
       method: "GET",
@@ -49,3 +47,7 @@ btnGraph.addEventListener("click", async () => {
     alert("No se pudo cargar la gráfica");
   }
 });
+
+function volverAtras() {
+    window.location.href = '../pages/index.html';
+}
