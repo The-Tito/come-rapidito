@@ -415,7 +415,7 @@ async function confirmarPedido() {
     }
 
     const pedidoData = construirPedido();
-    console.log("pedido", pedidoData)
+    
     try {
         const { token } = obtenerDatosUsuario();
         const response = await fetch(`${API_BASE_URL}/orders`, {
@@ -429,9 +429,15 @@ async function confirmarPedido() {
         });
 
         if (response.ok) {
+             const pedidoCreado = await response.json(); // 👈 obtener respuesta del servidor
+        const idPedido = pedidoCreado.id_pedido;    // 👈 asegurarte que tu backend devuelve esto
+        
+        // Guardar id del pedido en localStorage
+        localStorage.setItem("id_pedido", idPedido);
             // Limpiar carrito
             carritoProductos = [];
             guardarCarritoEnStorage();
+
             alert('Pedido confirmado exitosamente');
             window.location.href = '../pages/pantalla-carga.html';
         } else {
@@ -459,7 +465,7 @@ function construirPedido() {
 
     // Asumir que todos los productos son del mismo restaurante (simplificación)
     const id_restaurante = carritoProductos[0]?.id_restaurante || 1;
-    console.log("id_restaurante", id_restaurante)
+    
     return {
         id_usuario: parseInt(obtenerDatosUsuario().id_usuario),
         id_direccion: direccionSeleccionada.id_direccion,
@@ -468,7 +474,7 @@ function construirPedido() {
             detalleCarrito: detalleCarrito
         },
         id_status: 8,
-        tarifa: CUOTA_SERVICIO,
+        tarifa: 0,
         id_restaurante: id_restaurante
     };
 }

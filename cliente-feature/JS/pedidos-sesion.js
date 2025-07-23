@@ -2,6 +2,53 @@
 document.addEventListener("DOMContentLoaded", () => {
   cargarPedidosActivos();
   setInterval(cargarPedidosActivos, 10000); // cada 10 segundos
+// Mostrar el modal con los datos de tarifa y total
+  const tarifa = sessionStorage.getItem("tarifa");
+const totalFinal = sessionStorage.getItem("totalFinal");
+const desdeCarga = sessionStorage.getItem("desdePantallaCarga");
+
+if (!isNaN(tarifa) && !isNaN(totalFinal) && desdeCarga === "1") {
+  document.querySelector(".modal").style.display = "flex";
+
+   document.querySelector("#subtotal").textContent = `$${parseFloat(totalFinal - 8).toFixed(2)}`;
+    document.querySelector("#tarifa").textContent = `$${parseFloat(tarifa).toFixed(2)}`;
+    document.querySelector("#total").textContent = `$${(parseFloat(totalFinal) + parseFloat(tarifa)).toFixed(2)}`;
+}
+   
+  
+
+
+
+  // Eventos del modal
+  document.querySelector(".cancel").addEventListener("click", () => {
+    document.querySelector(".modal").style.display = "none";
+    sessionStorage.removeItem("desdePantallaCarga");
+sessionStorage.removeItem("tarifa");
+sessionStorage.removeItem("totalFinal");
+sessionStorage.removeItem("id_pedido");
+sessionStorage.removeItem("pedido-activo");
+
+
+    window.location.href = "../pages/sesion-iniciada.html"; // o donde desees
+  });
+
+  document.querySelector(".confirm").addEventListener("click", () => {
+    document.querySelector(".modal").style.display = "none";
+    // Aquí puedes permitir que el usuario continúe viendo sus pedidos activos
+    // O agregar un botón que lleve a `pedido-activo.html?id=idPedido`
+    document.getElementById("continuarPedido")?.addEventListener("click", () => {
+  const idPedido = sessionStorage.getItem("id_pedido");
+  if (idPedido) {
+    sessionStorage.removeItem("desdePantallaCarga");
+sessionStorage.removeItem("tarifa");
+sessionStorage.removeItem("totalFinal");
+
+sessionStorage.removeItem("pedido-activo");
+    window.location.href = `../pages/pedido-activo.html`;
+  }
+});
+
+  });
 });
 
 function cargarPedidosActivos() {

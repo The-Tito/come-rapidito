@@ -1,0 +1,230 @@
+:root {
+            --color-primario: #FF502D;
+            --color-secundario: #FCBF30;
+            --color-fondo-contenedor: #FFF6EE;
+            --color-texto: #333;
+            --color-borde: #ddd;
+            --fuente-principal: 'Montserrat', sans-serif;
+        }
+
+        
+        /* Demo content */
+        .demo-content {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .demo-btn {
+            background-color: var(--color-primario);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: var(--fuente-principal);
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 80, 45, 0.3);
+        }
+
+        /* MODAL OVERLAY - FONDO OSCURO */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            
+            /* Centrado del modal */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            z-index: 2000;
+            
+            /* Estados de visibilidad */
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            
+            /* Transiciones suaves */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Modal visible */
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* CONTENEDOR DEL MODAL */
+        .modal {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px 30px 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            
+            /* Tamaño responsivo */
+            width: 100%;
+            max-width: 480px;
+            min-width: 300px;
+            
+            /* Animación de entrada */
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Modal visible - animación */
+        .modal-overlay.visible .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        /* CONTENIDO DEL MODAL */
+        .modal-icono-carrito {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .modal-texto-confirmacion {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-texto);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .modal p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* BOTONES DEL MODAL */
+        .modal-botones {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-modal {
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: 2px solid;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: var(--fuente-principal);
+            min-width: 140px;
+            
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Evita que el texto se seleccione */
+            user-select: none;
+        }
+
+        .btn-salir {
+            background-color: transparent;
+            border-color: #ddd;
+            color: #666;
+        }
+
+        .btn-salir:hover {
+            background-color: #f8f8f8;
+            border-color: #ccc;
+            color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-salir:active {
+            transform: translateY(0);
+        }
+
+        .btn-continuar {
+            background-color: var(--color-primario);
+            border-color: var(--color-primario);
+            color: white;
+        }
+
+        .btn-continuar:hover {
+            background-color: #e6452a;
+            border-color: #e6452a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 80, 45, 0.3);
+        }
+
+        .btn-continuar:active {
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 520px) {
+            .modal {
+                margin: 20px;
+                padding: 30px 20px 25px;
+            }
+            
+            .modal-texto-confirmacion {
+                font-size: 1.6rem;
+            }
+            
+            .modal p {
+                font-size: 1rem;
+            }
+            
+            .modal-botones {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .btn-modal {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+
+        /* EFECTOS ADICIONALES */
+        .modal-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 80, 45, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.visible::before {
+            opacity: 1;
+        }
+
+        /* Clase para ocultar el modal (compatibilidad con tu JS) */
+        .oculto {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        /* Efecto blur para el contenido principal */
+        .blur-effect {
+            filter: blur(2px);
+            transition: filter 0.3s ease;
+        }
