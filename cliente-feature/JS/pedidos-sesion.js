@@ -36,6 +36,11 @@ sessionStorage.removeItem("pedido-activo");
     document.querySelector(".modal").style.display = "none";
     // Aquí puedes permitir que el usuario continúe viendo sus pedidos activos
     // O agregar un botón que lleve a `pedido-activo.html?id=idPedido`
+    sessionStorage.removeItem("desdePantallaCarga");
+sessionStorage.removeItem("tarifa");
+sessionStorage.removeItem("totalFinal");
+sessionStorage.removeItem("id_pedido");
+sessionStorage.removeItem("pedido-activo");
     document.getElementById("continuarPedido")?.addEventListener("click", () => {
   const idPedido = sessionStorage.getItem("id_pedido");
   if (idPedido) {

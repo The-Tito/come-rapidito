@@ -56,11 +56,7 @@
         <div class="cabecera-historial">
             <h1 class="titulo-historial">HISTORIAL DE PEDIDOS</h1>
             <div class="filtro-contenedor">
-                <select class="filtro-seleccion">
-                    <option value="">Filtrar por</option>
-                    <option value="fecha">Fecha</option>
-                    <option value="calificacion">Calificación</option>
-                </select>
+                
             </div>
         </div>
 
@@ -77,7 +73,7 @@
 
         </section>
     </main>
-    <div id="modal-pedido" class="modal" style="display: none;">
+    <div id="modal-pedido" class="modal" style="display: none;" >
         <div class="modal-contenido">
             <span class="modal-cerrar" id="cerrar-modal">&times;</span>
             <h2>Detalles del Pedido</h2>
@@ -89,6 +85,29 @@
             <ul id="modal-productos"></ul>
         </div>
     </div>
+    <!-- ===== INICIO: MODAL DE VALORACIÓN ===== -->
+    <div id="rating-modal-overlay" class="rating-modal-overlay">
+        <div class="rating-modal">
+            <button class="close-modal-btn" id="close-rating-modal">×</button>
+            <div class="modal-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.646 12.646a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0-.708-.708L7 11.293 4.854 9.146a.5.5 0 1 0-.708.708l2.5 2.5z"/>
+                </svg>
+            </div>
+            <h2>¡Pedido realizado!</h2>
+            <p>¿Desea enviar una valoración?</p>
+            <div class="stars-container" id="rating-stars">
+                <span class="star" data-value="1">☆</span>
+                <span class="star" data-value="2">☆</span>
+                <span class="star" data-value="3">☆</span>
+                <span class="star" data-value="4">☆</span>
+                <span class="star" data-value="5">☆</span>
+            </div>
+            <button class="submit-rating-btn" id="submit-rating-btn">Enviar</button>
+        </div>
+    </div>
+    <!-- ===== FIN: MODAL DE VALORACIÓN ===== -->
+
     <script src="../JS/sesion-iniciada.js"></script>
     <script src="../JS/historial-pedidos.js"></script>
 </body>

@@ -1,5 +1,5 @@
 let btnGraph = document.getElementById("btnGraph");
-const token = localStorage.getItem("token");
+
 
 btnGraph.addEventListener("click", async () => {
   try {
@@ -50,4 +50,5 @@ btnGraph.addEventListener("click", async () => {
 
 function volverAtras() {
     window.location.href = '../pages/index.html';
+    localStorage.clear();
 }
