@@ -9,7 +9,7 @@
 
     try {
        // si usas token
-      const response = await fetch('http://localhost:7000/api/orders/delivery/history', {
+      const response = await fetch('http://54.88.1.254/api/orders/delivery/history', {
         headers: {
             'Authorization': `Bearer ${token}`,
             'X-User-NAME': nombre // si es necesario, si no, elimina esta línea

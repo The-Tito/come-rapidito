@@ -159,54 +159,6 @@ function displayError(message) {
     console.error(message);
 }
 
-<<<<<<< HEAD
-    checkbox.addEventListener("change", () => {
-  if (!checkbox.checked) {
-    checkbox.checked = true;
-    return;
-  }
-
-  const estadoPedido = statusMap[etapaId];
-
-  if (estadoPedido < pedidoStatusActual) {
-    alert("No se puede regresar a un estado anterior.");
-    checkbox.checked = false;
-    return;
-  }
-
-  fetch(`http://localhost:7000/api/orders/${pedidoId}/status`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-      'X-User-NAME': nombre
-    },
-    body: JSON.stringify({ id_status: estadoPedido })
-  })
-  .then(response => {
-    if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-    return response.json();
-  })
-  .then(data => {
-    pedidoStatusActual = estadoPedido;
-    localStorage.setItem("pedido_id_status", estadoPedido);
-    updateCheckboxes(estadoPedido);
-    console.log("Estado actualizado correctamente:", data);
-
-    // Si el estado es "Entregado", mostrar alerta y redirigir
-    if (estadoPedido === 4) {
-      alert("Gracias por completar el pedido");
-      window.location.href = "../pages/index.html"; // Ajusta la ruta según tu estructura
-    }
-  })
-  .catch(err => {
-    console.error("Error al actualizar estado:", err);
-    checkbox.checked = false;
-  });
-});
-
-  });
-=======
 function getAuthHeaders() {
     const token = localStorage.getItem("token");
     const nombre = localStorage.getItem("nombre");
@@ -224,7 +176,7 @@ function getAuthHeaders() {
 
 // Esta función ahora usa la ruta que tienes en pedidos-activos.js
 async function fetchActiveOrders() {
-    const URL = `http://localhost:7000/api/orders/delivery`;
+    const URL = `http://54.88.1.254/api/orders/delivery`;
     try {
         const response = await fetch(URL, { 
             method: 'POST',
@@ -244,11 +196,10 @@ async function fetchActiveOrders() {
         throw error;
     }
 }
->>>>>>> 0ba8e808598ea857e8148f4164ce167fb44b8aff
 
 async function updateOrderStatus(orderId, newStatus) {
     // Usamos el endpoint correcto de tu código original para el PUT
-    const URL = `http://localhost:7000/api/orders/${orderId}/status`;
+    const URL = `http://54.88.1.254/api/orders/${orderId}/status`;
     const body = { id_status: newStatus };
     try {
         const response = await fetch(URL, {
