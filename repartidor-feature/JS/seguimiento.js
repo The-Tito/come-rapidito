@@ -255,7 +255,7 @@ function getAuthHeaders() {
 
 // Nueva función para obtener un pedido específico por su ID
 async function fetchOrderById(orderId) {
-    const URL = `http://54.88.1.254/api/orders/${orderId}`;
+    const URL = `http://54.88.1.254:7000/api/orders/${orderId}`;
     try {
         const response = await fetch(URL, { 
             method: 'GET', // Usar GET para obtener un pedido
@@ -281,7 +281,7 @@ async function fetchOrderById(orderId) {
 
 // Función para actualizar el estado del pedido
 async function updateOrderStatus(orderId, newStatus) {
-    const URL = `http://54.88.1.254/api/orders/${orderId}/status`;
+    const URL = `http://54.88.1.254:7000/api/orders/${orderId}/status`;
     const body = { id_status: newStatus };
     try {
         const response = await fetch(URL, {

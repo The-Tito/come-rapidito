@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         try {
-            const response = await fetch("http://54.88.1.254/signup", {
+            const response = await fetch("http://54.88.1.254:7000/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nombreUsuario = localStorage.getItem("nombre_usuario");
 
         try {
-            const response = await fetch(`http://54.88.1.254/api/transport`, {
+            const response = await fetch(`http://54.88.1.254:7000/api/transport`, {
                 method: 'POST',
                 headers: {
                     "Authorization": `Bearer ${token}`,

@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    fetch(`http://54.88.1.254/api/users/${idPedido}/orders/actual`, {
+    fetch(`http://54.88.1.254:7000/api/users/${idPedido}/orders/actual`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,

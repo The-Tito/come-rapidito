@@ -21,7 +21,7 @@ body {
     font-family: var(--fuente-principal);
     color: var(--color-texto);
     background-color: white;
-    /* Ensure body doesn't overflow horizontally on smaller screens */
+    /* Asegura que el cuerpo no desborde horizontalmente en pantallas más pequeñas */
     overflow-x: hidden;
 }
 
@@ -32,9 +32,9 @@ body {
     padding: 1rem 5%;
     position: fixed;
     width: 100%;
-    z-index: 1000;
+    z-index: 1000; /* lo hace fijo */
     background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* subtle shadow for fixed header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Sombra sutil para el encabezado fijo */
 }
 
 .encabezado-logo img {
@@ -42,7 +42,7 @@ body {
 }
 
 .encabezado-navegacion {
-    /* Hide by default for mobile, show with JavaScript for hamburger menu */
+    /* Ocultar por defecto para móviles, mostrar con JavaScript para menú hamburguesa */
     display: flex;
 }
 
@@ -67,7 +67,7 @@ body {
 .encabezado-icono {
     display: flex;
     align-items: center;
-    gap: 4px; /* Adjusted gap for combined text/icon links */
+    gap: 4px; /* Ajuste el gap para enlaces combinados de texto/icono */
     text-decoration: none;
     color: var(--color-primario);
     font-weight: bold;
@@ -77,8 +77,12 @@ body {
     height: 24px;
 }
 
+.encabezado-icono-carrito {
+    height: 30px;
+}
+
 main {
-    padding-top: 80px; /* Space for fixed header */
+    padding-top: 80px; /* Espacio para el encabezado fijo */
 }
 
 .seccion-principal {
@@ -86,8 +90,8 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 30px 5%; /* Adjusted padding for better consistency */
-    margin: 0 20px; /* Margin from page edges */
+    padding: 30px 5%; /* Padding ajustado para una mejor consistencia */
+    margin: 0 20px; /* Margen de los bordes de la página */
     border-radius: 20px;
 }
 
@@ -122,7 +126,7 @@ main {
     border-radius: 12px;
     font-weight: bold;
     transition: transform 0.2s ease;
-    white-space: nowrap; /* Prevent button text from wrapping prematurely */
+    white-space: nowrap; /* Evita que el texto del botón se envuelva prematuramente */
 }
 
 .boton:hover {
@@ -142,7 +146,7 @@ main {
     height: 450px;
     overflow: hidden;
     border-radius: 20px;
-    display: flex; /* Use flex to center the image if needed */
+    display: flex; /* Usar flex para centrar la imagen si es necesario */
     justify-content: center;
     align-items: center;
 }
@@ -150,7 +154,7 @@ main {
 .seccion-principal-imagen {
     width: 90%;
     height: 90%;
-    object-fit: contain; /* Changed to contain to prevent cropping on resize */
+    object-fit: contain; /* Cambiado a 'contain' para evitar recortes al redimensionar */
     border-radius: 20px;
 }
 
@@ -161,21 +165,21 @@ main {
 .seccion-restaurantes-encabezado {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Align items vertically */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: center; /* Alinear elementos verticalmente */
+    flex-wrap: wrap; /* Permitir que se envuelva en pantallas más pequeñas */
     margin-bottom: 1.5rem;
 }
 
 .seccion-restaurantes-titulo {
     font-size: 2rem;
-    margin-bottom: 0.5rem; /* Adjust margin if wrap occurs */
+    margin-bottom: 0.5rem; /* Ajustar margen si ocurre un ajuste de línea */
 }
 
 .seccion-restaurantes-filtros {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap; /* Allow filters to wrap */
-    margin-bottom: 0; /* Managed by parent .seccion-restaurantes-encabezado */
+    flex-wrap: wrap; /* Permitir que los filtros se envuelvan */
+    margin-bottom: 0; /* Gestionado por el padre .seccion-restaurantes-encabezado */
 }
 
 .filtro {
@@ -188,7 +192,7 @@ main {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-    white-space: nowrap; /* Prevent filter text from breaking */
+    white-space: nowrap; /* Evita que el texto del filtro se rompa */
 }
 
 .filtro:hover {
@@ -202,12 +206,11 @@ main {
     border-color: var(--color-primario);
 }
 
-.carruseles {
-    display: flex; /* Changed from block to flex for proper stacking/gapping */
-    flex-direction: column; /* Stack carousels vertically */
-    gap: 20px;
-}
 
+.carruseles{
+  display: block;
+  gap: 20px;
+}
 .carrusel {
     position: relative;
     margin-bottom: 1rem;
@@ -225,23 +228,19 @@ main {
 
 .carrusel-pista {
     display: flex;
-    /* justify-content: space-around; */ /* Removed for better control with gap */
+    justify-content: space-around;
     gap: 1.5rem;
     transition: transform 0.5s ease-in-out;
 }
 
 .carrusel-item {
-    min-width: 294px;
+    min-width: 294px; 
     height: 230px;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     flex-shrink: 0;
     margin-bottom: 50px;
-    /* Ensure image fills item */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .carrusel-item img {
@@ -250,209 +249,81 @@ main {
     object-fit: cover;
 }
 
-.carrusel-boton {
-    background-color: white;
-    border: 1px solid var(--color-borde);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: var(--color-primario);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    z-index: 10;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-}
 
-.carrusel-boton:hover {
-    background-color: var(--color-primario);
-    color: white;
-    border-color: var(--color-primario);
-}
-
-.carrusel-boton:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Modal de iniciar sesion */
-.modal-superposicion {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.modal-superposicion-visible {
-    display: flex;
-}
-
-.modal {
-    background-color: white;
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 520px;
-    text-align: left;
-}
-
-.modal-titulo {
-    color: var(--color-primario);
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.formulario-grupo {
-    margin-bottom: 1.5rem;
-}
-
-.formulario-etiqueta {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.formulario-entrada {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--color-borde);
-    border-radius: 8px;
-    font-family: var(--fuente-principal);
-    font-size: 1rem;
-}
-
-.modal-enlace-registro {
-    text-align: center;
-    margin: 2rem 0;
-    font-size: 0.9rem;
-}
-
-.modal-enlace-registro a {
-    color: var(--color-primario);
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.modal-botones {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-.boton-modal {
-    flex-grow: 1;
-    padding: 0.8rem;
-    border-radius: 8px;
-    font-family: var(--fuente-principal);
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    border: 1px solid var(--color-primario);
-    transition: all 0.2s ease;
-}
-
-.boton-regresar {
-    background-color: white; /* Use white directly or define in root */
-    color: var(--color-primario);
-}
-
-.boton-regresar:hover {
-    background-color: #f9f9f9;
-}
-
-.boton-continuar {
-    background-color: var(--color-primario);
-    color: white;
-}
-
-.boton-continuar:hover {
-    opacity: 0.9;
-}
+/* Los botones de carrusel ya no son necesarios si no hay funcionalidad de deslizamiento */
+/* .carrusel-boton { ... } */
+/* .carrusel-boton:hover { ... } */
+/* .carrusel-boton:disabled { ... } */
 
 
-/* --- Responsive Adjustments --- */
+/* --- Ajustes Responsivos --- */
 
-/* Tablet and smaller desktop screens (max-width: 1024px) */
+/* Tablet y pantallas de escritorio más pequeñas (max-width: 1024px) */
 @media (max-width: 1024px) {
     .encabezado {
-        padding: 0.8rem 3%; /* Adjust header padding */
+        padding: 0.8rem 3%; /* Ajusta el padding del encabezado */
     }
 
     .encabezado-lista {
-        gap: 60px; /* Reduce gap between nav items */
+        gap: 60px; /* Reduce el espacio entre ítems de navegación */
     }
 
     .encabezado-iconos {
-        gap: 30px; /* Reduce gap between icons */
+        gap: 30px; /* Reduce el espacio entre iconos */
     }
 
     .encabezado-icono {
-        font-size: 0.9rem; /* Slightly smaller text for icons */
+        font-size: 0.9rem; /* Texto de iconos ligeramente más pequeño */
     }
 
     .encabezado-icono img {
-        height: 20px; /* Smaller icon images */
+        height: 20px; /* Imágenes de iconos más pequeñas */
     }
 
     .seccion-principal {
-        grid-template-columns: 1fr; /* Stack hero content and image */
-        padding: 30px 3%; /* Adjust padding */
-        margin: 0 15px; /* Adjust margin */
-        gap: 30px; /* Space between stacked elements */
+        grid-template-columns: 1fr; /* Apila el contenido y la imagen del héroe */
+        padding: 30px 3%; /* Ajusta el padding */
+        margin: 0 15px; /* Ajusta el margen */
+        gap: 30px; /* Espacio entre elementos apilados */
     }
 
     .seccion-principal-contenido {
-        padding-right: 0; /* Remove right padding when stacked */
-        text-align: center; /* Center text when stacked */
+        padding-right: 0; /* Elimina el padding derecho al apilar */
+        text-align: center; /* Centra el texto al apilar */
     }
 
     .seccion-principal-titulo {
-        font-size: 90px; /* Smaller title font size */
+        font-size: 90px; /* Tamaño de fuente del título más pequeño */
         margin-bottom: 0.5rem;
     }
 
     .seccion-principal-descripcion {
         font-size: 1rem;
         margin-bottom: 1.5rem;
-        max-width: 600px; /* Allow description to take more width */
-        margin-left: auto; /* Center description */
-        margin-right: auto; /* Center description */
+        max-width: 600px; /* Permite que la descripción ocupe más ancho */
+        margin-left: auto; /* Centra la descripción */
+        margin-right: auto; /* Centra la descripción */
     }
 
     .seccion-principal-botones {
-        justify-content: center; /* Center buttons */
+        justify-content: center; /* Centra los botones */
         gap: 1rem;
     }
 
     .seccion-principal-imagen-contenedor {
-        height: auto; /* Allow height to adjust naturally */
+        height: auto; /* Permite que la altura se ajuste naturalmente */
         padding-top: 0;
     }
 
     .seccion-principal-imagen {
-        width: 80%; /* Make image smaller */
+        width: 80%; /* Hace la imagen más pequeña */
         height: auto;
-        max-height: 400px; /* Limit max height */
-        margin: 0 auto; /* Center image */
+        max-height: 400px; /* Limita la altura máxima */
+        margin: 0 auto; /* Centra la imagen */
     }
 
     .seccion-restaurantes {
-        padding: 2.5rem 3%; /* Adjust padding for restaurants section */
+        padding: 2.5rem 3%; /* Ajusta el padding para la sección de restaurantes */
     }
 
     .seccion-restaurantes-titulo {
@@ -460,9 +331,9 @@ main {
     }
 
     .seccion-restaurantes-filtros {
-        justify-content: center; /* Center filters */
-        gap: 8px; /* Smaller gap for filters */
-        margin-top: 10px; /* Space from title if wrapped */
+        justify-content: center; /* Centra los filtros */
+        gap: 8px; /* Espacio más pequeño para los filtros */
+        margin-top: 10px; /* Espacio desde el título si se ajusta */
     }
 
     .filtro {
@@ -470,41 +341,37 @@ main {
         font-size: 0.9rem;
     }
 
-    .carrusel {
-        gap: 0.5rem; /* Reduce gap in carousels */
-    }
-
     .carrusel-item {
-        min-width: 250px; /* Adjust min-width for carousel items */
-        height: 200px; /* Adjust height for carousel items */
-        margin-bottom: 40px; /* Adjust margin */
+        width: calc(33.33% - (2 * 1.5rem / 3)); /* 3 ítems por fila con gap en tablet */
+        max-width: 250px; /* Ajusta el max-width */
+        height: 200px; /* Ajusta la altura */
+        margin-bottom: 40px; /* Ajusta el margen */
     }
 }
 
-/* Mobile landscape and larger phones (max-width: 768px) */
+/* Pantallas móviles horizontales y teléfonos más grandes (max-width: 768px) */
 @media (max-width: 768px) {
     .encabezado {
-        flex-wrap: wrap; /* Allow header items to wrap */
-        justify-content: center; /* Center header items when wrapped */
+        flex-wrap: wrap; /* Permite que los elementos del encabezado se envuelvan */
+        justify-content: center; /* Centra los elementos del encabezado al envolverse */
         padding: 0.5rem 2%;
     }
 
     .encabezado-logo {
-        margin-bottom: 10px; /* Space below logo when wrapped */
+        margin-bottom: 10px; /* Espacio debajo del logo al envolverse */
         width: 100%;
         text-align: center;
     }
 
     .encabezado-navegacion {
-        /* This will need JavaScript for a true mobile menu/hamburger icon */
-        display: none; /* Hide navigation completely for now on small screens */
+        display: none; /* Oculta la navegación completamente por ahora en pantallas pequeñas */
         width: 100%;
-        order: 3; /* Push to the next line */
+        order: 3; /* Empuja a la siguiente línea */
         justify-content: center;
     }
 
     .encabezado-lista {
-        flex-direction: column; /* Stack nav links vertically */
+        flex-direction: column; /* Apila los enlaces de navegación verticalmente */
         gap: 10px;
         text-align: center;
     }
@@ -513,8 +380,8 @@ main {
         width: 100%;
         justify-content: center;
         gap: 20px;
-        margin-top: 10px; /* Space above icons when wrapped */
-        order: 2; /* Order before nav for better mobile layout */
+        margin-top: 10px; /* Espacio encima de los iconos al envolverse */
+        order: 2; /* Ordena antes de la navegación para un mejor diseño móvil */
     }
 
     .encabezado-icono {
@@ -529,7 +396,7 @@ main {
     }
 
     .seccion-principal-titulo {
-        font-size: 60px; /* Smaller title for mobile */
+        font-size: 60px; /* Título más pequeño para móviles */
     }
 
     .seccion-principal-descripcion {
@@ -538,13 +405,13 @@ main {
     }
 
     .seccion-principal-botones {
-        flex-direction: column; /* Stack buttons vertically */
+        flex-direction: column; /* Apila los botones verticalmente */
         gap: 10px;
     }
 
     .boton {
-        width: 80%; /* Make buttons wider when stacked */
-        max-width: 250px; /* Limit max width */
+        width: 80%; /* Hace los botones más anchos al apilarse */
+        max-width: 250px; /* Limita el ancho máximo */
         padding: 0.7rem 1.5rem;
         font-size: 0.9rem;
     }
@@ -559,7 +426,7 @@ main {
     }
 
     .seccion-restaurantes-encabezado {
-        flex-direction: column; /* Stack title and filters */
+        flex-direction: column; /* Apila el título y los filtros */
         align-items: center;
         text-align: center;
     }
@@ -581,18 +448,13 @@ main {
     }
 
     .carrusel-item {
-        min-width: 200px; /* Even smaller min-width for mobile */
+        width: calc(50% - (1 * 1.5rem / 2)); /* 2 ítems por fila con gap en móviles horizontales */
+        min-width: 180px; /* Ancho mínimo para ítems de carrusel */
         height: 160px;
         margin-bottom: 30px;
     }
 
-    .carrusel-boton {
-        width: 30px; /* Smaller carousel buttons */
-        height: 30px;
-        font-size: 1.2rem;
-    }
-
-    /* Modal adjustments */
+    /* Ajustes del modal */
     .modal {
         padding: 1.5rem;
         border-radius: 15px;
@@ -622,7 +484,7 @@ main {
     }
 
     .modal-botones {
-        flex-direction: column; /* Stack modal buttons */
+        flex-direction: column; /* Apila los botones del modal */
         gap: 0.8rem;
     }
 
@@ -632,7 +494,7 @@ main {
     }
 }
 
-/* Small mobile devices (max-width: 480px) */
+/* Dispositivos móviles pequeños (max-width: 480px) */
 @media (max-width: 480px) {
     .encabezado {
         padding: 0.5rem 10px;
@@ -692,12 +554,15 @@ main {
     }
 
     .carrusel-item {
-        min-width: 150px; /* Smallest carousel item width */
+        width: calc(100% - 2rem); /* 1 ítem por fila, con margen para el gap */
+        max-width: 300px; /* Limita el ancho máximo para evitar que sea muy grande */
         height: 120px;
         margin-bottom: 20px;
+        margin-left: auto; /* Centrar ítem individual */
+        margin-right: auto; /* Centrar ítem individual */
     }
 
-    /* Modal adjustments */
+    /* Ajustes del modal */
     .modal {
         padding: 1.2rem;
         border-radius: 10px;
@@ -726,4 +591,109 @@ main {
         padding: 0.6rem;
         font-size: 0.85rem;
     }
+}
+
+/*estilos para el modal de iniciar sesion*/
+.modal-superposicion {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(5px);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+}
+
+.modal-superposicion-visible {
+    display: flex;
+}
+.modal {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 520px; /* Ancho máximo del modal */
+    text-align: left;
+}
+
+.modal-titulo {
+    color: var(--color-primario);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.formulario-grupo {
+    margin-bottom: 1.5rem;
+}
+
+.formulario-etiqueta {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.formulario-entrada {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+}
+
+.modal-enlace-registro {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 0.9rem;
+}
+
+.modal-enlace-registro a {
+    color: var(--color-primario);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: space-between; /*para que ocupe todo, distribuido, como el i l i en figma*/
+    gap: 1rem;
+}
+
+.boton-modal {
+    flex-grow: 1;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid var(--color-primario);
+    transition: all 0.2s ease;
+}
+
+.boton-regresar {
+    background-color: var(--color-blanco);
+    color: var(--color-primario);
+}
+
+.boton-regresar:hover {
+    background-color: #f9f9f9;
+}
+
+.boton-continuar {
+    background-color: var(--color-primario);
+    color: white;
+}
+
+.boton-continuar:hover {
+    opacity: 0.9;
 }

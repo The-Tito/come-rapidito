@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const idPedido = obtenerIdPedidoDesdeURL(); // <- función para sacar ID del pedido
 
   try {
-    const res = await fetch(`http://54.88.1.254/api/orders/${idPedido}`);
+    const res = await fetch(`http://54.88.1.254:7000/api/orders/${idPedido}`);
     if (!res.ok) throw new Error('No se pudo obtener el pedido');
 
     const pedido = await res.json();

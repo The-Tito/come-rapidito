@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener("DOMContentLoaded", cargarCarruseles);
 
 function cargarCarruseles() {
-  fetch("http://54.88.1.254/restaurant")
+  fetch("http://54.88.1.254:7000/restaurant")
     .then(res => res.json())
     .then(data => {
       sessionStorage.setItem('restaurantes', JSON.stringify(data));
@@ -130,7 +130,7 @@ document.querySelector(".formulario-inicio-sesion").addEventListener("submit", a
   }
 
   try {
-    const response = await fetch("http://54.88.1.254/login", {
+    const response = await fetch("http://54.88.1.254:7000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
