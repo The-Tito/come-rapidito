@@ -1,8 +1,8 @@
-:root{
+:root {
     --fontfamily: "Montserrat", sans-serif;
     --fonttitulo: "Mouse Memoirs", sans-serif;
     --primarycolor: #FF502D;
-    --secondarycolor: #FC0203; 
+    --secondarycolor: #FC0203;
     --text-dark: #212121;
     --text-light: #757575;
     --border-light: #EAEAEA;
@@ -10,54 +10,60 @@
     --card-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.127);
 }
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
+    padding: 0; /* Added padding: 0 for consistency */
 }
 
-.nav{
+body {
+    background-color: white;
+    font-family: var(--fontfamily);
+}
+
+.nav {
     background-color: white;
     border-bottom: 3px solid #EAEAEA;
     font-family: var(--fontfamily);
     font-weight: bolder;
 }
 
-.nav_container{
+.nav_container {
     width: 90%;
     margin: 0 auto;
-    height: 80px; 
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.logo{
+.logo {
     display: flex;
-    align-items: center; 
+    align-items: center;
     gap: 10px;
 }
 
 .logo_text {
-    order: 2; 
+    order: 2;
     color: var(--primarycolor);
     font-weight: bold;
 }
 
 .logo_img {
-    order: 1; 
+    order: 1;
     height: 38px;
 }
 
 .links {
     display: flex;
     align-items: center;
-    gap: 178px; 
+    gap: 178px;
 }
 
 .nav_link {
     display: flex;
     align-items: center;
-    gap: 4px; 
+    gap: 4px;
     color: var(--primarycolor);
     text-decoration: none;
     font-weight: 500;
@@ -100,10 +106,11 @@
     font-family: var(--fonttitulo);
     text-align: left;
     margin-bottom: 30px;
-    margin: 0 auto;
+    margin: 0 auto; /* Centering the title horizontally */
     padding-bottom: 10px;
-    justify-content: center;
+    justify-content: center; /* Centering content within flex container */
     padding-top: 10px;
+    width: 100%; /* Ensure it takes full width for centering */
 }
 
 .seccion_titulo {
@@ -111,6 +118,7 @@
     font-weight: 400;
     font-size: 52px;
     text-transform: uppercase;
+    text-align: center; /* Ensure the text itself is centered */
 }
 
 .info-restaurante,
@@ -120,7 +128,7 @@
     padding: 24px;
     box-shadow: var(--card-shadow);
     margin-bottom: 24px;
-    border: px solid #F5F5F5;
+    border: 1px solid #F5F5F5; /* Corrected 'px' to '1px' */
     font-family: var(--fontfamily);
 }
 
@@ -148,15 +156,39 @@
     color: var(--text-light);
 }
 
-.card-pedido .cliente-nombre {
+.card-pedido .cliente-nombre,
+.card-pedido .cliente-telefono-label, /* Added labels for responsiveness */
+.card-pedido .cliente-direccion-label,
+.card-pedido .cliente-subtotal-label {
     font-weight: 700;
     font-size: 1.1rem;
     color: var(--text-dark);
     margin-bottom: 4px;
 }
 
+.card-pedido p {
+    display: flex; /* Make each p a flex container */
+    justify-content: space-between; /* Space out strong and span */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    margin-bottom: 8px; /* Add some space between info lines */
+}
+
+.card-pedido p strong {
+    flex-basis: auto; /* Allow strong to take necessary width */
+    margin-right: 10px; /* Space between label and value */
+    white-space: nowrap; /* Prevent label from breaking */
+}
+
+.card-pedido p span {
+    flex-basis: 1; /* Allow span to take remaining space */
+    text-align: right; /* Align value to the right */
+}
+
+
 .card-pedido .cliente-direccion,
-.card-pedido .cliente-subtotal {
+.card-pedido .cliente-subtotal,
+.card-pedido .cliente-telefono,
+.card-pedido .nombre_cliente {
     font-size: 1rem;
     color: var(--text-light);
     line-height: 1.5;
@@ -198,6 +230,223 @@
     color: var(--white);
 }
 
-a{
+a {
     text-decoration: none;
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens smaller than 992px (typical for tablets and smaller desktops) */
+@media (max-width: 992px) {
+    .links {
+        gap: 50px; /* Reduce gap between nav links */
+    }
+
+    .seccion {
+        flex-direction: column; /* Stack image and text vertically */
+        gap: 2em; /* Reduce gap when stacked */
+        margin: 40px auto; /* Adjust section margin */
+    }
+
+    .seccion_img {
+        justify-content: center; /* Center the image when stacked */
+        flex-basis: auto; /* Allow image to adapt */
+    }
+
+    .pedido_container {
+        flex-basis: auto; /* Allow container to adapt */
+        max-width: 100%; /* Take full width */
+        width: 100%; /* Ensure it takes full width */
+        align-items: center; /* Center content within the container */
+    }
+
+    .h1_titulo {
+        text-align: center; /* Center the title itself */
+        justify-content: center;
+        margin-bottom: 20px; /* Adjust margin */
+    }
+
+    .seccion_titulo {
+        font-size: 42px; /* Reduce title font size */
+    }
+
+    .info-restaurante,
+    .card-pedido {
+        width: 90%; /* Make cards take more width on smaller screens */
+        max-width: 450px; /* Keep a max-width for readability */
+        margin-left: auto; /* Center cards */
+        margin-right: auto; /* Center cards */
+    }
+
+    .botones {
+        width: 90%; /* Adjust button container width */
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card-pedido p strong {
+        flex-basis: 100%; /* Stack label above value */
+        margin-right: 0;
+        margin-bottom: 5px; /* Add space between label and value when stacked */
+        text-align: left;
+    }
+
+    .card-pedido p span {
+        flex-basis: 100%; /* Value takes full width when stacked */
+        text-align: left; /* Align value to the left when stacked */
+    }
+}
+
+/* For screens smaller than 768px (typical for tablets in portrait and larger phones) */
+@media (max-width: 768px) {
+    .nav_container {
+        flex-direction: column; /* Stack logo and links vertically */
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .logo {
+        margin-bottom: 15px; /* Add space below logo */
+    }
+
+    .links {
+        flex-wrap: wrap; /* Allow links to wrap to the next line */
+        justify-content: center; /* Center links when wrapped */
+        gap: 20px; /* Adjust gap for wrapped links */
+    }
+
+    .nav_link {
+        font-size: 0.9rem; /* Slightly reduce font size for links */
+    }
+
+    .seccion {
+        padding: 0 0.5rem; /* Add horizontal padding to section */
+        margin: 30px auto; /* Further adjust margin */
+    }
+
+    .seccion_titulo {
+        font-size: 32px; /* Further reduce title font size */
+    }
+
+    .info-restaurante,
+    .card-pedido {
+        padding: 18px; /* Reduce card padding */
+        width: 100%; /* Allow cards to take full width */
+        margin-bottom: 18px; /* Adjust margin */
+    }
+
+    .logo_restaurante {
+        width: 45px; /* Reduce logo size */
+        height: 45px;
+    }
+
+    .restaurante-nombre {
+        font-size: 1.1rem; /* Adjust font size */
+    }
+
+    .restaurante-direccion {
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    .card-pedido .cliente-nombre,
+    .card-pedido .cliente-telefono-label,
+    .card-pedido .cliente-direccion-label,
+    .card-pedido .cliente-subtotal-label {
+        font-size: 1rem; /* Adjust font size */
+    }
+
+    .card-pedido .cliente-direccion,
+    .card-pedido .cliente-subtotal,
+    .card-pedido .cliente-telefono,
+    .card-pedido .nombre_cliente {
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    .botones {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px; /* Reduce gap between stacked buttons */
+        width: 100%; /* Full width for stacked buttons */
+    }
+
+    .btn-cancelar,
+    .btn-seguimiento {
+        padding: 15px 10px; /* Adjust button padding */
+        font-size: 0.9rem; /* Adjust button font size */
+    }
+}
+
+/* For screens smaller than 576px (typical for mobile devices) */
+@media (max-width: 576px) {
+    .nav_container {
+        width: 95%; /* Increase container width for better use of space */
+    }
+
+    .logo_img {
+        height: 30px; /* Adjust logo image size */
+    }
+
+    .links {
+        gap: 15px; /* Further reduce gap between nav links */
+    }
+
+    .nav_link {
+        font-size: 0.8rem; /* Further reduce font size for links */
+        gap: 5px; /* Reduce gap within nav links */
+    }
+
+    .nav_img {
+        width: 20px; /* Reduce nav icon size */
+    }
+
+    .seccion {
+        margin: 20px auto; /* Further reduce section margin */
+    }
+
+    .seccion_titulo {
+        font-size: 28px; /* Further adjust title font size */
+    }
+
+    .info-restaurante,
+    .card-pedido {
+        padding: 15px; /* Further reduce card padding */
+        margin-bottom: 15px; /* Further adjust margin */
+    }
+
+    .logo_restaurante {
+        width: 40px; /* Further reduce logo size */
+        height: 40px;
+    }
+
+    .restaurante-nombre {
+        font-size: 1rem; /* Further adjust font size */
+    }
+
+    .restaurante-direccion {
+        font-size: 0.85rem; /* Further adjust font size */
+    }
+
+    .card-pedido .cliente-nombre,
+    .card-pedido .cliente-telefono-label,
+    .card-pedido .cliente-direccion-label,
+    .card-pedido .cliente-subtotal-label {
+        font-size: 0.9rem; /* Further adjust font size */
+    }
+
+    .card-pedido .cliente-direccion,
+    .card-pedido .cliente-subtotal,
+    .card-pedido .cliente-telefono,
+    .card-pedido .nombre_cliente {
+        font-size: 0.85rem; /* Further adjust font size */
+    }
+
+    .botones {
+        gap: 8px; /* Further reduce gap between buttons */
+    }
+
+    .btn-cancelar,
+    .btn-seguimiento {
+        padding: 12px 8px; /* Further adjust button padding */
+        font-size: 0.85rem; /* Further adjust button font size */
+    }
 }

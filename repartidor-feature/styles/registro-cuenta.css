@@ -18,12 +18,14 @@ body {
     color: var(--color-texto);
     background-color: #000;
     height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden; /* Prevent horizontal scroll */
     position: relative;
+    display: flex; /* Use flexbox for overall layout */
+    flex-direction: column; /* Stack header, main, footer */
 }
 
 .imagen-fondo {
-    position: absolute;
+    position: fixed; /* Keep background fixed */
     top: 0;
     left: 0;
     width: 100%;
@@ -34,9 +36,10 @@ body {
 }
 
 .encabezado {
-    position: absolute;
+    position: absolute; /* Keep absolute for initial positioning */
     top: 40px;
     left: 60px;
+    z-index: 10; /* Ensure it's above other content */
 }
 
 .logo img {
@@ -47,12 +50,20 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Adjust height to fill viewport */
     padding: 0 60px;
+    flex-grow: 1; /* Allow it to grow and fill space */
+    position: relative; /* For z-index context */
+    z-index: 1; /* Ensure content is above background */
 }
 
 .seccion-hero {
     padding-right: 2rem;
+    display: flex; /* Use flex to center content */
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Ensure it fills its grid area */
+    text-align: left; /* Default alignment */
 }
 
 .titulo-hero {
@@ -61,6 +72,7 @@ body {
     font-weight: 800;
     line-height: 1.2;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    max-width: 600px; /* Limit width for readability */
 }
 
 .titulo-hero .destacado {
@@ -71,6 +83,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%; /* Ensure it fills its grid area */
 }
 
 .contenedor-formulario {
@@ -128,20 +141,30 @@ body {
 
 /*FORM */
 .paso-formulario {
-    display: none; 
+    display: none;
     animation: fadeIn 0.5s;
 }
 
 .paso-formulario.activo {
     display: block;
 }
-#paso-formulario-1, #paso-formulario-2 {
-    min-height: 410px; 
+
+/* Ensure forms have consistent height to avoid jumps */
+#paso-formulario-1,
+#paso-formulario-2 {
+    min-height: 410px;
 }
 
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .grupo-entrada {
@@ -242,14 +265,15 @@ body {
     transition: background-color 0.3s ease;
     margin-top: 10px;
     font-family: var(--fuente-principal);
+    color: white; /* Ensure text color is white */
 }
 
 .boton-enviar:hover {
     background-color: #E03026;
 }
 
-a{
-        color: white;
+a {
+    color: white;
     text-decoration: none;
 }
 
@@ -267,15 +291,276 @@ a{
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    z-index: 100; /* Ensure it's on top */
 }
 
 .flecha-regresar {
-   width: 100%;
+    width: 100%;
     height: 100%;
 }
 
 .btnRegresar:hover {
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.655), 0 17px 50px 0 rgba(0,0,0,0.19);
-transform: translateY(-2px);
-transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.655), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    transform: translateY(-2px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens smaller than 1024px (Laptops, large tablets) */
+@media (max-width: 1024px) {
+    .encabezado {
+        top: 20px;
+        left: 30px;
+    }
+
+    .logo img {
+        height: 35px;
+    }
+
+    .contenedor-principal {
+        grid-template-columns: 1fr; /* Stack hero and form vertically */
+        padding: 20px;
+        height: auto; /* Allow content to dictate height */
+        min-height: 100vh; /* Ensure it takes full height if content is short */
+        gap: 40px; /* Space between hero and form */
+    }
+
+    .seccion-hero {
+        padding-right: 0;
+        text-align: center; /* Center text when stacked */
+        padding-top: 80px; /* Push content down from header */
+        padding-bottom: 20px; /* Add some space below hero */
+    }
+
+    .titulo-hero {
+        font-size: 3.2rem; /* Adjust title size */
+        margin: 0 auto; /* Center title */
+    }
+
+    .seccion-formulario {
+        padding-bottom: 40px; /* Add padding at the bottom for footer */
+    }
+
+    .contenedor-formulario {
+        padding: 30px;
+        max-width: 400px; /* Slightly reduce max-width */
+    }
+
+    .titulo-formulario {
+        font-size: 1.1rem;
+    }
+
+    .grupo-entrada {
+        margin-bottom: 15px;
+    }
+
+    #paso-formulario-1,
+    #paso-formulario-2 {
+        min-height: 380px; /* Adjust min-height for stacked forms */
+    }
+}
+
+/* For screens smaller than 768px (Tablets in portrait, larger phones) */
+@media (max-width: 768px) {
+    .encabezado {
+        top: 15px;
+        left: 20px;
+    }
+
+    .logo img {
+        height: 30px;
+    }
+
+    .contenedor-principal {
+        padding: 15px;
+        gap: 30px;
+    }
+
+    .seccion-hero {
+        padding-top: 60px; /* Adjust padding for smaller header */
+    }
+
+    .titulo-hero {
+        font-size: 2.5rem; /* Further adjust title size */
+    }
+
+    .contenedor-formulario {
+        padding: 25px;
+        border-radius: 18px;
+        max-width: 350px; /* Further reduce max-width */
+    }
+
+    .titulo-formulario {
+        font-size: 1rem;
+    }
+
+    .pasos-formulario {
+        margin-bottom: 20px;
+    }
+
+    .indicador-paso {
+        width: 25px;
+        height: 25px;
+        font-size: 0.9rem;
+    }
+
+    .linea-paso {
+        width: 30px;
+    }
+
+    .grupo-entrada label {
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+    }
+
+    .grupo-entrada input {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .opciones-vehiculo {
+        flex-direction: column; /* Stack vehicle buttons vertically */
+        gap: 8px;
+    }
+
+    .boton-vehiculo {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .area-subir-archivo {
+        padding: 20px;
+    }
+
+    .area-subir-archivo img {
+        height: 30px;
+        margin-bottom: 8px;
+    }
+
+    .area-subir-archivo span {
+        font-size: 0.9rem;
+    }
+
+    .boton-enviar {
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+
+    #paso-formulario-1,
+    #paso-formulario-2 {
+        min-height: 360px; /* Further adjust min-height */
+    }
+
+    .btnRegresar {
+        width: 45px;
+        height: 45px;
+        bottom: 15px;
+        left: 15px;
+    }
+}
+
+/* For screens smaller than 480px (Most mobile phones) */
+@media (max-width: 480px) {
+    .encabezado {
+        top: 10px;
+        left: 10px;
+    }
+
+    .logo img {
+        height: 25px;
+    }
+
+    .contenedor-principal {
+        padding: 10px;
+        gap: 20px;
+    }
+
+    .seccion-hero {
+        padding-top: 50px;
+    }
+
+    .titulo-hero {
+        font-size: 2rem; /* Even smaller title */
+        line-height: 1.3;
+    }
+
+    .contenedor-formulario {
+        padding: 20px;
+        border-radius: 15px;
+        max-width: 300px; /* Further restrict max-width */
+    }
+
+    .titulo-formulario {
+        font-size: 0.95rem;
+    }
+
+    .pasos-formulario {
+        margin-bottom: 15px;
+        gap: 8px;
+    }
+
+    .indicador-paso {
+        width: 22px;
+        height: 22px;
+        font-size: 0.8rem;
+    }
+
+    .linea-paso {
+        width: 25px;
+    }
+
+    .grupo-entrada {
+        margin-bottom: 12px;
+    }
+
+    .grupo-entrada label {
+        font-size: 0.7rem;
+    }
+
+    .grupo-entrada input {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+
+    .opciones-vehiculo {
+        gap: 6px;
+    }
+
+    .boton-vehiculo {
+        padding: 7px;
+        font-size: 0.8rem;
+    }
+
+    .area-subir-archivo {
+        padding: 15px;
+    }
+
+    .area-subir-archivo img {
+        height: 25px;
+        margin-bottom: 5px;
+    }
+
+    .area-subir-archivo span {
+        font-size: 0.8rem;
+    }
+
+    .boton-enviar {
+        padding: 10px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+
+    #paso-formulario-1,
+    #paso-formulario-2 {
+        min-height: 320px; /* Smallest min-height for mobile */
+    }
+
+    .btnRegresar {
+        width: 40px;
+        height: 40px;
+        bottom: 10px;
+        left: 10px;
+    }
 }

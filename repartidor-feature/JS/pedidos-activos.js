@@ -145,7 +145,7 @@ fetch("http://54.88.1.254/api/orders/delivery", {
   localStorage.setItem("pedido_en_curso", JSON.stringify(pedidoSeleccionado));
 
   // Redirigir
-  window.location.href = "../pages/pedido-en-curso.html";
+  window.location.href = "/repartidor-feature/pages/pedido-en-curso.html";
 });
 
 

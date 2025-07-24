@@ -1,4 +1,3 @@
-
 :root {
     --color-primario: #FF502D;
     --color-secundario: #FCBF30;
@@ -15,15 +14,16 @@
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: var(--fuente-principal);
     color: var(--color-texto);
     background-color: white;
+    /* Ensure body doesn't overflow horizontally on smaller screens */
+    overflow-x: hidden;
 }
-
 
 .encabezado {
     display: flex;
@@ -32,13 +32,18 @@ body {
     padding: 1rem 5%;
     position: fixed;
     width: 100%;
-    z-index: 1000; /*lo hace fije*/
+    z-index: 1000;
     background-color: white;
-   
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* subtle shadow for fixed header */
 }
 
 .encabezado-logo img {
-    height: 38px; 
+    height: 38px;
+}
+
+.encabezado-navegacion {
+    /* Hide by default for mobile, show with JavaScript for hamburger menu */
+    display: flex;
 }
 
 .encabezado-lista {
@@ -62,24 +67,18 @@ body {
 .encabezado-icono {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 4px; /* Adjusted gap for combined text/icon links */
     text-decoration: none;
     color: var(--color-primario);
     font-weight: bold;
 }
 
-a.encabezado-icono{
-  gap: 4px;
-}
 .encabezado-icono img {
     height: 24px;
 }
-.encabezado-icono-carrito{
-    height: 30px;
-}
 
-main{
-  padding-top: 80px;
+main {
+    padding-top: 80px; /* Space for fixed header */
 }
 
 .seccion-principal {
@@ -87,11 +86,8 @@ main{
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding-left: 5%;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding: 30px 5%; /* Adjusted padding for better consistency */
+    margin: 0 20px; /* Margin from page edges */
     border-radius: 20px;
 }
 
@@ -126,6 +122,7 @@ main{
     border-radius: 12px;
     font-weight: bold;
     transition: transform 0.2s ease;
+    white-space: nowrap; /* Prevent button text from wrapping prematurely */
 }
 
 .boton:hover {
@@ -142,37 +139,43 @@ main{
 }
 
 .seccion-principal-imagen-contenedor {
-    height: 450px; 
+    height: 450px;
     overflow: hidden;
     border-radius: 20px;
-    padding-top: 40px;
+    display: flex; /* Use flex to center the image if needed */
+    justify-content: center;
+    align-items: center;
 }
 
 .seccion-principal-imagen {
     width: 90%;
     height: 90%;
-    object-fit: cover;
+    object-fit: contain; /* Changed to contain to prevent cropping on resize */
     border-radius: 20px;
-
-
 }
 
 .seccion-restaurantes {
     padding: 3rem 5%;
 }
-.seccion-restaurantes-encabezado{
-  display: flex;
-  justify-content: space-between;
+
+.seccion-restaurantes-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    margin-bottom: 1.5rem;
 }
+
 .seccion-restaurantes-titulo {
     font-size: 2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem; /* Adjust margin if wrap occurs */
 }
 
 .seccion-restaurantes-filtros {
     display: flex;
     gap: 10px;
-    margin-bottom: 2rem;
+    flex-wrap: wrap; /* Allow filters to wrap */
+    margin-bottom: 0; /* Managed by parent .seccion-restaurantes-encabezado */
 }
 
 .filtro {
@@ -184,7 +187,8 @@ main{
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap; /* Prevent filter text from breaking */
 }
 
 .filtro:hover {
@@ -198,10 +202,12 @@ main{
     border-color: var(--color-primario);
 }
 
-.carruseles{
-  display: block;
-  gap: 20px;
+.carruseles {
+    display: flex; /* Changed from block to flex for proper stacking/gapping */
+    flex-direction: column; /* Stack carousels vertically */
+    gap: 20px;
 }
+
 .carrusel {
     position: relative;
     margin-bottom: 1rem;
@@ -219,19 +225,23 @@ main{
 
 .carrusel-pista {
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */ /* Removed for better control with gap */
     gap: 1.5rem;
     transition: transform 0.5s ease-in-out;
 }
 
 .carrusel-item {
-    min-width: 294px; 
+    min-width: 294px;
     height: 230px;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
     margin-bottom: 50px;
+    /* Ensure image fills item */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .carrusel-item img {
@@ -252,7 +262,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     z-index: 10;
     transition: all 0.2s ease;
     flex-shrink: 0;
@@ -269,33 +279,32 @@ main{
     cursor: not-allowed;
 }
 
-
-/*estilos para el modal de iniciar sesion*/
+/* Modal de iniciar sesion */
 .modal-superposicion {
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.3); 
+    background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(5px);
-
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1000; 
+    z-index: 1000;
 }
 
 .modal-superposicion-visible {
     display: flex;
 }
+
 .modal {
     background-color: white;
     padding: 2.5rem;
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     width: 90%;
-    max-width: 520px; /* Ancho máximo del modal */
+    max-width: 520px;
     text-align: left;
 }
 
@@ -341,7 +350,7 @@ main{
 
 .modal-botones {
     display: flex;
-    justify-content: space-between; /*para que ocupe todo, distribuido, como el i l i en figma*/
+    justify-content: space-between;
     gap: 1rem;
 }
 
@@ -358,7 +367,7 @@ main{
 }
 
 .boton-regresar {
-    background-color: var(--color-blanco);
+    background-color: white; /* Use white directly or define in root */
     color: var(--color-primario);
 }
 
@@ -373,4 +382,348 @@ main{
 
 .boton-continuar:hover {
     opacity: 0.9;
+}
+
+
+/* --- Responsive Adjustments --- */
+
+/* Tablet and smaller desktop screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .encabezado {
+        padding: 0.8rem 3%; /* Adjust header padding */
+    }
+
+    .encabezado-lista {
+        gap: 60px; /* Reduce gap between nav items */
+    }
+
+    .encabezado-iconos {
+        gap: 30px; /* Reduce gap between icons */
+    }
+
+    .encabezado-icono {
+        font-size: 0.9rem; /* Slightly smaller text for icons */
+    }
+
+    .encabezado-icono img {
+        height: 20px; /* Smaller icon images */
+    }
+
+    .seccion-principal {
+        grid-template-columns: 1fr; /* Stack hero content and image */
+        padding: 30px 3%; /* Adjust padding */
+        margin: 0 15px; /* Adjust margin */
+        gap: 30px; /* Space between stacked elements */
+    }
+
+    .seccion-principal-contenido {
+        padding-right: 0; /* Remove right padding when stacked */
+        text-align: center; /* Center text when stacked */
+    }
+
+    .seccion-principal-titulo {
+        font-size: 90px; /* Smaller title font size */
+        margin-bottom: 0.5rem;
+    }
+
+    .seccion-principal-descripcion {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        max-width: 600px; /* Allow description to take more width */
+        margin-left: auto; /* Center description */
+        margin-right: auto; /* Center description */
+    }
+
+    .seccion-principal-botones {
+        justify-content: center; /* Center buttons */
+        gap: 1rem;
+    }
+
+    .seccion-principal-imagen-contenedor {
+        height: auto; /* Allow height to adjust naturally */
+        padding-top: 0;
+    }
+
+    .seccion-principal-imagen {
+        width: 80%; /* Make image smaller */
+        height: auto;
+        max-height: 400px; /* Limit max height */
+        margin: 0 auto; /* Center image */
+    }
+
+    .seccion-restaurantes {
+        padding: 2.5rem 3%; /* Adjust padding for restaurants section */
+    }
+
+    .seccion-restaurantes-titulo {
+        font-size: 1.8rem;
+    }
+
+    .seccion-restaurantes-filtros {
+        justify-content: center; /* Center filters */
+        gap: 8px; /* Smaller gap for filters */
+        margin-top: 10px; /* Space from title if wrapped */
+    }
+
+    .filtro {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .carrusel {
+        gap: 0.5rem; /* Reduce gap in carousels */
+    }
+
+    .carrusel-item {
+        min-width: 250px; /* Adjust min-width for carousel items */
+        height: 200px; /* Adjust height for carousel items */
+        margin-bottom: 40px; /* Adjust margin */
+    }
+}
+
+/* Mobile landscape and larger phones (max-width: 768px) */
+@media (max-width: 768px) {
+    .encabezado {
+        flex-wrap: wrap; /* Allow header items to wrap */
+        justify-content: center; /* Center header items when wrapped */
+        padding: 0.5rem 2%;
+    }
+
+    .encabezado-logo {
+        margin-bottom: 10px; /* Space below logo when wrapped */
+        width: 100%;
+        text-align: center;
+    }
+
+    .encabezado-navegacion {
+        /* This will need JavaScript for a true mobile menu/hamburger icon */
+        display: none; /* Hide navigation completely for now on small screens */
+        width: 100%;
+        order: 3; /* Push to the next line */
+        justify-content: center;
+    }
+
+    .encabezado-lista {
+        flex-direction: column; /* Stack nav links vertically */
+        gap: 10px;
+        text-align: center;
+    }
+
+    .encabezado-iconos {
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px; /* Space above icons when wrapped */
+        order: 2; /* Order before nav for better mobile layout */
+    }
+
+    .encabezado-icono {
+        font-size: 0.85rem;
+    }
+
+    .seccion-principal {
+        padding: 20px 10px;
+        margin: 0 10px;
+        border-radius: 15px;
+        gap: 20px;
+    }
+
+    .seccion-principal-titulo {
+        font-size: 60px; /* Smaller title for mobile */
+    }
+
+    .seccion-principal-descripcion {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .seccion-principal-botones {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px;
+    }
+
+    .boton {
+        width: 80%; /* Make buttons wider when stacked */
+        max-width: 250px; /* Limit max width */
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .seccion-principal-imagen {
+        width: 90%;
+        max-height: 300px;
+    }
+
+    .seccion-restaurantes {
+        padding: 2rem 10px;
+    }
+
+    .seccion-restaurantes-encabezado {
+        flex-direction: column; /* Stack title and filters */
+        align-items: center;
+        text-align: center;
+    }
+
+    .seccion-restaurantes-titulo {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .seccion-restaurantes-filtros {
+        width: 100%;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .filtro {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .carrusel-item {
+        min-width: 200px; /* Even smaller min-width for mobile */
+        height: 160px;
+        margin-bottom: 30px;
+    }
+
+    .carrusel-boton {
+        width: 30px; /* Smaller carousel buttons */
+        height: 30px;
+        font-size: 1.2rem;
+    }
+
+    /* Modal adjustments */
+    .modal {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+
+    .modal-titulo {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .formulario-grupo {
+        margin-bottom: 1rem;
+    }
+
+    .formulario-etiqueta {
+        font-size: 0.85rem;
+    }
+
+    .formulario-entrada {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .modal-enlace-registro {
+        margin: 1.5rem 0;
+        font-size: 0.8rem;
+    }
+
+    .modal-botones {
+        flex-direction: column; /* Stack modal buttons */
+        gap: 0.8rem;
+    }
+
+    .boton-modal {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .encabezado {
+        padding: 0.5rem 10px;
+    }
+
+    .encabezado-logo img {
+        height: 28px;
+    }
+
+    .encabezado-iconos {
+        gap: 15px;
+    }
+
+    .encabezado-icono {
+        font-size: 0.75rem;
+    }
+
+    .encabezado-icono img {
+        height: 18px;
+    }
+
+    .seccion-principal {
+        padding: 15px 5px;
+        margin: 0 5px;
+    }
+
+    .seccion-principal-titulo {
+        font-size: 45px;
+    }
+
+    .seccion-principal-descripcion {
+        font-size: 0.8rem;
+    }
+
+    .boton {
+        width: 90%;
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .seccion-principal-imagen {
+        width: 100%;
+        max-height: 250px;
+    }
+
+    .seccion-restaurantes {
+        padding: 1.5rem 5px;
+    }
+
+    .seccion-restaurantes-titulo {
+        font-size: 1.3rem;
+    }
+
+    .filtro {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .carrusel-item {
+        min-width: 150px; /* Smallest carousel item width */
+        height: 120px;
+        margin-bottom: 20px;
+    }
+
+    /* Modal adjustments */
+    .modal {
+        padding: 1.2rem;
+        border-radius: 10px;
+    }
+
+    .modal-titulo {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .formulario-etiqueta {
+        font-size: 0.8rem;
+    }
+
+    .formulario-entrada {
+        padding: 0.6rem 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    .modal-enlace-registro {
+        margin: 1rem 0;
+        font-size: 0.75rem;
+    }
+
+    .boton-modal {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
 }

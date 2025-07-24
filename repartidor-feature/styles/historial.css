@@ -1,7 +1,7 @@
 :root {
     --fontfamily: "Montserrat", sans-serif;
     --navcolores: #FF502D;
-    --modal-red: #FC0203; 
+    --modal-red: #FC0203;
 }
 
 * {
@@ -15,49 +15,49 @@ body {
     font-family: var(--fontfamily);
 }
 
-.nav{
+.nav {
     background-color: white;
     border-bottom: 3px solid #EAEAEA;
     font-family: var(--fontfamily);
     font-weight: bolder;
 }
 
-.nav_container{
+.nav_container {
     width: 90%;
     margin: 0 auto;
-    height: 80px; 
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.logo{
+.logo {
     display: flex;
-    align-items: center; 
+    align-items: center;
     gap: 10px;
 }
 
 .logo_text {
-    order: 2; 
+    order: 2;
     color: var(--navcolores);
     font-weight: bold;
 }
 
 .logo_img {
-    order: 1; 
+    order: 1;
     height: 38px;
 }
 
 .links {
     display: flex;
     align-items: center;
-    gap: 178px; 
+    gap: 178px;
 }
 
 .nav_link {
     display: flex;
     align-items: center;
-    gap: 8px; 
+    gap: 8px;
     color: var(--navcolores);
     text-decoration: none;
     font-weight: 500;
@@ -79,6 +79,7 @@ body {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 2rem;
+    text-align: center; /* Center the title on smaller screens */
 }
 
 .contenedor-pedidos {
@@ -101,6 +102,7 @@ body {
     align-items: center;
     padding: 0.5rem 0;
     font-size: 1rem;
+    flex-wrap: wrap; /* Allow content to wrap on smaller screens */
 }
 
 .fila-info strong {
@@ -111,4 +113,100 @@ body {
 .fila-info span {
     font-weight: 500;
     color: #212529;
+    text-align: right; /* Align span content to the right when wrapped */
+    flex-basis: 50%; /* Give span roughly half the width when wrapped */
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens smaller than 992px (typical for tablets and smaller desktops) */
+@media (max-width: 992px) {
+    .links {
+        gap: 50px; /* Reduce gap between nav links */
+    }
+}
+
+/* For screens smaller than 768px (typical for tablets in portrait and larger phones) */
+@media (max-width: 768px) {
+    .nav_container {
+        flex-direction: column; /* Stack logo and links vertically */
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .logo {
+        margin-bottom: 15px; /* Add space below logo */
+    }
+
+    .links {
+        flex-wrap: wrap; /* Allow links to wrap to the next line */
+        justify-content: center; /* Center links when wrapped */
+        gap: 20px; /* Adjust gap for wrapped links */
+    }
+
+    .nav_link {
+        font-size: 0.9rem; /* Slightly reduce font size for links */
+    }
+
+    .contenedor-pedidos {
+        grid-template-columns: repeat(1, 1fr); /* Stack cards vertically */
+    }
+
+    .titulo-seccion {
+        font-size: 1.75rem; /* Adjust title size */
+    }
+}
+
+/* For screens smaller than 576px (typical for mobile devices) */
+@media (max-width: 576px) {
+    .nav_container {
+        width: 95%; /* Increase container width for better use of space */
+    }
+
+    .logo_text {
+        font-size: 1.2rem; /* Adjust logo text size */
+    }
+
+    .logo_img {
+        height: 30px; /* Adjust logo image size */
+    }
+
+    .nav_link {
+        font-size: 0.8rem; /* Further reduce font size for links */
+        gap: 5px; /* Reduce gap within nav links */
+    }
+
+    .nav_img {
+        width: 20px; /* Reduce nav icon size */
+    }
+
+    .pedidos-section {
+        padding: 0.5rem; /* Reduce section padding */
+    }
+
+    .titulo-seccion {
+        font-size: 1.5rem; /* Further adjust title size */
+        margin-bottom: 1.5rem;
+    }
+
+    .card-pedido {
+        padding: 1rem; /* Reduce card padding */
+    }
+
+    .fila-info {
+        font-size: 0.9rem; /* Adjust info font size */
+        flex-direction: column; /* Stack strong and span vertically */
+        align-items: flex-start; /* Align stacked items to the start */
+    }
+
+    .fila-info strong,
+    .fila-info span {
+        flex-basis: auto; /* Remove flex basis when stacked */
+        width: 100%; /* Make them take full width when stacked */
+        text-align: left; /* Align text to the left when stacked */
+    }
+
+    .fila-info strong {
+        margin-bottom: 0.2rem; /* Add a small space between stacked items */
+    }
 }

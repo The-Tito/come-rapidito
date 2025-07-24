@@ -2,7 +2,7 @@
     --fontfamily: "Montserrat", sans-serif;
     --fonttitulo: "Mouse Memoirs", sans-serif;
     --primarycolor: #FF502D;
-    --secondarycolor: #FC0203; 
+    --secondarycolor: #FC0203;
     --text-dark: #212121;
     --text-light: #757575;
     --border-light: #EAEAEA;
@@ -13,11 +13,17 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    padding: 0; /* Added padding: 0 for consistency */
+}
+
+body {
+    font-family: var(--fontfamily);
+    background-color: white;
 }
 
 .nav {
     background-color: white;
-    border-bottom: 3px solid #EAEAEA;
+    border-bottom: 3px solid var(--border-light);
     font-family: var(--fontfamily);
     font-weight: bolder;
 }
@@ -25,7 +31,7 @@
 .nav_container {
     width: 90%;
     margin: 0 auto;
-    height: 80px; 
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -33,31 +39,31 @@
 
 .logo {
     display: flex;
-    align-items: center; 
+    align-items: center;
     gap: 10px;
 }
 
 .logo_text {
-    order: 2; 
+    order: 2;
     color: var(--primarycolor);
     font-weight: bold;
 }
 
 .logo_img {
-    order: 1; 
+    order: 1;
     height: 38px;
 }
 
 .links {
     display: flex;
     align-items: center;
-    gap: 178px; 
+    gap: 178px;
 }
 
 .nav_link {
     display: flex;
     align-items: center;
-    gap: 4px; 
+    gap: 4px;
     color: var(--primarycolor);
     text-decoration: none;
     font-weight: 500;
@@ -70,12 +76,20 @@
 .h1_titulo {
     display: flex;
     font-family: var(--fonttitulo);
-    text-align: left;
-    margin-bottom: 30px;
-    margin: 0 auto;
-    padding-bottom: 20px;
-    justify-content: center;
+    text-align: center; /* Centered title */
+    margin: 0 auto; /* Center horizontally */
     padding-top: 10px;
+    padding-bottom: 20px;
+    justify-content: center; /* Center content within flex container */
+    width: 100%; /* Ensure it takes full width for centering */
+}
+
+.seccion_titulo {
+    color: var(--primarycolor);
+    font-weight: 400;
+    font-size: 52px;
+    text-transform: uppercase;
+    text-align: center; /* Ensure the text itself is centered */
 }
 
 .p_instruccion {
@@ -84,13 +98,7 @@
     font-size: 1.2rem;
     color: var(--text-dark);
     margin-bottom: 20px;
-}
-
-.seccion_titulo {
-    color: var(--primarycolor);
-    font-weight: 400;
-    font-size: 52px;
-    text-transform: uppercase;
+    padding: 0 15px; /* Add some horizontal padding */
 }
 
 .seccion {
@@ -114,48 +122,17 @@
     height: auto;
 }
 
-.btn-seguimiento {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 10px;
-
-    border-radius: 25px;
-    font-family: var(--fontfamily);
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: center;
-    transition: transform 0.2s ease;
-    border: 1px solid transparent;
-    background-color: var(--secondarycolor);
-    color: var(--white);
-}
-
-.boton {
-    display: flex;
-    gap: 16px;
-    margin-top: 20px;
-}
-
-.flecha {
-    height: 1em;
-    margin-right: 10px;
-}
-
-a {
-    text-decoration: none;
-}
-
 .seguimiento_container {
     background-color: white;
     padding: 35px 30px;
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-    max-width: 500px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
     width: 100%;
     font-family: var(--fontfamily);
+    flex-basis: 45%; /* Match .pedido_container from previous page for consistency */
+    display: flex;
+    flex-direction: column;
 }
 
 .checkbox-item {
@@ -173,6 +150,7 @@ a {
     font-size: 1.1rem;
     font-weight: bold;
     color: #111;
+    cursor: pointer; /* Indicate it's clickable */
 }
 
 .checkbox-item input[type="checkbox"] {
@@ -181,12 +159,84 @@ a {
     cursor: pointer;
     width: 26px;
     height: 26px;
+    min-width: 26px; /* Ensure minimum width even if scaled */
+    min-height: 26px; /* Ensure minimum height */
     border: 1.5px solid #A6A6A6;
     border-radius: 6px;
+    -webkit-appearance: none; /* Hide default checkbox */
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
-.oculto {
-    display: none;
+/* Custom checkbox checked state */
+.checkbox-item input[type="checkbox"]:checked {
+    background-color: var(--primarycolor);
+    border-color: var(--primarycolor);
+}
+
+.checkbox-item input[type="checkbox"]:checked::after {
+    content: '\2713'; /* Checkmark symbol */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-size: 18px;
+}
+
+/* Custom checkbox disabled state */
+.checkbox-item input[type="checkbox"]:disabled {
+    background-color: var(--border-light);
+    border-color: var(--border-light);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.checkbox-item input[type="checkbox"]:disabled:checked {
+    background-color: var(--primarycolor); /* Keep primary color if disabled and checked */
+    border-color: var(--primarycolor);
+}
+
+
+.boton {
+    display: flex;
+    justify-content: center; /* Center the button */
+    margin-top: 30px; /* More space from checkboxes */
+}
+
+.btn-seguimiento {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px; /* Adjust padding for better look */
+    border-radius: 50px; /* Make it more pill-shaped */
+    font-family: var(--fontfamily);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s ease;
+    border: 1px solid transparent;
+    background-color: var(--secondarycolor);
+    color: var(--white);
+    max-width: 300px; /* Limit button width */
+}
+
+.btn-seguimiento:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.flecha {
+    height: 1em; /* Adjust based on font size */
+    margin-right: 10px;
+}
+
+a {
+    text-decoration: none;
 }
 
 /* Estilo para el nuevo modal de Pedido Entregado */
@@ -212,7 +262,7 @@ a {
     text-align: center;
     max-width: 500px;
     width: 90%;
-    font-family: system-ui, sans-serif;
+    font-family: var(--fontfamily); /* Use consistent font family */
 }
 
 /* Título del modal */
@@ -249,9 +299,253 @@ a {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: var(--fontfamily); /* Use consistent font family */
 }
 
 .btn-continuar:hover {
     background-color: #d60000; /* Un rojo más oscuro al hacer hover */
 }
 
+.oculto {
+    display: none;
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens smaller than 992px (typical for tablets and smaller desktops) */
+@media (max-width: 992px) {
+    .links {
+        gap: 50px; /* Reduce gap between nav links */
+    }
+
+    .seccion {
+        flex-direction: column; /* Stack image and content vertically */
+        gap: 2em; /* Reduce gap when stacked */
+        margin: 40px auto; /* Adjust section margin */
+    }
+
+    .seccion_img {
+        justify-content: center; /* Center the image when stacked */
+        flex-basis: auto; /* Allow image to adapt */
+    }
+
+    .seguimiento_container {
+        flex-basis: auto; /* Allow container to adapt */
+        max-width: 100%; /* Take full width */
+        width: 90%; /* Adjust width within container */
+        margin: 0 auto; /* Center the container */
+    }
+
+    .h1_titulo {
+        text-align: center; /* Center the title itself */
+        justify-content: center;
+        margin-bottom: 20px; /* Adjust margin */
+    }
+
+    .seccion_titulo {
+        font-size: 42px; /* Reduce title font size */
+    }
+
+    .p_instruccion {
+        font-size: 1.1rem; /* Adjust instruction font size */
+    }
+
+    .boton {
+        width: 100%; /* Make button container take full width */
+        margin-top: 20px;
+    }
+
+    .btn-seguimiento {
+        max-width: none; /* Allow button to expand */
+    }
+}
+
+/* For screens smaller than 768px (typical for tablets in portrait and larger phones) */
+@media (max-width: 768px) {
+    .nav_container {
+        flex-direction: column; /* Stack logo and links vertically */
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .logo {
+        margin-bottom: 15px; /* Add space below logo */
+    }
+
+    .links {
+        flex-wrap: wrap; /* Allow links to wrap to the next line */
+        justify-content: center; /* Center links when wrapped */
+        gap: 20px; /* Adjust gap for wrapped links */
+    }
+
+    .nav_link {
+        font-size: 0.9rem; /* Slightly reduce font size for links */
+    }
+
+    .seccion {
+        padding: 0 0.5rem; /* Add horizontal padding to section */
+        margin: 30px auto; /* Further adjust margin */
+    }
+
+    .h1_titulo {
+        padding-top: 5px;
+        padding-bottom: 15px;
+    }
+
+    .seccion_titulo {
+        font-size: 32px; /* Further reduce title font size */
+    }
+
+    .p_instruccion {
+        font-size: 1rem; /* Further adjust instruction font size */
+        margin-bottom: 15px;
+    }
+
+    .seguimiento_container {
+        padding: 25px 20px; /* Reduce container padding */
+        width: 95%; /* Make container take more width */
+    }
+
+    .checkbox-item {
+        margin-bottom: 15px; /* Adjust checkbox item spacing */
+    }
+
+    .checkbox-item label {
+        font-size: 1rem; /* Adjust label font size */
+    }
+
+    .checkbox-item input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        min-height: 24px;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked::after {
+        font-size: 16px; /* Adjust checkmark size */
+    }
+
+    .btn-seguimiento {
+        padding: 10px 20px; /* Adjust button padding */
+        font-size: 0.9rem; /* Adjust button font size */
+    }
+
+    /* Modal adjustments */
+    .modal_contenido {
+        padding: 30px 40px; /* Reduce modal padding */
+        border-radius: 15px;
+    }
+
+    .modal_titulo {
+        font-size: 1.6rem; /* Adjust modal title size */
+    }
+
+    .modal_texto {
+        font-size: 1.1rem; /* Adjust modal text size */
+        margin-bottom: 20px;
+    }
+
+    .btn-continuar {
+        padding: 14px 60px; /* Adjust modal button padding */
+        font-size: 1.1rem;
+    }
+}
+
+/* For screens smaller than 576px (typical for mobile devices) */
+@media (max-width: 576px) {
+    .nav_container {
+        width: 95%; /* Increase container width for better use of space */
+    }
+
+    .logo_img {
+        height: 30px; /* Adjust logo image size */
+    }
+
+    .links {
+        gap: 15px; /* Further reduce gap between nav links */
+    }
+
+    .nav_link {
+        font-size: 0.8rem; /* Further reduce font size for links */
+        gap: 5px; /* Reduce gap within nav links */
+    }
+
+    .nav_img {
+        width: 20px; /* Reduce nav icon size */
+    }
+
+    .seccion {
+        margin: 20px auto; /* Further reduce section margin */
+    }
+
+    .h1_titulo {
+        padding-bottom: 10px;
+    }
+
+    .seccion_titulo {
+        font-size: 28px; /* Further adjust title font size */
+    }
+
+    .p_instruccion {
+        font-size: 0.9rem; /* Further adjust instruction font size */
+        margin-bottom: 10px;
+    }
+
+    .seguimiento_container {
+        padding: 20px 15px; /* Further reduce container padding */
+        width: 100%; /* Take full width on small phones */
+    }
+
+    .checkbox-item {
+        margin-bottom: 12px; /* Further adjust spacing */
+    }
+
+    .checkbox-item label {
+        font-size: 0.95rem; /* Further adjust label font size */
+    }
+
+    .checkbox-item input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        min-height: 22px;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked::after {
+        font-size: 15px; /* Adjust checkmark size */
+    }
+
+    .boton {
+        margin-top: 15px;
+    }
+
+    .btn-seguimiento {
+        padding: 8px 15px; /* Further adjust button padding */
+        font-size: 0.85rem; /* Further adjust button font size */
+        border-radius: 40px; /* Keep it pill-shaped */
+    }
+
+    .flecha {
+        margin-right: 5px; /* Reduce margin for arrow */
+    }
+
+    /* Modal adjustments */
+    .modal_contenido {
+        padding: 25px 30px; /* Further reduce modal padding */
+        border-radius: 12px;
+    }
+
+    .modal_titulo {
+        font-size: 1.4rem; /* Further adjust modal title size */
+    }
+
+    .modal_texto {
+        font-size: 1rem; /* Further adjust modal text size */
+        margin-bottom: 15px;
+    }
+
+    .btn-continuar {
+        padding: 12px 50px; /* Further adjust modal button padding */
+        font-size: 1rem;
+    }
+}

@@ -1,7 +1,7 @@
 :root {
     --fontfamily: "Montserrat", sans-serif;
     --navcolores: #FF502D;
-    --modal-red: #FC0203; 
+    --modal-red: #FC0203;
 }
 
 * {
@@ -73,13 +73,16 @@ body {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    text-align: center; /* Centered title */
 }
 
 .pedidos-section p {
     font-size: 1rem;
     color: #000000;
     margin-bottom: 1.5rem;
+    text-align: center; /* Centered paragraph */
 }
+
 .contenedor-pedidos {
     display: grid;
     gap: 2rem;
@@ -100,6 +103,7 @@ body {
     align-items: center;
     padding: 0.5rem 0;
     font-size: 1rem;
+    flex-wrap: wrap; /* Allow content to wrap */
 }
 
 .fila-info strong {
@@ -110,66 +114,69 @@ body {
 .fila-info span {
     font-weight: 500;
     color: #212529;
+    text-align: right; /* Align span content to the right when wrapped */
+    flex-basis: 50%; /* Give span roughly half the width when wrapped */
 }
 
 body.modal-abierto {
-  overflow: hidden; 
+    overflow: hidden;
 }
 
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(33, 37, 41, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050; 
-  padding: 1rem; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(33, 37, 41, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    padding: 1rem;
 }
 
 .modal_contenido {
-  background-color: #FFFFFF;
-  width: 100%;
-  max-width: 901.63px; 
-  border-radius: 25.64px; 
-  padding: 2rem 3rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.077); 
-  font-family: var(--fontfamily);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+    background-color: #FFFFFF;
+    width: 100%;
+    max-width: 901.63px;
+    border-radius: 25.64px;
+    padding: 2rem 3rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.077);
+    font-family: var(--fontfamily);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .modal_titulo {
-  text-align: center;
-  color: var(--modal-red);
-  margin-bottom: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
+    text-align: center;
+    color: var(--modal-red);
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
-.titulo{
+.titulo {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.restaurante-nombre{
+.restaurante-nombre {
     padding-left: 1em;
 }
 
-p{
+p {
     margin: 5px auto;
 }
+
 .modal_seccion {
-  background: #FFFFFF;
-  border-radius: 14px;
-  padding: 1.2rem 1.5rem;
-  border: 1px solid #00000030;
-  box-shadow: 1px 1px 10px #88888861;
+    background: #FFFFFF;
+    border-radius: 14px;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid #00000030;
+    box-shadow: 1px 1px 10px #88888861;
 }
 
 .seccion_header {
@@ -206,32 +213,33 @@ p{
 }
 
 .modal_botones {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
-.logo_restaurante{
+.logo_restaurante {
     border-radius: 50%;
     height: 41px;
 }
+
 .btn-regresar,
 .btn-aceptar {
-  flex: 1;
-  padding: 0.9rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  transition: all 0.2s ease;
+    flex: 1;
+    padding: 0.9rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
 }
 
 .btn-regresar {
-  background-color: #FFFFFF;
-  color: var(--modal-red);
-  border: 1px solid #EAEAEA;
-  font-family: var(--fontfamily);
+    background-color: #FFFFFF;
+    color: var(--modal-red);
+    border: 1px solid #EAEAEA;
+    font-family: var(--fontfamily);
 }
 
 .btn-regresar:hover {
@@ -240,10 +248,10 @@ p{
 }
 
 .btn-aceptar {
-  background-color: var(--modal-red);
-  color: white;
-  border: 1px solid var(--modal-red);
-  font-family: var(--fontfamily);
+    background-color: var(--modal-red);
+    color: white;
+    border: 1px solid var(--modal-red);
+    font-family: var(--fontfamily);
 }
 
 .btn-aceptar:hover {
@@ -252,24 +260,24 @@ p{
 }
 
 .oculto {
-  display: none;
+    display: none;
 }
 
 
 .modal-contenido-tarifa {
-  background-color: #ffffff;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 320px;
-  height: 322px;
-  max-width: 90vw;
-  position: relative;       /* Asegura posicionamiento correcto */
-  z-index: 2000;            /* Superior al modal padre */
-  box-sizing: border-box; 
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 320px;
+    height: 322px;
+    max-width: 90vw;
+    position: relative;
+    z-index: 2000;
+    box-sizing: border-box;
 }
 
 .tarifa_titulo {
@@ -291,10 +299,10 @@ p{
 }
 
 .tarifa_dropdown select {
-    appearance: none;    
+    appearance: none;
     width: 100%;
     padding: 15px 20px;
-    font-size: 1.5em; /* Tamaño de fuente más grande para los números */
+    font-size: 1.5em;
     font-weight: 500;
     color: #333;
     background-color: #fff;
@@ -312,19 +320,19 @@ p{
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .tarifa_botones {
     display: flex;
     justify-content: space-between;
-    width: 100%;      
-    gap: 15px; 
+    width: 100%;
+    gap: 15px;
 }
 
 .btn-regresar-tarifa,
 .btn-aceptar-tarifa {
-    flex-grow: 1; /* Hace que ambos botones ocupen el mismo espacio */
+    flex-grow: 1;
     padding: 12px 20px;
     border-radius: 8px;
     border: 1px solid;
@@ -335,10 +343,10 @@ p{
 }
 
 .btn-regresar-tarifa {
-  background-color: #FFFFFF;
-  color: var(--modal-red);
-  border: 1px solid #EAEAEA;
-  font-family: var(--fontfamily);
+    background-color: #FFFFFF;
+    color: var(--modal-red);
+    border: 1px solid #EAEAEA;
+    font-family: var(--fontfamily);
 }
 
 .btn-aceptar-tarifa {
@@ -358,7 +366,7 @@ p{
 
 .error-mensaje {
     color: var(--modal-red);
-    font-size: 0.875em; /* Un poco más pequeño que el texto normal */
+    font-size: 0.875em;
     font-weight: 500;
     text-align: center;
     width: 100%;
@@ -366,11 +374,11 @@ p{
     margin-bottom: 15px;
 }
 
-.btn-continuar{
+.btn-continuar {
     background-color: var(--modal-red);
     border-color: var(--modal-red);
     color: #fff;
-    flex-grow: 1; /* Hace que ambos botones ocupen el mismo espacio */
+    flex-grow: 1;
     padding: 12px 20px;
     display: flex;
     justify-content: center;
@@ -382,4 +390,244 @@ p{
     width: 70%;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens smaller than 992px (typical for tablets and smaller desktops) */
+@media (max-width: 992px) {
+    .links {
+        gap: 50px; /* Reduce gap between nav links */
+    }
+
+    .modal_contenido {
+        padding: 1.5rem 2rem; /* Slightly reduce modal padding */
+    }
+
+    .modal-contenido-tarifa {
+        padding: 25px 30px; /* Adjust tariff modal padding */
+    }
+}
+
+/* For screens smaller than 768px (typical for tablets in portrait and larger phones) */
+@media (max-width: 768px) {
+    .nav_container {
+        flex-direction: column; /* Stack logo and links vertically */
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .logo {
+        margin-bottom: 15px; /* Add space below logo */
+    }
+
+    .links {
+        flex-wrap: wrap; /* Allow links to wrap to the next line */
+        justify-content: center; /* Center links when wrapped */
+        gap: 20px; /* Adjust gap for wrapped links */
+    }
+
+    .nav_link {
+        font-size: 0.9rem; /* Slightly reduce font size for links */
+    }
+
+    .pedidos-section {
+        padding: 0.75rem; /* Adjust section padding */
+    }
+
+    .titulo-seccion {
+        font-size: 1.75rem; /* Adjust title size */
+    }
+
+    .pedidos-section p {
+        font-size: 0.9rem; /* Adjust paragraph font size */
+    }
+
+    .contenedor-pedidos {
+        grid-template-columns: repeat(1, 1fr); /* Stack cards vertically */
+    }
+
+    .card-pedido {
+        padding: 1.2rem; /* Adjust card padding */
+    }
+
+    .fila-info {
+        flex-direction: column; /* Stack strong and span vertically */
+        align-items: flex-start; /* Align stacked items to the start */
+    }
+
+    .fila-info strong,
+    .fila-info span {
+        flex-basis: auto; /* Remove flex basis when stacked */
+        width: 100%; /* Make them take full width when stacked */
+        text-align: left; /* Align text to the left when stacked */
+    }
+
+    .fila-info strong {
+        margin-bottom: 0.2rem; /* Add a small space between stacked items */
+    }
+
+    /* Modals for smaller screens */
+    .modal_contenido {
+        padding: 1.5rem; /* Reduce modal padding */
+        width: 95%; /* Increase modal width for better use of space */
+    }
+
+    .modal_titulo {
+        font-size: 1rem; /* Adjust modal title size */
+    }
+
+    .logo_restaurante {
+        height: 35px; /* Adjust restaurant logo size */
+    }
+
+    .restaurante-nombre {
+        font-size: 0.95rem; /* Adjust restaurant name font size */
+    }
+
+    .modal_seccion p {
+        font-size: 0.9rem; /* Adjust paragraph font size inside modal sections */
+    }
+
+    .btn-regresar,
+    .btn-aceptar {
+        padding: 0.8rem; /* Adjust button padding */
+        font-size: 0.9rem; /* Adjust button font size */
+    }
+
+    .modal-contenido-tarifa {
+        padding: 20px 25px; /* Further adjust tariff modal padding */
+        width: 90%; /* Increase tariff modal width */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .tarifa_dropdown select {
+        padding: 12px 15px; /* Adjust select padding */
+        font-size: 1.3em; /* Adjust select font size */
+    }
+
+    .tarifa_dropdown::after {
+        right: 15px; /* Adjust dropdown arrow position */
+    }
+
+    .btn-regresar-tarifa,
+    .btn-aceptar-tarifa {
+        padding: 10px 15px; /* Adjust tariff buttons padding */
+        font-size: 0.9em; /* Adjust tariff buttons font size */
+    }
+
+    .btn-continuar {
+        width: 80%; /* Adjust confirmation button width */
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+}
+
+/* For screens smaller than 576px (typical for mobile devices) */
+@media (max-width: 576px) {
+    .nav_container {
+        width: 95%; /* Increase container width for better use of space */
+    }
+
+    .logo_img {
+        height: 30px; /* Adjust logo image size */
+    }
+
+    .links {
+        gap: 15px; /* Further reduce gap between nav links */
+    }
+
+    .nav_link {
+        font-size: 0.8rem; /* Further reduce font size for links */
+        gap: 5px; /* Reduce gap within nav links */
+    }
+
+    .nav_img {
+        width: 20px; /* Reduce nav icon size */
+    }
+
+    .pedidos-section {
+        padding: 0.5rem; /* Reduce section padding */
+    }
+
+    .titulo-seccion {
+        font-size: 1.5rem; /* Further adjust title size */
+        margin-bottom: 1rem;
+    }
+
+    .pedidos-section p {
+        font-size: 0.85rem; /* Further adjust paragraph font size */
+        margin-bottom: 1rem;
+    }
+
+    .card-pedido {
+        padding: 1rem; /* Reduce card padding */
+    }
+
+    /* Modals for small mobiles */
+    .modal_contenido {
+        padding: 1rem; /* Further reduce modal padding */
+        gap: 1rem; /* Reduce gap within modal content */
+    }
+
+    .modal_titulo {
+        font-size: 0.9rem; /* Further adjust modal title size */
+    }
+
+    .modal_seccion {
+        padding: 0.8rem 1rem; /* Reduce section padding inside modal */
+    }
+
+    .restaurante-nombre {
+        font-size: 0.9rem; /* Further adjust restaurant name font size */
+    }
+
+    .modal_seccion p {
+        font-size: 0.85rem; /* Further adjust paragraph font size inside modal sections */
+    }
+
+    .btn-regresar,
+    .btn-aceptar {
+        padding: 0.7rem; /* Further adjust button padding */
+        font-size: 0.8rem; /* Further adjust button font size */
+    }
+
+    .modal-contenido-tarifa {
+        padding: 15px 20px; /* Further adjust tariff modal padding */
+    }
+
+    .tarifa_titulo {
+        font-size: 1em; /* Adjust tariff title size */
+        margin-bottom: 15px;
+    }
+
+    .tarifa_dropdown {
+        margin-bottom: 40px; /* Adjust dropdown margin */
+    }
+
+    .tarifa_dropdown select {
+        padding: 10px 12px; /* Further adjust select padding */
+        font-size: 1.1em; /* Further adjust select font size */
+    }
+
+    .tarifa_dropdown::after {
+        right: 12px; /* Adjust dropdown arrow position */
+        font-size: 0.9em;
+    }
+
+    .btn-regresar-tarifa,
+    .btn-aceptar-tarifa {
+        padding: 8px 12px; /* Further adjust tariff buttons padding */
+        font-size: 0.8em; /* Further adjust tariff buttons font size */
+    }
+
+    .error-mensaje {
+        font-size: 0.8em; /* Adjust error message font size */
+    }
+
+    .btn-continuar {
+        width: 90%; /* Adjust confirmation button width */
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }
 }

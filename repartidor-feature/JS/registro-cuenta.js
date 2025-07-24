@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             alert("Vehículo registrado correctamente ✅");
             localStorage.setItem("abrirLogin", "true");
-            window.location.href = "../../repartidor-feature/pages/index.html";
+            window.location.href = "/repartidor-feature/pages/inicio-repartidor.html";
         } catch (error) {
             console.error(error);
             alert("Error al registrar vehículo");

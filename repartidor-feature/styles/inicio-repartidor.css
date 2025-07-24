@@ -1,0 +1,238 @@
+:root {
+    --fontfamily: "Montserrat", sans-serif;
+    --navcolores: #FF502D;
+    --cta: #FC0203;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; /* Added padding: 0 to reset default browser padding */
+}
+
+body {
+    font-family: var(--fontfamily);
+}
+
+.nav {
+    background-color: white;
+    border-bottom: 3px solid #EAEAEA;
+    font-family: var(--fontfamily);
+    font-weight: bolder;
+}
+
+.nav_container {
+    width: 90%;
+    margin: 0 auto;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo_text {
+    order: 2;
+    color: var(--navcolores);
+    font-weight: bold;
+}
+
+.logo_img {
+    order: 1;
+    height: 38px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 178px;
+}
+
+.nav_link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--navcolores);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav_img {
+    width: 24px;
+}
+
+.main {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 60px 0;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2em;
+}
+
+.main_picture {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.main_img {
+    max-width: 100%;
+    height: auto;
+}
+
+.main_text {
+    flex: 1;
+    font-family: var(--fontfamily);
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    text-align: left;
+}
+
+.main_welcome {
+    font-size: 2.5rem;
+}
+
+.main_parrafo {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.cta {
+    background-color: var(--cta);
+    color: #fff;
+    text-decoration: none;
+    padding: 1em 3em;
+    border-radius: 3em;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap; /* Prevent text from wrapping within the button */
+}
+
+.cta_img {
+    height: 13.05px;
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens smaller than 992px (typical for tablets and smaller desktops) */
+@media (max-width: 992px) {
+    .links {
+        gap: 50px; /* Reduce gap between nav links */
+    }
+
+    .main {
+        padding: 40px 0; /* Adjust main section padding */
+        gap: 1.5em; /* Reduce gap in main content */
+    }
+
+    .main_welcome {
+        font-size: 2.2rem; /* Slightly reduce welcome text size */
+    }
+}
+
+/* For screens smaller than 768px (typical for tablets in portrait and larger phones) */
+@media (max-width: 768px) {
+    .nav_container {
+        flex-direction: column; /* Stack logo and links vertically */
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .logo {
+        margin-bottom: 15px; /* Add space below logo */
+    }
+
+    .links {
+        flex-wrap: wrap; /* Allow links to wrap to the next line */
+        justify-content: center; /* Center links when wrapped */
+        gap: 20px; /* Adjust gap for wrapped links */
+    }
+
+    .nav_link {
+        font-size: 0.9rem; /* Slightly reduce font size for links */
+    }
+
+    .main {
+        flex-direction: column; /* Stack image and text vertically */
+        text-align: center; /* Center text content when stacked */
+        padding: 30px 0;
+    }
+
+    .main_text {
+        align-items: center; /* Center items within main_text */
+        text-align: center;
+        margin-top: 20px; /* Add some space above text when stacked */
+    }
+
+    .main_welcome {
+        font-size: 2rem; /* Further reduce welcome text size */
+    }
+
+    .main_parrafo {
+        font-size: 0.95rem; /* Adjust paragraph font size */
+        max-width: 90%; /* Limit paragraph width for better readability */
+    }
+
+    .cta {
+        align-self: center; /* Center the CTA button when stacked */
+        padding: 0.8em 2.5em; /* Adjust CTA padding */
+        font-size: 0.9rem; /* Adjust CTA font size */
+    }
+}
+
+/* For screens smaller than 576px (typical for mobile devices) */
+@media (max-width: 576px) {
+    .nav_container {
+        width: 95%; /* Increase container width for better use of space */
+    }
+
+    .logo_text {
+        font-size: 1.2rem; /* Adjust logo text size */
+    }
+
+    .logo_img {
+        height: 30px; /* Adjust logo image size */
+    }
+
+    .nav_link {
+        font-size: 0.8rem; /* Further reduce font size for links */
+        gap: 5px; /* Reduce gap within nav links */
+    }
+
+    .nav_img {
+        width: 20px; /* Reduce nav icon size */
+    }
+
+    .main {
+        padding: 20px 0; /* Reduce main section padding */
+    }
+
+    .main_welcome {
+        font-size: 1.8rem; /* Further adjust welcome text size */
+    }
+
+    .main_parrafo {
+        font-size: 0.9rem; /* Further adjust paragraph font size */
+    }
+
+    .cta {
+        padding: 0.7em 2em; /* Further adjust CTA padding */
+        font-size: 0.85rem; /* Further adjust CTA font size */
+    }
+
+    .cta_img {
+        height: 12px; /* Adjust CTA image size */
+    }
+}
