@@ -42,7 +42,7 @@ function verificarAutenticacion() {
     const token = localStorage.getItem('token');
     if (!token) {
         // Redirigir al login si no hay token
-        window.location.href = '/come-rapidito/index.html';
+        window.location.href = '/index.html';
         return false;
     }
     return true;
@@ -59,7 +59,7 @@ function obtenerDatosUsuario() {
 // Configurar event listeners
 function configurarEventListeners() {
     botonEncontrarProductos.addEventListener('click', () => {
-        window.location.href = '../pages/sesion-iniciada.html';
+        window.location.href = '/cliente-feature/pages/sesion-iniciada.html';
     });
 
     seccionDireccion.addEventListener('click', () => {
@@ -439,7 +439,7 @@ async function confirmarPedido() {
             guardarCarritoEnStorage();
 
             alert('Pedido confirmado exitosamente');
-            window.location.href = '../pages/pantalla-carga.html';
+            window.location.href = '/cliente-feature/pages/pantalla-carga.html';
         } else {
             alert('Error al confirmar el pedido');
         }

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (idStatus === 5) {
       // pa redirigir si cancelan el pedido
-      window.location.href = "../pages/pantalla-carga.html";
+      window.location.href = "/cliente-feature/pages/pantalla-carga.html";
       return;
     }
 

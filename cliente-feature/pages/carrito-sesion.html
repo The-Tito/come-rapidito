@@ -7,7 +7,7 @@
     <title>Tu Carrito</title>
 
     <link rel="icon" href="/Assets/iconLogo.png">
-    <link rel="stylesheet" href="/styles/carrito.css">
+    <link rel="stylesheet" href="/cliente-feature/styles/carrito.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Mouse+Memoirs&display=swap"
@@ -17,15 +17,16 @@
 <body>
 
     <header class="encabezado">
-        <a href="sesion-iniciada.html" class="encabezado-logo">
+        <a href="/cliente-feature/pages/sesion-iniciada.html" class="encabezado-logo">
             <img src="/Assets/Logo.png" alt="Logo Come Rapidito">
         </a>
 
         <nav class="encabezado-navegacion">
             <ul class="encabezado-lista">
-                <li class="encabezado-item"><a href="/pages/sesion-iniciada.html" class="encabezado-enlace">Home</a>
+                <li class="encabezado-item"><a href="/cliente-feature/pages/sesion-iniciada.html" class="encabezado-enlace">Home</a>
                 </li>
-                <li class="encabezado-item"><a href="/pedidos-sesion.html" class="encabezado-enlace">Pedidos</a></li>
+                <li class="encabezado-item"><a href="/cliente-feature/pages/pedidos-sesion.html" class="encabezado-enlace">Pedidos</a></li>
+
                 <li class="encabezado-item"><a href="/admin-feature/administrador/pages/registro.html"
                         id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
             </ul>
@@ -33,7 +34,7 @@
 
         <div class="encabezado-iconos">
             <a href="/repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor"class="encabezado-icono"><img src="/Assets/repartidores.png" alt="Icono delivery"></a>
-            <a href="/pages/carrito-sesion.html" class="encabezado-icono"><img src="/Assets/carrito.png" alt="Icono carrito"></a>
+            <a href="/cliente-feature/pages/carrito-sesion.html" class="encabezado-icono"><img src="/Assets/carrito.png" alt="Icono carrito"></a>
 
 
             <div class="dropdown">
@@ -42,9 +43,9 @@
                     <span id="usuarioNombre"></span> </a>
 
                 <div class="dropdown-content">
-                    <a href="historial-pedidos.html">Historial</a>
-                    <a href="/pages/modificar-cuenta.html">Mi Cuenta</a>
-                    <a href="/come-rapidito/index.html" id="cerrar-sesion">Cerrar Sesión</a>
+                    <a href="/cliente-feature/pages/historial-pedidos.html">Historial</a>
+                    <a href="/cliente-feature/pages/modificar-cuenta.html">Mi Cuenta</a>
+                    <a href="/index.html" id="cerrar-sesion">Cerrar Sesión</a>
                 </div>
             </div>
 
@@ -164,9 +165,8 @@
         </div>
     </div>
 
-
-    <script src="/JS/carrito-sesion.js"></script>
-    <script src="/JS/sesion-iniciada.js"></script>
+    <script src="/cliente-feature/JS/carrito-sesion.js"></script>
+    <script src="/cliente-feature/JS/sesion-iniciada.js"></script>
 </body>
 
 </html>
