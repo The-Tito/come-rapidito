@@ -126,7 +126,7 @@ function crearCarrusel(restaurantes) {
     const item = document.createElement("div");
     item.className = "carrusel-item";
     item.innerHTML = `
-      <a href="../pages/restaurante-sesion.html?id=${r.id_restaurante}">
+      <a href="/pages/restaurante-sesion.html?id=${r.id_restaurante}">
         <img src="${r.logo_url}" alt="Logo ${r.nombre_restaurante}" loading="lazy">
       </a>
     `;

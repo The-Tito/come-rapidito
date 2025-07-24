@@ -156,7 +156,7 @@ function crearProductoHTML(producto) {
                 data-producto-nombre="${nombre}" 
                 data-producto-precio="${precio}"
                 data-producto-url-imagen="${imagenSegura}">
-            <img src="../../Assets/agregarCarrito.png" alt="Agregar al carrito">
+            <img src="/Assets/agregarCarrito.png" alt="Agregar al carrito">
         </button>`;
     return article;
 }

@@ -183,7 +183,7 @@ function crearElementoProducto(item, index) {
             <button onclick="cambiarCantidad(${index}, 1)">+</button>
         </div>
         <button class="boton-eliminar" onclick="eliminarProducto(${index})">
-            <img src="../../Assets/eliminar.png" alt="Eliminar">
+            <img src="/Assets/eliminar.png" alt="Eliminar">
         </button>
     `;
 

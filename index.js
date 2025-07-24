@@ -100,7 +100,7 @@ function crearCarrusel(restaurantes) {
     const item = document.createElement("div");
     item.className = "carrusel-item";
     item.innerHTML = `
-      <a href="../pages/restaurante.html?id=${r.id_restaurante}">
+      <a href="/pages/restaurante.html?id=${r.id_restaurante}">
         <img src="${r.logo_url}" alt="Logo ${r.nombre_restaurante}" loading="lazy">
       </a>
     `;
@@ -151,13 +151,13 @@ document.querySelector(".formulario-inicio-sesion").addEventListener("submit", a
   
     switch (data.idRol) {
       case 1:
-        window.location.href = "../pages/sesion-iniciada.html";
+        window.location.href = "./cliente-feature/pages/sesion-iniciada.html";
         break;
       case 2:
-        window.location.href = "../../admin-feature/administrador/pages/editInfo.html";
+        window.location.href = "./admin-feature/administrador/pages/editInfo.html";
         break;
       case 3:
-        window.location.href = "../../repartidor-feature/pages/index.html";
+        window.location.href = "./repartidor-feature/pages/index.html";
         break;
       default:
         alert("Rol no reconocido.");

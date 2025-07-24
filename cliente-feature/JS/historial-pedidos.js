@@ -66,7 +66,7 @@ const totalMostrado = (totalFinal + tarifa).toFixed(2);
                 </div>
                 <p class="pedido-total">Total MX$${totalMostrado}</p>
                 <div class="pedido-calificacion">
-                    <img src="../../Assets/estrella.png" alt="Ícono de estrella" class="estrella-icono">
+                    <img src="/Assets/estrella.png" alt="Ícono de estrella" class="estrella-icono">
                     <span>${calificacion}</span>
                 </div>
             `;
