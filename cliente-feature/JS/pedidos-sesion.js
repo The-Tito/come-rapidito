@@ -15,10 +15,6 @@ if (!isNaN(tarifa) && !isNaN(totalFinal) && desdeCarga === "1") {
     document.querySelector("#total").textContent = `$${(parseFloat(totalFinal) + parseFloat(tarifa)).toFixed(2)}`;
 }
    
-  
-
-
-
   // Eventos del modal
   document.querySelector(".cancel").addEventListener("click", () => {
     document.querySelector(".modal").style.display = "none";
@@ -28,8 +24,7 @@ sessionStorage.removeItem("totalFinal");
 sessionStorage.removeItem("id_pedido");
 sessionStorage.removeItem("pedido-activo");
 
-
-    window.location.href = "../pages/sesion-iniciada.html"; // o donde desees
+    window.location.href = "/cliente-feature/pages/sesion-iniciada.html"; // o donde desees
   });
 
   document.querySelector(".confirm").addEventListener("click", () => {
@@ -49,7 +44,7 @@ sessionStorage.removeItem("tarifa");
 sessionStorage.removeItem("totalFinal");
 
 sessionStorage.removeItem("pedido-activo");
-    window.location.href = `../pages/pedido-activo.html`;
+    window.location.href = `/cliente-feature/pages/pedido-activo.html`;
   }
 });
 
@@ -124,7 +119,7 @@ function crearCardPedido(pedido) {
   // Click para ir a detalles del pedido
   card.style.cursor = "pointer";
   card.addEventListener("click", () => {
-    window.location.href = `../pages/pedido-activo.html?id=${pedido.id_pedido}`;
+    window.location.href = `/cliente-feature/pages/pedido-activo.html?id=${pedido.id_pedido}`;
   });
 
   return card;

@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     sessionStorage.setItem("totalFinal", data.totalFinal)
                     sessionStorage.setItem("id_pedido", idPedido); 
                     sessionStorage.setItem("desdePantallaCarga", "1");
-                    window.location.href = `../pages/pedidos-sesion.html?id=${idPedido}`;
+                    window.location.href = `/cliente-feature/pages/pedidos-sesion.html?id=${idPedido}`;
                 }
             } else {
                 console.error("No se pudo obtener el pedido");

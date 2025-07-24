@@ -7,7 +7,7 @@ btnGraph.addEventListener("click", async () => {
     
     
     
-    const response = await fetch("http://localhost:7000/stats/sum", {
+    const response = await fetch("http://54.88.1.254/stats/sum", {
       method: "GET",
       headers: {
 

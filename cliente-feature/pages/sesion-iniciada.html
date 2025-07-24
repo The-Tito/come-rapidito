@@ -10,19 +10,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Mouse+Memoirs&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/styles/carrito.css">
-    <link rel="stylesheet" href="/styles/sesion-iniciada.css">
+    <link rel="stylesheet" href="/cliente-feature/styles/carrito.css">
+    <link rel="stylesheet" href="/cliente-feature/styles/sesion-iniciada.css">
 </head>
 <body>
 
     <header class="encabezado">
-        <a href="sesion-iniciada.html" class="encabezado-logo">
+        <a href="/cliente-feature/pages/sesion-iniciada.html" class="encabezado-logo">
             <img src="/Assets/Logo.png" alt="Logo Come Rapidito">
         </a>
         <nav class="encabezado-navegacion">
             <ul class="encabezado-lista">
-                <li class="encabezado-item"><a href="/pages/sesion-iniciada.html" class="encabezado-enlace">Home</a></li>
-                <li class="encabezado-item"><a href="/pedidos-sesion.html" class="encabezado-enlace">Pedidos</a></li>
+                <li class="encabezado-item"><a href="/cliente-feature/pages/sesion-iniciada.html" class="encabezado-enlace">Home</a></li>
+                <li class="encabezado-item"><a href="/cliente-feature/pages/pedidos-sesion.html" class="encabezado-enlace">Pedidos</a></li>
                 <li class="encabezado-item"><a href="/admin-feature/administrador/pages/registro.html"
                         id="abrir-modal-negocio" class="encabezado-enlace">Mi negocio</a></li>
             </ul>
@@ -30,7 +30,7 @@
         <div class="encabezado-iconos">
             <a href="/repartidor-feature/pages/registro-cuenta.html" id="abrir-modal-repartidor"
                 class="encabezado-icono"><img src="/Assets/repartidores.png" alt="Icono delivery"></a>
-            <a href="carrito-sesion.html" class="encabezado-icono"><img src="/Assets/carrito.png"
+            <a href="/cliente-feature/pages/carrito-sesion.html" class="encabezado-icono"><img src="/Assets/carrito.png"
                     alt="Icono carrito"></a>
             <div class="dropdown">
                 <a href="#" class="dropbtn">
@@ -38,9 +38,9 @@
                     <span id="usuarioNombre"></span> 
                 </a>
                 <div class="dropdown-content">
-                    <a href="historial-pedidos.html">Historial</a>
-                    <a href="/pages/modificar-cuenta.html">Mi Cuenta</a>
-                    <a href="/come-rapidito/index.html" id="cerrar-sesion">Cerrar Sesión</a>
+                    <a href="/cliente-feature/pages/historial-pedidos.html">Historial</a>
+                    <a href="/cliente-feature/pages/modificar-cuenta.html">Mi Cuenta</a>
+                    <a href="/index.html" id="cerrar-sesion">Cerrar Sesión</a>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                 <p class="seccion-principal-descripcion">Haz tu vida más fácil con la mejor empresa delivery de Suchiapa</p>
                 <div class="seccion-principal-botones">
                     <a href="#restaurantes" class="boton boton-primario">Pide ahora</a>
-                    <a href="/stats/index.html" class="boton boton-secundario" id="conoce-mas">Estadisticas</a>
+                    <a href="/cliente-feature/stats/index.html" class="boton boton-secundario" id="conoce-mas">Estadisticas</a>
                 </div>
             </div>
             <div class="seccion-principal-imagen-contenedor">
@@ -71,7 +71,6 @@
         </section>
     </main>
 
-    <!-- El modal sigue aquí, sin cambios -->
     <div class="modal-superposicion" id="modal-login">
     <div class="modal">
         <h2 class="modal-titulo">Iniciar sesión para continuar</h2>
@@ -85,10 +84,9 @@
                 <label for="password" class="formulario-etiqueta">Contraseña</label>
                 <input type="password" id="password" class="formulario-entrada" placeholder="Contraseña" required>
             </div>
-        
 
         <p class="modal-enlace-registro">
-            ¿No tienes una cuenta? <a href="/pages/registro-cuenta.html">Regístrate aquí</a>
+            ¿No tienes una cuenta? <a href="/cliente-feature/pages/registro-cuenta.html">Regístrate aquí</a>
         </p>
 
         <div class="modal-botones">
@@ -99,5 +97,7 @@
     </div>
 
 </body>
-<script src="/JS/sesion-iniciada.js"></script>
+
+<script src="/cliente-feature/JS/sesion-iniciada.js"></script>
+
 </html>

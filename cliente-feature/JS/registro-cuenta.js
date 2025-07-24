@@ -38,7 +38,6 @@ document.querySelector('.formulario').addEventListener('submit', async function(
   return;
 }
 
-
   // Datos que enviaremos al backend
   const datos = {
     nombre: nombre,
@@ -97,7 +96,7 @@ document.querySelector('.formulario').addEventListener('submit', async function(
       case 1: // Cliente
         localStorage.setItem("abrirLogin", "true");
         localStorage.setItem("usuarioNombre", nombre);
-        window.location.href = "/come-rapidito/index.html";
+        window.location.href = "/index.html";
         break;
       default:
         alert("Rol no reconocido");
