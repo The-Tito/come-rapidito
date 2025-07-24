@@ -429,12 +429,12 @@ async function confirmarPedido() {
         });
 
         if (response.ok) {
-             const pedidoCreado = await response.json(); // 👈 obtener respuesta del servidor
-        const idPedido = pedidoCreado.id_pedido;    // 👈 asegurarte que tu backend devuelve esto
+             const pedidoCreado = await response.json(); //👈 obtener respuesta del servidor
+        const idPedido = pedidoCreado.id_pedido;    //👈 asegurarte que tu backend devuelve esto
         
         // Guardar id del pedido en localStorage
         localStorage.setItem("id_pedido", idPedido);
-            // Limpiar carrito
+        
             carritoProductos = [];
             guardarCarritoEnStorage();
 

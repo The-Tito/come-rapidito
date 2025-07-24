@@ -142,7 +142,7 @@ function crearProductoHTML(producto) {
     article.className = 'producto-contenedor';
     
     const { id_producto, nombre, descripcion, precio, url_imagen } = producto;
-    const imagenSegura = url_imagen || '/Apngssets/pizzaPepperoni.'; // Imagen por defecto
+    const imagenSegura = url_imagen || '/Assets/pizzaPepperoni.png'; // Imagen por defecto
 
     article.innerHTML = `
         <img src="${imagenSegura}" alt="${nombre}" class="producto-contenedor-imagen" onerror="this.src='/Assets/pizzaPepperoni.png'">

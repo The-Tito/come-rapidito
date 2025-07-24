@@ -38,7 +38,6 @@ document.querySelector('.formulario').addEventListener('submit', async function(
   return;
 }
 
-
   // Datos que enviaremos al backend
   const datos = {
     nombre: nombre,
