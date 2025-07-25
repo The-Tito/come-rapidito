@@ -1,6 +1,6 @@
 
 // Configuración de la API
-const API_BASE_URL = 'http://54.88.1.254:7000/api'; // Ajusta según tu configuración
+const API_BASE_URL = 'http://98.86.121.57:7000/api'; // Ajusta según tu configuración
 
 // Estado del carrito
 let carritoProductos = [];
@@ -104,10 +104,14 @@ function guardarCarritoEnStorage() {
 // Cargar direcciones del usuario
 async function cargarDireccionesUsuario() {
     const { id_usuario, token } = obtenerDatosUsuario();
+    console.log(id_usuario);
+    console.log(token);
+    console.log(nombre)
     if (!id_usuario || !token) return;
 
     try {
-        const response = await fetch(`${API_BASE_URL}/address/${id_usuario}`, {
+        const response = await fetch(`http://98.86.121.57:7000/api/address/${id_usuario}`, {
+            method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "X-User-NAME": `${nombre}`,
@@ -418,7 +422,7 @@ async function confirmarPedido() {
     
     try {
         const { token } = obtenerDatosUsuario();
-        const response = await fetch(`${API_BASE_URL}/orders`, {
+        const response = await fetch(`http://98.86.121.57:7000/api/orders`, {
             method: 'POST',
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -427,14 +431,14 @@ async function confirmarPedido() {
             },
             body: JSON.stringify(pedidoData)
         });
-
+        
         if (response.ok) {
-             const pedidoCreado = await response.json(); //👈 obtener respuesta del servidor
-        const idPedido = pedidoCreado.id_pedido;    //👈 asegurarte que tu backend devuelve esto
+             const pedidoCreado = await response.json(); // 👈 obtener respuesta del servidor
+        const idPedido = pedidoCreado.id_pedido;    // 👈 asegurarte que tu backend devuelve esto
         
         // Guardar id del pedido en localStorage
         localStorage.setItem("id_pedido", idPedido);
-        
+            // Limpiar carrito
             carritoProductos = [];
             guardarCarritoEnStorage();
 

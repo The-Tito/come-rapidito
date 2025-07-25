@@ -92,7 +92,7 @@ function addOrderRow(orderData) {
             statusSelect.disabled = true;
             
             // ✅ CORRECCIÓN: Incluir el id_pedido en la URL y el cuerpo
-            fetch(`http://54.88.1.254:7000/api/orders/${orderId}/status`, {
+            fetch(`http://98.86.121.57:7000/api/orders/${orderId}/status`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         id_status: 1
     };
 
-    fetch(`http://54.88.1.254:7000/api/orders/restaurant/${id_restaurante}`, {
+    fetch(`http://98.86.121.57:7000/api/orders/restaurant/${id_restaurante}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,

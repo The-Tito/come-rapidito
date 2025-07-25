@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const token = tokenstorage.replace(/"/g, '');
 
     // Cargar datos existentes del usuario
-    fetch(`http://54.88.1.254:7000/api/users/${id_usuario}`, {
+    fetch(`http://98.86.121.57:7000/api/users/${id_usuario}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             correo_electronico: document.getElementById("email").value
         };
 
-        fetch(`http://54.88.1.254:7000/api/users/${id_usuario}`, {
+        fetch(`http://98.86.121.57:7000/api/users/${id_usuario}`, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,

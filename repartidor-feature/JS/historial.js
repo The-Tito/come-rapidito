@@ -9,7 +9,7 @@
 
     try {
        // si usas token
-      const response = await fetch('http://54.88.1.254:7000/api/orders/delivery/history', {
+      const response = await fetch('http://98.86.121.57:7000/api/orders/delivery/history', {
         headers: {
             'Authorization': `Bearer ${token}`,
             'X-User-NAME': nombre // si es necesario, si no, elimina esta línea
@@ -19,7 +19,7 @@
       if (!response.ok) throw new Error('Error al cargar el historial');
 
       const pedidos = await response.json();
-
+      console.log(pedidos)
       if (pedidos.length === 0) {
         contenedorPedidos.innerHTML = '<p>No tienes pedidos en el historial.</p>';
         return;

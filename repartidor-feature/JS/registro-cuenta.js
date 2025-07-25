@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         try {
-            const response = await fetch("http://54.88.1.254:7000/signup", {
+            const response = await fetch("http://98.86.121.57:7000/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!response.ok) throw new Error("Error al registrar usuario");
             const data = await response.json();
-
+           
             // Marcar usuario como registrado y bloquear paso 1
             usuarioRegistrado = true;
             bloquearPaso1();
@@ -190,12 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append("id_vehiculo", tipoVehiculo);
         formData.append("placas", placas);
         formData.append("imagen", foto);
-
+        
         const token = localStorage.getItem("token");
         const nombreUsuario = localStorage.getItem("nombre_usuario");
-
+        
         try {
-            const response = await fetch(`http://54.88.1.254:7000/api/transport`, {
+            const response = await fetch(`http://98.86.121.57:7000/api/transport`, {
                 method: 'POST',
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             alert("Vehículo registrado correctamente ✅");
             localStorage.setItem("abrirLogin", "true");
-            window.location.href = "/repartidor-feature/pages/inicio-repartidor.html";
+            window.location.href = "/index.html";
         } catch (error) {
             console.error(error);
             alert("Error al registrar vehículo");

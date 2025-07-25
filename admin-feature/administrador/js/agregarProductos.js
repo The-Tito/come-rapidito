@@ -69,7 +69,7 @@ document.getElementById('formAgregarProducto').onsubmit = async function (e) {
   }
 
   try {
-    let url = "http://54.88.1.254:7000/api/products";
+    let url = "http://98.86.121.57:7000/api/products";
     let method = "POST";
 
     if (editando && productoEditandoId) {
@@ -107,7 +107,7 @@ document.getElementById('formAgregarProducto').onsubmit = async function (e) {
 async function getProductosDesdeAPI() {
   try {
       const id_restaurante = localStorage.getItem("id_restaurante");
-    let response = await fetch(`http://54.88.1.254:7000/products/${id_restaurante}`);
+    let response = await fetch(`http://98.86.121.57:7000/products/${id_restaurante}`);
     if (!response.ok) throw new Error("Error al obtener productos desde la API");
 
     const data = await response.json();
@@ -150,7 +150,7 @@ function renderProductos() {
       
       if (confirm("¿Estás seguro de eliminar este producto?")) {
         try {
-          const res = await fetch(`http://54.88.1.254:7000/api/products/${id}`, {
+          const res = await fetch(`http://98.86.121.57:7000/api/products/${id}`, {
              method: "DELETE",
               headers: {
                 "Authorization": `Bearer ${token}`,
@@ -224,7 +224,7 @@ document.getElementById('formAgregarProducto').onsubmit = async function (e) {
   }
 
   try {
-    let url = "http://54.88.1.254:7000/api/products";
+    let url = "http://98.86.121.57:7000/api/products";
     let method = "POST";
 
     if (editando && productoEditandoId) {

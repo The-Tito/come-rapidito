@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     id_status: 8 //activo
   }
 
-fetch("http://54.88.1.254:7000/api/orders/delivery", {
+fetch("http://98.86.121.57:7000/api/orders/delivery", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
@@ -111,7 +111,7 @@ fetch("http://54.88.1.254:7000/api/orders/delivery", {
 
     errorMensaje.classList.add("oculto");
 
-    fetch(`http://54.88.1.254:7000/api/orders/${pedidoSeleccionado.id_pedido}/fee`, {
+    fetch(`http://98.86.121.57:7000/api/orders/${pedidoSeleccionado.id_pedido}/fee`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

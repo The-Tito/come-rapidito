@@ -2,10 +2,11 @@
 
 // --- CONFIGURACIÓN DE ESTADOS ---
 const STATUS_MAP = {
-    "En preparación": 8, // Este es el ID de estado del backend
-    "En espera": 9,      // Asumiendo que 9 es "En espera" o "Asignado a repartidor"
+    "En preparación": 1, // Este es el ID de estado del backend
+    "En espera": 2,      // Asumiendo que 2 es "En espera" (antes tenías 9, lo cambié a 2 para que coincida con tu descripción)
     "En camino": 3,      // Este es el ID de estado del backend
-    "Entregado": 4       // Este es el ID de estado del backend
+    "Entregado": 4,
+    "activo": 8          // Este es el ID de estado del backend (pedido tomado por el repartidor pero aún no en camino)
 };
 
 const POLLING_INTERVAL = 5000; // Intervalo de 5 segundos para actualizar el estado del pedido
@@ -78,11 +79,12 @@ async function fetchAndUpdateOrder(orderId, userId) {
         const oldStatus = parseInt(container.getAttribute('data-current-status'), 10);
         const newStatus = orderData.id_status;
 
-        // Solo actualiza la UI si el estado ha cambiado
-        if (newStatus !== oldStatus) {
-            console.log(`Estado del pedido ${orderId} ha cambiado de ${oldStatus} a ${newStatus}`);
+        // Solo actualiza la UI si el estado ha cambiado o si es la primera carga
+        if (newStatus !== oldStatus || oldStatus === null || isNaN(oldStatus)) { // Agregada condición para primera carga
+            console.log(`Estado del pedido ${orderId} ha cambiado de ${oldStatus || 'null'} a ${newStatus}`);
+            container.setAttribute('data-order-id', orderId); // Asegurarse de que el ID del pedido esté en el contenedor
             container.setAttribute('data-current-status', newStatus);
-            updateCheckboxesUI(newStatus);
+            updateCheckboxesUI(newStatus); // Llama a esta función para aplicar la lógica de habilitar/deshabilitar
 
             // Si el estado es "Entregado" y antes no lo era, muestra el modal y detén el polling
             if (newStatus === STATUS_MAP["Entregado"] && oldStatus !== STATUS_MAP["Entregado"]) {
@@ -106,34 +108,71 @@ async function fetchAndUpdateOrder(orderId, userId) {
 function updateCheckboxesUI(currentStatus) {
     const checkboxes = document.querySelectorAll('.seguimiento_container input[type="checkbox"]');
     
-    // Primero, deshabilitar todos los checkboxes de usuario hasta que se decida su estado
+    // Primero, deshabilitar todos los checkboxes por defecto y limpiar estados
     checkboxes.forEach(checkbox => {
-        // Mantener deshabilitados "En preparación" y "En espera" ya que son controlados por otro usuario
-        if (checkbox.id === "En preparación" || checkbox.id === "En espera") {
-            checkbox.disabled = true;
-        } else {
-            // Re-habilitar los propios para el repartidor si es necesario
-            checkbox.disabled = false;
-        }
+        checkbox.checked = false; // Desmarcar todos por defecto
+        checkbox.disabled = true; // Deshabilitar todos por defecto
         checkbox.parentElement.classList.remove('completed');
     });
 
+    // Habilitar y marcar los checkboxes según el estado actual
     for (const [statusName, statusId] of Object.entries(STATUS_MAP)) {
         const checkbox = document.getElementById(statusName);
         if (checkbox) {
             if (currentStatus >= statusId) {
                 checkbox.checked = true;
-                checkbox.disabled = true; // Deshabilita el checkbox si su estado es igual o menor al actual
                 checkbox.parentElement.classList.add('completed');
-            } else {
-                // Si el estado actual es menor, asegúrate de que esté desmarcado y habilitado (si no es de "otro usuario")
-                checkbox.checked = false;
-                if (checkbox.id !== "En preparación" && checkbox.id !== "En espera") {
-                    checkbox.disabled = false;
-                }
             }
         }
     }
+
+    // --- LÓGICA PRINCIPAL DE HABILITACIÓN/DESHABILITACIÓN SEGÚN LOS REQUERIMIENTOS ---
+
+    // 1. Si el estado es 'activo' (8), ningún checkbox debe ser marcable por el repartidor
+    if (currentStatus === STATUS_MAP["activo"]) {
+        // Todos los checkboxes ya están deshabilitados por el forEach inicial.
+        // No necesitamos hacer nada adicional aquí, solo confirmar que así sea.
+        console.log("Estado 'activo' (8): Todos los checkboxes de repartidor deshabilitados.");
+    }
+    // 2. Si el estado es 'En espera' (2), solo "En camino" y "Entregado" pueden habilitarse
+    else if (currentStatus === STATUS_MAP["En espera"]) {
+        const enCaminoCheckbox = document.getElementById("En camino");
+        const entregadoCheckbox = document.getElementById("Entregado");
+
+        if (enCaminoCheckbox) {
+            enCaminoCheckbox.disabled = false; // Habilitar "En camino"
+            console.log("Estado 'En espera' (2): 'En camino' habilitado.");
+        }
+        if (entregadoCheckbox) {
+            entregadoCheckbox.disabled = true; // "Entregado" sigue deshabilitado hasta que "En camino" se marque
+        }
+    }
+    // Para otros estados (En preparación, En camino, Entregado)
+    // El checkbox "En preparación" siempre estará deshabilitado porque lo controla otro.
+    // Una vez "En camino" se marque (y el currentStatus se actualice a 3), "Entregado" se habilitará.
+    else if (currentStatus === STATUS_MAP["En camino"]) {
+        const entregadoCheckbox = document.getElementById("Entregado");
+        if (entregadoCheckbox) {
+            entregadoCheckbox.disabled = false; // Habilitar "Entregado"
+            console.log("Estado 'En camino' (3): 'Entregado' habilitado.");
+        }
+        const enCaminoCheckbox = document.getElementById("En camino");
+        if(enCaminoCheckbox) enCaminoCheckbox.disabled = true; // Deshabilitar "En camino" una vez marcado
+    } else if (currentStatus === STATUS_MAP["Entregado"]) {
+        // Una vez entregado, todos los checkboxes deben estar deshabilitados.
+        // El forEach inicial ya los deja deshabilitados.
+        console.log("Estado 'Entregado' (4): Todos los checkboxes de repartidor deshabilitados.");
+    }
+
+    // Asegurarse de que "En preparación" y "En espera" siempre estén deshabilitados para el repartidor
+    const enPreparacionCheckbox = document.getElementById("En preparación");
+    const enEsperaCheckbox = document.getElementById("En espera");
+    if (enPreparacionCheckbox) enPreparacionCheckbox.disabled = true;
+    if (enEsperaCheckbox) enEsperaCheckbox.disabled = true;
+
+    // Después de ajustar los estados de habilitación, volvemos a añadir los listeners
+    // Esto es crucial para que los checkboxes habilitados respondan a los clics
+    addCheckboxListeners(); 
 }
 
 /**
@@ -145,8 +184,12 @@ function addCheckboxListeners() {
         // Remover cualquier listener previo para evitar duplicados al re-renderizar
         checkbox.removeEventListener('change', handleStatusUpdate);
         // Solo añade listener a los checkboxes que el repartidor puede cambiar
+        // y que actualmente NO están deshabilitados.
         if (checkbox.id === "En camino" || checkbox.id === "Entregado") {
-            checkbox.addEventListener('change', handleStatusUpdate);
+             // Solo añade el listener si el checkbox no está deshabilitado
+            if (!checkbox.disabled) {
+                checkbox.addEventListener('change', handleStatusUpdate);
+            }
         }
     });
 }
@@ -168,58 +211,42 @@ async function handleStatusUpdate(event) {
         return; 
     }
 
-    // Lógica para asegurar que los estados se marquen en orden y no se puedan "saltar" ni "retroceder"
-    let expectedPreviousStatus;
-    if (checkbox.id === "En camino") {
-        expectedPreviousStatus = STATUS_MAP["En espera"]; // Para ir a "En camino", debe estar en "En espera" (9)
-    } else if (checkbox.id === "Entregado") {
-        expectedPreviousStatus = STATUS_MAP["En camino"]; // Para ir a "Entregado", debe estar en "En camino" (3)
+    // Lógica de validación de estados para permitir solo avance secuencial
+    let isValidAction = false;
+    if (checkbox.id === "En camino" && currentStatus === STATUS_MAP["En espera"]) {
+        isValidAction = true;
+    } else if (checkbox.id === "Entregado" && currentStatus === STATUS_MAP["En camino"]) {
+        isValidAction = true;
     }
 
-    if (currentStatus < expectedPreviousStatus || currentStatus >= newStatusTarget) {
+    if (!isValidAction) {
         alert(`No puedes cambiar a "${checkbox.id}" en este momento. El pedido debe estar en el estado correcto.`);
         checkbox.checked = false; // Desmarcar el checkbox si la acción no es válida
         updateCheckboxesUI(currentStatus); // Vuelve a renderizar la UI con el estado correcto
         return;
     }
 
-    // Si el usuario marcó "En camino" o "Entregado" y la lógica es válida
-    if (checkbox.id === "En camino" && currentStatus === STATUS_MAP["En espera"]) {
-        try {
-            // Deshabilitar todos los checkboxes temporalmente para evitar interacciones dobles
-            document.querySelectorAll('.seguimiento_container input[type="checkbox"]').forEach(cb => cb.disabled = true);
-            await updateOrderStatus(orderId, newStatusTarget);
-            console.log(`Pedido #${orderId} actualizado con éxito a "En camino".`);
-            container.setAttribute('data-current-status', newStatusTarget); // Actualiza el status localmente
-            updateCheckboxesUI(newStatusTarget); // Vuelve a renderizar la UI con el nuevo estado
-            addCheckboxListeners(); // Re-añadir listeners por si se deshabilitaron y queremos que vuelvan
-        } catch (error) {
-            displayError(`No se pudo actualizar el pedido a "En camino": ${error.message}`);
-            checkbox.checked = false; // Desmarcar si falla
-            updateCheckboxesUI(currentStatus); // Vuelve a la UI original
-            addCheckboxListeners();
+    // Si la acción es válida, proceder a actualizar el estado en el backend
+    try {
+        // Deshabilitar todos los checkboxes temporalmente para evitar interacciones dobles mientras se procesa la solicitud
+        document.querySelectorAll('.seguimiento_container input[type="checkbox"]').forEach(cb => cb.disabled = true);
+        
+        await updateOrderStatus(orderId, newStatusTarget);
+        console.log(`Pedido #${orderId} actualizado con éxito a "${checkbox.id}".`);
+        
+        // Actualizar el estado localmente y refrescar la UI
+        container.setAttribute('data-current-status', newStatusTarget);
+        updateCheckboxesUI(newStatusTarget); 
+        
+        // Si el estado es "Entregado", muestra el modal y detén el polling
+        if (newStatusTarget === STATUS_MAP["Entregado"]) {
+            showModal();
+            clearInterval(pollingTimer);
         }
-    } else if (checkbox.id === "Entregado" && currentStatus === STATUS_MAP["En camino"]) {
-        try {
-            document.querySelectorAll('.seguimiento_container input[type="checkbox"]').forEach(cb => cb.disabled = true);
-            await updateOrderStatus(orderId, newStatusTarget);
-            console.log(`Pedido #${orderId} actualizado con éxito a "Entregado".`);
-            container.setAttribute('data-current-status', newStatusTarget); // Actualiza el status localmente
-            updateCheckboxesUI(newStatusTarget); // Vuelve a renderizar la UI con el nuevo estado
-            showModal(); // Muestra el modal de éxito
-            clearInterval(pollingTimer); // Detiene el polling
-        } catch (error) {
-            displayError(`No se pudo actualizar el pedido a "Entregado": ${error.message}`);
-            checkbox.checked = false; // Desmarcar si falla
-            updateCheckboxesUI(currentStatus); // Vuelve a la UI original
-            addCheckboxListeners();
-        }
-    } else {
-        // En cualquier otro caso (como intentar marcar entregado si no está en camino, etc.)
-        alert(`No puedes cambiar a "${checkbox.id}" en este momento. Asegúrate de seguir el orden de los estados.`);
-        checkbox.checked = false;
-        updateCheckboxesUI(currentStatus);
-        addCheckboxListeners();
+    } catch (error) {
+        displayError(`No se pudo actualizar el pedido a "${checkbox.id}": ${error.message}`);
+        checkbox.checked = false; // Desmarcar si falla
+        updateCheckboxesUI(currentStatus); // Vuelve a la UI original
     }
 }
 
@@ -241,9 +268,12 @@ function displayError(message) {
 
 function getAuthHeaders() {
     const token = localStorage.getItem("token");
-    const nombre = localStorage.getItem("nombre");
+    const nombre = localStorage.getItem("nombre"); // Asegúrate de que "nombre" se guarde correctamente al iniciar sesión
 
     if (!token || !nombre) {
+        console.error("DEBUG: Token o nombre de usuario no encontrados en localStorage.");
+        // Redirigir al login si no hay token o nombre
+        // window.location.href = '/login.html'; // Ejemplo de redirección
         throw new Error("Error de Autenticación: El token o el nombre de usuario no fueron encontrados en localStorage.");
     }
     return {
@@ -255,15 +285,20 @@ function getAuthHeaders() {
 
 // Nueva función para obtener un pedido específico por su ID
 async function fetchOrderById(orderId) {
-    const URL = `http://54.88.1.254:7000/api/orders/${orderId}`;
+    // Es posible que necesites el id del repartidor aquí para filtrar
+    // Si la API es `api/users/{orderId}/orders/actual`, `orderId` debería ser el ID del repartidor
+    // Si es `api/orders/{orderId}`, entonces el `orderId` es el ID del pedido
+    // Voy a asumir que `orderId` que le pasas a esta función es el ID del PEDIDO.
+    // Si el endpoint espera el ID del usuario repartidor, necesitas pasarlo aquí.
+    const URL = `http://98.86.121.57:7000/api/users/${orderId}/orders/actual`; // Cambiado para obtener un pedido específico por ID
     try {
         const response = await fetch(URL, { 
-            method: 'GET', // Usar GET para obtener un pedido
+            method: 'GET',
             headers: getAuthHeaders()
         });
         if (!response.ok) {
             if (response.status === 401 || response.status === 403) {
-                throw new Error(`Fallo de autorización (código: ${response.status}).`);
+                throw new Error(`Fallo de autorización (código: ${response.status}). Por favor, vuelve a iniciar sesión.`);
             }
             if (response.status === 404) {
                 return null; // El pedido no se encontró
@@ -281,7 +316,8 @@ async function fetchOrderById(orderId) {
 
 // Función para actualizar el estado del pedido
 async function updateOrderStatus(orderId, newStatus) {
-    const URL = `http://54.88.1.254:7000/api/orders/${orderId}/status`;
+    console.log(`Intentando actualizar pedido ${orderId} a estado ${newStatus}`);
+    const URL = `http://98.86.121.57:7000/api/orders/${orderId}/status`;
     const body = { id_status: newStatus };
     try {
         const response = await fetch(URL, {

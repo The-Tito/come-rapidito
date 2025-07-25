@@ -82,7 +82,7 @@ function actualizarInformacionRestaurante(restaurante) {
  */
 async function cargarProductosRestaurante(restauranteId) {
     try {
-        const response = await fetch(`http://54.88.1.254:7000/products/${restauranteId}`);
+        const response = await fetch(`http://98.86.121.57:7000/products/${restauranteId}`);
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         
         const productos = await response.json();

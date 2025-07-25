@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let token = tokenstorage.replace(/"/g, '');
 
   try {
-    const response = await fetch(`http://54.88.1.254:7000/api/restaurant/${idUsuario}`, {
+    const response = await fetch(`http://98.86.121.57:7000/api/restaurant/${idUsuario}`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -319,7 +319,7 @@ async function guardarInformacionModal() {
   }
 
   try {
-    const res = await fetch(`http://54.88.1.254:7000/api/restaurant/${idRestaurante}`, {
+    const res = await fetch(`http://98.86.121.57:7000/api/restaurant/${idRestaurante}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`,
